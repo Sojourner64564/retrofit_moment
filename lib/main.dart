@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:retrofit_moment/feature/presentation/screens/first_screen/first_screen.dart';
 
 void main() {
+  configureDependencies();
   runApp(const MyApp());
 }
 

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:retrofit_moment/feature/presentation/cubit/test_cubit/test_cubit.dart';
 
 class FirstPage extends StatelessWidget {
-  final TestCubit testCubit = TestCubit();
+ // final TestCubit testCubit = TestCubit();
   @override
   Widget build(BuildContext context) {
     return Column(
