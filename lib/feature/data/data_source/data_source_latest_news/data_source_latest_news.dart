@@ -2,26 +2,30 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/http.dart';
 import 'package:retrofit_moment/feature/data/models/latest_news/latest_news_model.dart';
+import 'package:retrofit_moment/feature/data/models/search_news/search_news_model.dart';
 part 'data_source_latest_news.g.dart';
 
 
 @RestApi(baseUrl: 'https://api.currentsapi.services/v1/')
-abstract class DataSourceLatestNews{
-  factory DataSourceLatestNews(Dio dio) = _DataSourceLatestNews;
+abstract class DataSourceRemouteApi{
+  factory DataSourceRemouteApi(Dio dio) = _DataSourceRemouteApi;
 
   @GET('latest-news')
   Future<LatestNewsModel> fetchLatestNews(
       @Query('apiKey') String apiKey,
       );
+
+  @GET('search')
+  Future<SearchNewsModel> fetchSearchNews(
+      @Query('apiKey') String apiKey,
+      @Query('keywords') String keywords,
+      );
 }
 
-@module
-abstract class DataSourceLatestNewsModule {
-  _DataSourceLatestNews get dataSourceLatestNews => _DataSourceLatestNews(Dio());
-}
 
-/*
-@module
-abstract class RegisterModuleConnectionChecker{
-  InternetConnectionChecker get internetConnection => InternetConnectionChecker();
-}*/
+@injectable
+class ClientDataSourceRemouteApi{
+  DataSourceRemouteApi client(){
+    return _DataSourceRemouteApi(Dio());
+  }
+}

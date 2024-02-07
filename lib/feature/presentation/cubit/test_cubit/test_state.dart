@@ -4,19 +4,24 @@ abstract class TestState extends Equatable {
   const TestState();
 }
 
-class TestInitial extends TestState {
+class TestStateInitial extends TestState {
   @override
   List<Object> get props => [];
 }
-class TestLoading extends TestState {
+
+class TestStateLoading extends TestState {
   @override
   List<Object> get props => [];
 }
-class TestLoaded extends TestState {
+
+class TestStateLoaded extends TestState {
+  const TestStateLoaded(this.latestNewsModel);
+  final LatestNewsModel latestNewsModel;
   @override
-  List<Object> get props => [];
+  List<Object> get props => [latestNewsModel];
 }
-class TestError extends TestState {
+
+class TestStateError extends TestState {
   @override
   List<Object> get props => [];
 }
