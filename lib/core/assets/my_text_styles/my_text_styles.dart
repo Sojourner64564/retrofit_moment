@@ -18,4 +18,9 @@ class MyTextStyles{
     color: MyColors.myGreyColor,
   );
 
+  static const TextStyle appbarTextStyle = TextStyle(
+    fontSize: 15,
+    fontWeight: FontWeight.w700,
+    color: MyColors.myBlackColor,
+  );
 }

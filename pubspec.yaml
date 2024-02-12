@@ -39,7 +39,7 @@ dependencies:
   http: ^0.13.5
   injectable: ^1.4.1
   internet_connection_checker: ^1.0.0+1
-
+  auto_route: ^7.8.4
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -54,6 +54,8 @@ dev_dependencies:
   json_serializable: ^6.6.2
   injectable_generator: ^1.4.1
   json_annotation: ^4.8.1
+  auto_route_generator: ^7.0.0
+  salomon_bottom_bar: ^3.3.2
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
