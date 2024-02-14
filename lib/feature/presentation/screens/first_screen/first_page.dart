@@ -5,8 +5,11 @@ import 'package:retrofit_moment/core/assets/my_text_styles/my_text_styles.dart';
 import 'package:retrofit_moment/core/injectable/injectable.dart';
 import 'package:retrofit_moment/feature/presentation/cubit/latest_news_cubit/latest_news_cubit.dart';
 import 'package:retrofit_moment/feature/presentation/screens/first_screen/widget/listview_tile_latest_news.dart';
+import 'package:retrofit_moment/feature/presentation/screens/first_screen/widget/loading_text_animation.dart';
 
 class FirstPage extends StatefulWidget {
+  const FirstPage({super.key});
+
   @override
   State<FirstPage> createState() => _FirstPageState();
 }
@@ -24,7 +27,8 @@ class _FirstPageState extends State<FirstPage> {
     return Column(
       children: [
         const SizedBox(height: 15),
-        const Center(child: Text('LATEST NEWS',
+        const Center(child:
+        Text('LATEST NEWS',
         style: MyTextStyles.giantTitleTextStyle,
         )),
         const SizedBox(height: 5),
@@ -48,10 +52,10 @@ class _FirstPageState extends State<FirstPage> {
               bloc: latestNewsCubit,
               builder: (context, state) {
                 if (state is LatestNewsStateInitial) {
-                  return const Text('TestInitial');
+                  return const Center(child: Text('Latest News'));
                 }
                 if (state is LatestNewsStateLoading) {
-                  return const Text('TestLoading');
+                  return const Center(child: Text('Loading'));
                 }
                 if (state is LatestNewsStateLoaded) {
                   return SizedBox(
@@ -72,8 +76,10 @@ class _FirstPageState extends State<FirstPage> {
                         },
                     ),
                   );
+                } if (state is LatestNewsStateError) {
+                  return const Center(child: Text('Error Bruh'));
                 } else {
-                  return const Text('error bruh');
+                  return const Center(child: Text('Unknown Error'));
                 }
               }),
         ),

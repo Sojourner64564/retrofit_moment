@@ -38,10 +38,12 @@ class ListviewTileLatestNews extends StatelessWidget{
               const SizedBox(height: 5),
               Text(newsModel.published,
                 style: MyTextStyles.authorNewsTextStyle,
+                maxLines: 3,
               ),
               const SizedBox(height: 5),
               Text(newsModel.author,
               style: MyTextStyles.authorNewsTextStyle,
+                maxLines: 3,
               ),
 
             ],

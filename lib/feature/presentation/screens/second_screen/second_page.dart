@@ -51,10 +51,11 @@ class SecondPage extends StatelessWidget {
               bloc: searchNewsCubit,
               builder: (context, state) {
                 if(state is SearchNewsStateInitial){
-                  return const Center(child: Text('initialD'));
+                  return const Center(child: Text('Enter request word'));
                 }
                 if(state is SearchNewsStateLoading){
-                  return const Center(child: Text('loading'));
+                  return LinearProgressIndicator();
+                  //return const Center(child: Text('Loading'));
                 }
                 if(state is SearchNewsStateLoaded){
                   return ListView.separated(
