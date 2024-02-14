@@ -9,6 +9,7 @@ class FirstScreen extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: MyColors.myWhiteColor,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: MyColors.myWhiteColor,

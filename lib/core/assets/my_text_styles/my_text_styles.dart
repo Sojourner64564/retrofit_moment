@@ -23,4 +23,9 @@ class MyTextStyles{
     fontWeight: FontWeight.w700,
     color: MyColors.myBlackColor,
   );
+  static const TextStyle mediumNewsTitleTextStyle = TextStyle(
+    fontSize: 15,
+    fontWeight: FontWeight.w700,
+    fontStyle: FontStyle.italic,
+  );
 }

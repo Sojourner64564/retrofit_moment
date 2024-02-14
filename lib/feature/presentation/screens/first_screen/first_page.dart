@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:retrofit_moment/core/assets/my_colors/my_colors.dart';
 import 'package:retrofit_moment/core/assets/my_text_styles/my_text_styles.dart';
 import 'package:retrofit_moment/core/injectable/injectable.dart';
-import 'package:retrofit_moment/feature/presentation/cubit/test_cubit/test_cubit.dart';
+import 'package:retrofit_moment/feature/presentation/cubit/latest_news_cubit/latest_news_cubit.dart';
 import 'package:retrofit_moment/feature/presentation/screens/first_screen/widget/listview_tile_latest_news.dart';
 
 class FirstPage extends StatefulWidget {
@@ -12,11 +12,11 @@ class FirstPage extends StatefulWidget {
 }
 
 class _FirstPageState extends State<FirstPage> {
-  final TestCubit testCubit = getIt();
+  final LatestNewsCubit latestNewsCubit = getIt();
 
   @override
   void initState() {
-    testCubit.myTestCubitMethod();
+    latestNewsCubit.myTestCubitMethod();
     super.initState();
   }
   @override
@@ -44,16 +44,16 @@ class _FirstPageState extends State<FirstPage> {
         ),
         const SizedBox(height: 5),
         Expanded(
-          child: BlocBuilder<TestCubit, TestState>(
-              bloc: testCubit,
+          child: BlocBuilder<LatestNewsCubit, LatestNewsState>(
+              bloc: latestNewsCubit,
               builder: (context, state) {
-                if (state is TestStateInitial) {
+                if (state is LatestNewsStateInitial) {
                   return const Text('TestInitial');
                 }
-                if (state is TestStateLoading) {
+                if (state is LatestNewsStateLoading) {
                   return const Text('TestLoading');
                 }
-                if (state is TestStateLoaded) {
+                if (state is LatestNewsStateLoaded) {
                   return SizedBox(
                     width: double.infinity,
                     child: ListView.separated(

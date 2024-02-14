@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:retrofit_moment/core/assets/my_text_styles/my_text_styles.dart';
 import 'package:retrofit_moment/feature/data/models/latest_news/news_model.dart';
+import 'package:intl/intl.dart';
 
 class ListviewTileLatestNews extends StatelessWidget{
   const ListviewTileLatestNews({super.key, required this.newsModel,});
@@ -9,6 +10,7 @@ class ListviewTileLatestNews extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Container(
@@ -33,6 +35,10 @@ class ListviewTileLatestNews extends StatelessWidget{
               ),
               const SizedBox(height: 5),
               Center(child: Text(newsModel.description)),
+              const SizedBox(height: 5),
+              Text(newsModel.published,
+                style: MyTextStyles.authorNewsTextStyle,
+              ),
               const SizedBox(height: 5),
               Text(newsModel.author,
               style: MyTextStyles.authorNewsTextStyle,

@@ -7,12 +7,12 @@ part 'search_news_model.g.dart';
 class SearchNewsModel {
   SearchNewsModel({
      this.status = '',
-     this.newsModel = const [],
+     this.news = const [],
      this.page = 0,
   });
 
   final String status;
-  final List<NewsModel> newsModel;
+  final List<NewsModel> news;
   final int page;
 
   factory SearchNewsModel.fromJson(Map<String,dynamic> json) => _$SearchNewsModelFromJson(json);

@@ -18,6 +18,9 @@ class SearchNewsRepositoryImpl implements Repository<SearchNewsModel, Params>{
   Future<Either<Failure, SearchNewsModel>> fetchDataFromSource(Params params) async{
     if(await networkInfo.isConnected){
       final searchNews = await clientDataSourceRemouteApi.client().fetchSearchNews(params.apiKey, params.keywords);
+      print(searchNews.page);
+      print(searchNews.news.length.toString() + 'myrepository');
+
       return Right(searchNews);
     }else{
       return Left(ServerFailure());

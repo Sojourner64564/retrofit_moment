@@ -9,7 +9,7 @@ part of 'search_news_model.dart';
 SearchNewsModel _$SearchNewsModelFromJson(Map<String, dynamic> json) =>
     SearchNewsModel(
       status: json['status'] as String? ?? '',
-      newsModel: (json['news_model'] as List<dynamic>?)
+      news: (json['news'] as List<dynamic>?)
               ?.map((e) => NewsModel.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
@@ -19,6 +19,6 @@ SearchNewsModel _$SearchNewsModelFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$SearchNewsModelToJson(SearchNewsModel instance) =>
     <String, dynamic>{
       'status': instance.status,
-      'news_model': instance.newsModel,
+      'news': instance.news,
       'page': instance.page,
     };

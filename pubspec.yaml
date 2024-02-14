@@ -56,6 +56,7 @@ dev_dependencies:
   json_annotation: ^4.8.1
   auto_route_generator: ^7.0.0
   salomon_bottom_bar: ^3.3.2
+  intl: ^0.19.0
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

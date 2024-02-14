@@ -4,11 +4,11 @@ import 'package:injectable/injectable.dart';
 import 'package:retrofit_moment/feature/data/models/latest_news/latest_news_model.dart';
 import 'package:retrofit_moment/feature/domain/usecase/latest_news_use_case.dart';
 import 'package:retrofit_moment/feature/domain/usecase/params.dart';
-part 'test_state.dart';
+part 'latest_news_state.dart';
 
 @injectable
-class TestCubit extends Cubit<TestState> {
-  TestCubit(this.latestNewsUseCaseImpl) : super(TestStateInitial());
+class LatestNewsCubit extends Cubit<LatestNewsState> {
+  LatestNewsCubit(this.latestNewsUseCaseImpl) : super(LatestNewsStateInitial());
 
   final LatestNewsUseCaseImpl latestNewsUseCaseImpl;
 
@@ -21,17 +21,16 @@ class TestCubit extends Cubit<TestState> {
           'part':'snippet,replies',
           'videoId':'De6BAzEQqUo',
       },
-    );
-    print(response.data);*/
-    emit(TestStateLoading());
+    );*/
+    emit(LatestNewsStateLoading());
     final failureOrLatestNewsEither = await latestNewsUseCaseImpl.call(Params(apiKey: '0F6ApTX1KpMotLBDoMiIkeBVPdRgdFjw95ITDk_Bt6PY6x_e'));
     final failureOrLatestNews = failureOrLatestNewsEither.fold(
-        (failure) => TestStateError(), (latestNews) => latestNews);
-    if (failureOrLatestNews is TestStateError) {
-      emit(TestStateError());
+        (failure) => LatestNewsStateError(), (latestNews) => latestNews);
+    if (failureOrLatestNews is LatestNewsStateError) {
+      emit(LatestNewsStateError());
       throw UnimplementedError();
     }
-    emit(TestStateLoaded(failureOrLatestNews as LatestNewsModel));
+    emit(LatestNewsStateLoaded(failureOrLatestNews as LatestNewsModel));
 
   }
 }
