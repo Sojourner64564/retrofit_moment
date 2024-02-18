@@ -4,7 +4,7 @@ import 'package:retrofit_moment/core/error/failure.dart';
 import 'package:retrofit_moment/feature/data/data_source/data_source_latest_news/data_source_latest_news.dart';
 import 'package:retrofit_moment/feature/data/models/latest_news/latest_news_model.dart';
 import 'package:retrofit_moment/feature/data/network/network_info.dart';
-import 'package:retrofit_moment/feature/domain/repository/latest_news_repository.dart';
+import 'package:retrofit_moment/feature/domain/repository/repository.dart';
 import 'package:retrofit_moment/feature/domain/usecase/params.dart';
 
 @injectable

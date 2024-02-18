@@ -6,6 +6,8 @@ import 'package:retrofit_moment/feature/presentation/screens/second_screen/secon
 
 @RoutePage()
 class SecondScreen extends StatelessWidget{
+  const SecondScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

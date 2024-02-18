@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:retrofit_moment/core/assets/my_text_styles/my_text_styles.dart';
 import 'package:retrofit_moment/feature/data/models/latest_news/news_model.dart';
-import 'package:intl/intl.dart';
 
 class ListviewTileLatestNews extends StatelessWidget{
   const ListviewTileLatestNews({super.key, required this.newsModel,});

@@ -6,6 +6,8 @@ import 'package:retrofit_moment/feature/presentation/screens/first_screen/first_
 
 @RoutePage()
 class FirstScreen extends StatelessWidget{
+  const FirstScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +20,7 @@ class FirstScreen extends StatelessWidget{
         style: MyTextStyles.appbarTextStyle,
         ),
       ),
-      body: FirstPage(),
+      body: const FirstPage(),
     );
   }
 

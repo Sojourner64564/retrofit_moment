@@ -5,7 +5,7 @@ import 'package:retrofit_moment/core/assets/my_text_styles/my_text_styles.dart';
 import 'package:retrofit_moment/core/injectable/injectable.dart';
 import 'package:retrofit_moment/feature/presentation/cubit/latest_news_cubit/latest_news_cubit.dart';
 import 'package:retrofit_moment/feature/presentation/screens/first_screen/widget/listview_tile_latest_news.dart';
-import 'package:retrofit_moment/feature/presentation/screens/first_screen/widget/loading_text_animation.dart';
+import 'package:retrofit_moment/feature/presentation/screens/widget/loading_text_animation.dart';
 
 class FirstPage extends StatefulWidget {
   const FirstPage({super.key});

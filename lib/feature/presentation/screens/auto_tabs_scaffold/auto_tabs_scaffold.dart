@@ -6,6 +6,8 @@ import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 @RoutePage()
 class AutoTabsScaffolPage extends StatelessWidget{
+  const AutoTabsScaffolPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return AutoTabsScaffold(
