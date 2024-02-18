@@ -13,7 +13,7 @@ class ListviewTileSearchNews extends StatefulWidget {
 class _ListviewTileSearchNewsState extends State<ListviewTileSearchNews> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 240,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -64,7 +64,7 @@ class _ListviewTileSearchNewsState extends State<ListviewTileSearchNews> {
             ),
           ),
           const SizedBox(height: 10),
-          Text(widget.newsModel.published,
+          Text(widget.newsModel.published.replaceRange(19, null, ''),
             style: MyTextStyles.authorNewsTextStyle,
             maxLines: 1,
           ),

@@ -30,7 +30,12 @@ class LatestNewsCubit extends Cubit<LatestNewsState> {
       emit(LatestNewsStateError());
       throw UnimplementedError();
     }
-    emit(LatestNewsStateLoaded(failureOrLatestNews as LatestNewsModel));
-
+    failureOrLatestNews as LatestNewsModel;
+    if(failureOrLatestNews.news.isEmpty){
+      emit(LatestNewsStateEmptyList());
+    }
+    if(failureOrLatestNews.news.isNotEmpty){
+      emit(LatestNewsStateLoaded(failureOrLatestNews));
+    }
   }
 }

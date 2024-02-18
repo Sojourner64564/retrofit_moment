@@ -4,6 +4,7 @@ import 'package:retrofit_moment/core/assets/my_colors/my_colors.dart';
 import 'package:retrofit_moment/core/assets/my_text_styles/my_text_styles.dart';
 import 'package:retrofit_moment/core/injectable/injectable.dart';
 import 'package:retrofit_moment/feature/presentation/cubit/search_news_cubit/search_news_cubit.dart';
+import 'package:retrofit_moment/feature/presentation/screens/first_screen/widget/loading_text_animation.dart';
 import 'package:retrofit_moment/feature/presentation/screens/second_screen/widget/listview_tile_search_news.dart';
 
 class SecondPage extends StatelessWidget {
@@ -33,7 +34,6 @@ class SecondPage extends StatelessWidget {
           const SizedBox(height: 15),
           SearchBar(
             onSubmitted: (text){
-              print('dfsd $text');
               searchNewsCubit.fetchSearchNews(text);
             },
             controller: textEditingController,
@@ -41,6 +41,7 @@ class SecondPage extends StatelessWidget {
             backgroundColor: MaterialStateProperty.all(MyColors.myBlack12Colors),
             elevation: MaterialStateProperty.all(0),
             hintText: 'find news by keywords',
+            hintStyle: MaterialStateProperty.all(MyTextStyles.mediumThinGreyTextStyle),
             shape: MaterialStateProperty.all(const ContinuousRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20)),
             )),
@@ -51,36 +52,40 @@ class SecondPage extends StatelessWidget {
               bloc: searchNewsCubit,
               builder: (context, state) {
                 if(state is SearchNewsStateInitial){
-                  return const Center(child: Text('Enter request word'));
+                  return const Center(child: Text('Enter request word', style: MyTextStyles.mediumThickGreyTextStyle));
                 }
                 if(state is SearchNewsStateLoading){
-                  return LinearProgressIndicator();
-                  //return const Center(child: Text('Loading'));
+                  return const Center(child: LoadingTextAnimation(textStyle: MyTextStyles.mediumThickGreyTextStyle));
                 }
                 if(state is SearchNewsStateLoaded){
-                  return ListView.separated(
-                    itemCount: state.searchNewsModel.news.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return ListviewTileSearchNews(newsModel: state.searchNewsModel.news[index]);
-                    },
-                    separatorBuilder: (BuildContext context, int index) {
-                      return const Divider(
-                        height: 60,
-                        indent: 40,
-                        endIndent: 40,
-                        thickness: 1,
-                        color: MyColors.myBlackColor,
-                      );
-                    },
+                  return Scrollbar(
+
+                    child: ListView.separated(
+                      itemCount: state.searchNewsModel.news.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return ListviewTileSearchNews(newsModel: state.searchNewsModel.news[index]);
+                      },
+                      separatorBuilder: (BuildContext context, int index) {
+                        return const Divider(
+                          height: 60,
+                          indent: 40,
+                          endIndent: 40,
+                          thickness: 1,
+                          color: MyColors.myBlackColor,
+                        );
+                      },
+                    ),
                   );
                 }
+                if(state is SearchNewsStateEmptyList){
+                  return const Center(child: Text('Not found request word', style: MyTextStyles.mediumThickGreyTextStyle));
+                }
                 if(state is SearchNewsStateError){
-                  return const Center(child: Text('Error'));
+                  return const Center(child: Text('Error', style: MyTextStyles.mediumThickGreyTextStyle,));
                 }
                 else{
-                  return const Text('data');
+                  return const Text('bruh');
                 }
-
               },
             ),
           ),

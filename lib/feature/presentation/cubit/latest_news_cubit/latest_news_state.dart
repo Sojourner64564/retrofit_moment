@@ -21,6 +21,11 @@ class LatestNewsStateLoaded extends LatestNewsState {
   List<Object> get props => [latestNewsModel];
 }
 
+class LatestNewsStateEmptyList extends LatestNewsState {
+  @override
+  List<Object> get props => [];
+}
+
 class LatestNewsStateError extends LatestNewsState {
   @override
   List<Object> get props => [];

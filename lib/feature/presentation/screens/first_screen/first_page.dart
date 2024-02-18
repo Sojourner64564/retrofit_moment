@@ -38,7 +38,7 @@ class _FirstPageState extends State<FirstPage> {
           thickness: 3,
         color: MyColors.myBlackColor,
         ),
-        const Center(child: Text('среда,октябрь 23,2020',
+        const Center(child: Text('среда | октябрь 23 | 2020',
         )),
         const Divider(
           indent: 15,
@@ -51,15 +51,14 @@ class _FirstPageState extends State<FirstPage> {
           child: BlocBuilder<LatestNewsCubit, LatestNewsState>(
               bloc: latestNewsCubit,
               builder: (context, state) {
-                if (state is LatestNewsStateInitial) {
-                  return const Center(child: Text('Latest News'));
+                if(state is LatestNewsStateInitial) {
+                  return const Center(child: Text('Latest News', style: MyTextStyles.mediumThickGreyTextStyle,));
                 }
-                if (state is LatestNewsStateLoading) {
-                  return const Center(child: Text('Loading'));
+                if(state is LatestNewsStateLoading) {
+                  return const Center(child: LoadingTextAnimation(textStyle: MyTextStyles.mediumThickGreyTextStyle));
                 }
-                if (state is LatestNewsStateLoaded) {
-                  return SizedBox(
-                    width: double.infinity,
+                if(state is LatestNewsStateLoaded) {
+                  return Scrollbar(
                     child: ListView.separated(
                       itemCount: state.latestNewsModel.news.length,
                       itemBuilder: (BuildContext context, int index){
@@ -76,8 +75,12 @@ class _FirstPageState extends State<FirstPage> {
                         },
                     ),
                   );
-                } if (state is LatestNewsStateError) {
-                  return const Center(child: Text('Error Bruh'));
+                }
+                if(state is LatestNewsStateEmptyList){
+                  return const Center(child: Text('Empty Latest News List', style: MyTextStyles.mediumThickGreyTextStyle));
+                }
+                if(state is LatestNewsStateError) {
+                  return const Center(child: Text('Error', style: MyTextStyles.mediumThickGreyTextStyle));
                 } else {
                   return const Center(child: Text('Unknown Error'));
                 }

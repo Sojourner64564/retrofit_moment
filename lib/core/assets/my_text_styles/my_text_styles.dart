@@ -28,4 +28,14 @@ class MyTextStyles{
     fontWeight: FontWeight.w700,
     fontStyle: FontStyle.italic,
   );
+  static const TextStyle mediumThickGreyTextStyle = TextStyle(
+    fontSize: 15,
+    fontWeight: FontWeight.w700,
+    color: MyColors.myGreyColor,
+  );
+  static const TextStyle mediumThinGreyTextStyle = TextStyle(
+    fontSize: 15,
+    fontWeight: FontWeight.w400,
+    color: MyColors.myGreyColor,
+  );
 }

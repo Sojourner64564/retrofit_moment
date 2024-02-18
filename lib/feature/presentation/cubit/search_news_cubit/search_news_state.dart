@@ -9,4 +9,5 @@ class SearchNewsStateLoaded extends SearchNewsState {
   SearchNewsStateLoaded({required this.searchNewsModel});
   final SearchNewsModel searchNewsModel;
 }
+class SearchNewsStateEmptyList extends SearchNewsState {}
 class SearchNewsStateError extends SearchNewsState {}
