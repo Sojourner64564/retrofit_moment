@@ -10,19 +10,21 @@ import 'package:injectable/injectable.dart' as _i2;
 import 'package:internet_connection_checker/internet_connection_checker.dart'
     as _i4;
 
-import '../../feature/data/data_source/data_source_latest_news/data_source_latest_news.dart'
+import '../../features/data/data_source/data_source_latest_news/data_source_latest_news.dart'
     as _i3;
-import '../../feature/data/network/internet_connection_checker.dart' as _i13;
-import '../../feature/data/network/network_info.dart' as _i5;
-import '../../feature/data/network/network_info_impl.dart' as _i6;
-import '../../feature/data/repository/latest_news_repository_impl.dart' as _i9;
-import '../../feature/data/repository/search_news_repository_impl.dart' as _i7;
-import '../../feature/domain/usecase/latest_news_use_case.dart' as _i10;
-import '../../feature/domain/usecase/search_news_use_case.dart' as _i8;
-import '../../feature/presentation/cubit/latest_news_cubit/latest_news_cubit.dart'
-    as _i12;
-import '../../feature/presentation/cubit/search_news_cubit/search_news_cubit.dart'
-    as _i11; // ignore_for_file: unnecessary_lambdas
+import '../../features/data/network/internet_connection_checker.dart' as _i15;
+import '../../features/data/network/network_info.dart' as _i5;
+import '../../features/data/network/network_info_impl.dart' as _i6;
+import '../../features/data/repository/latest_news_repository_impl.dart' as _i11;
+import '../../features/data/repository/search_news_repository_impl.dart' as _i8;
+import '../../features/domain/repository/latest_news_repository.dart' as _i10;
+import '../../features/domain/repository/search_news_repository.dart' as _i7;
+import '../../features/domain/usecase/latest_news_use_case.dart' as _i12;
+import '../../features/domain/usecase/search_news_use_case.dart' as _i9;
+import '../../features/presentation/cubit/latest_news_cubit/latest_news_cubit.dart'
+    as _i14;
+import '../../features/presentation/cubit/search_news_cubit/search_news_cubit.dart'
+    as _i13; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -43,24 +45,25 @@ _i1.GetIt $initGetIt(
       () => registerModuleConnectionChecker.internetConnection);
   gh.lazySingleton<_i5.NetworkInfo>(
       () => _i6.NetworkInfoImpl(get<_i4.InternetConnectionChecker>()));
-  gh.factory<_i7.SearchNewsRepositoryImpl>(() => _i7.SearchNewsRepositoryImpl(
+  gh.lazySingleton<_i7.SearchNewsRepository>(() => _i8.SearchNewsRepositoryImpl(
         get<_i5.NetworkInfo>(),
         get<_i3.ClientDataSourceRemouteApi>(),
       ));
-  gh.factory<_i8.SearchNewsUseCase>(
-      () => _i8.SearchNewsUseCase(get<_i7.SearchNewsRepositoryImpl>()));
-  gh.factory<_i9.LatestNewsRepositoryImpl>(() => _i9.LatestNewsRepositoryImpl(
-        get<_i5.NetworkInfo>(),
-        get<_i3.ClientDataSourceRemouteApi>(),
-      ));
-  gh.factory<_i10.LatestNewsUseCaseImpl>(
-      () => _i10.LatestNewsUseCaseImpl(get<_i9.LatestNewsRepositoryImpl>()));
-  gh.factory<_i11.SearchNewsCubit>(
-      () => _i11.SearchNewsCubit(get<_i8.SearchNewsUseCase>()));
-  gh.factory<_i12.LatestNewsCubit>(
-      () => _i12.LatestNewsCubit(get<_i10.LatestNewsUseCaseImpl>()));
+  gh.factory<_i9.SearchNewsUseCase>(
+      () => _i9.SearchNewsUseCase(get<_i7.SearchNewsRepository>()));
+  gh.lazySingleton<_i10.LatestNewsRepository>(
+      () => _i11.LatestNewsRepositoryImpl(
+            get<_i5.NetworkInfo>(),
+            get<_i3.ClientDataSourceRemouteApi>(),
+          ));
+  gh.factory<_i12.LatestNewsUseCaseImpl>(
+      () => _i12.LatestNewsUseCaseImpl(get<_i10.LatestNewsRepository>()));
+  gh.factory<_i13.SearchNewsCubit>(
+      () => _i13.SearchNewsCubit(get<_i9.SearchNewsUseCase>()));
+  gh.lazySingleton<_i14.LatestNewsCubit>(
+      () => _i14.LatestNewsCubit(get<_i12.LatestNewsUseCaseImpl>()));
   return get;
 }
 
 class _$RegisterModuleConnectionChecker
-    extends _i13.RegisterModuleConnectionChecker {}
+    extends _i15.RegisterModuleConnectionChecker {}

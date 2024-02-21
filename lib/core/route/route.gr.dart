@@ -9,11 +9,11 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i4;
-import 'package:retrofit_moment/feature/presentation/screens/auto_tabs_scaffold/auto_tabs_scaffold.dart'
+import 'package:retrofit_moment/features/presentation/screens/auto_tabs_scaffold/auto_tabs_scaffold.dart'
     as _i1;
-import 'package:retrofit_moment/feature/presentation/screens/first_screen/first_screen.dart'
+import 'package:retrofit_moment/features/presentation/screens/first_screen/first_screen.dart'
     as _i2;
-import 'package:retrofit_moment/feature/presentation/screens/second_screen/second_screen.dart'
+import 'package:retrofit_moment/features/presentation/screens/second_screen/second_screen.dart'
     as _i3;
 
 abstract class $AppRouter extends _i4.RootStackRouter {
@@ -24,19 +24,19 @@ abstract class $AppRouter extends _i4.RootStackRouter {
     AutoTabsScaffolRoute.name: (routeData) {
       return _i4.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i1.AutoTabsScaffolPage(),
+        child: const _i1.AutoTabsScaffolPage(),
       );
     },
     FirstRoute.name: (routeData) {
       return _i4.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i2.FirstScreen(),
+        child: const _i2.FirstScreen(),
       );
     },
     SecondRoute.name: (routeData) {
       return _i4.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i3.SecondScreen(),
+        child: const _i3.SecondScreen(),
       );
     },
   };
