@@ -9,11 +9,11 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i4;
-import 'package:retrofit_moment/features/presentation/screens/auto_tabs_scaffold/auto_tabs_scaffold.dart'
+import 'package:retrofit_moment/features/common/presentation/screens/auto_tabs_scaffold/auto_tabs_scaffold.dart'
     as _i1;
-import 'package:retrofit_moment/features/presentation/screens/first_screen/first_screen.dart'
+import 'package:retrofit_moment/features/latest_news_feature/presentation/screens/first_screen/first_screen.dart'
     as _i2;
-import 'package:retrofit_moment/features/presentation/screens/second_screen/second_screen.dart'
+import 'package:retrofit_moment/features/search_news_feature/presentation/screens/second_screen/second_screen.dart'
     as _i3;
 
 abstract class $AppRouter extends _i4.RootStackRouter {
