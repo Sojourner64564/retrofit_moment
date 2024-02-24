@@ -16,18 +16,21 @@ class LatestNewsCubit extends Cubit<LatestNewsState> {
     emit(LatestNewsStateLoading());
     try{
       final failureOrLatestNewsEither = await latestNewsUseCaseImpl.call(Params(apiKey: '0F6ApTX1KpMotLBDoMiIkeBVPdRgdFjw95ITDk_Bt6PY6x_e'));
-      final dynamic failureOrLatestNews = failureOrLatestNewsEither.fold(
+      final  failureOrLatestNews = failureOrLatestNewsEither.fold(
               (failure) => LatestNewsStateError(), (latestNews) => latestNews);
       if (failureOrLatestNews is LatestNewsStateError) {
         emit(LatestNewsStateError());
         return;
       }
-      final LatestNewsModel latestNewsModel = failureOrLatestNews;
-      if(latestNewsModel.news.isEmpty){
-        emit(LatestNewsStateEmptyList());
+      if(failureOrLatestNews is LatestNewsModel){
+        if(failureOrLatestNews.news.isEmpty){
+          emit(LatestNewsStateEmptyList());
+        }
       }
-      if(latestNewsModel.news.isNotEmpty){
-        emit(LatestNewsStateLoaded(latestNewsModel));
+      if(failureOrLatestNews is LatestNewsModel){
+        if(failureOrLatestNews.news.isNotEmpty){
+          emit(LatestNewsStateLoaded(failureOrLatestNews));
+        }
       }
     }catch(e){
       emit(LatestNewsStateError());
