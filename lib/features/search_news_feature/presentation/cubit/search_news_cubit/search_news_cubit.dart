@@ -18,18 +18,18 @@ class SearchNewsCubit extends Cubit<SearchNewsState> {
    emit(SearchNewsStateLoading());
    try{
      final failureOrSearchNewsEither = await searchNewsUseCase.call(Params(apiKey: '0F6ApTX1KpMotLBDoMiIkeBVPdRgdFjw95ITDk_Bt6PY6x_e', keywords: myText));
-     final failureOrSearchNews = failureOrSearchNewsEither.fold((failure)=> failure, (searchNews)=>searchNews);
+     final dynamic failureOrSearchNews = failureOrSearchNewsEither.fold((failure)=> failure, (searchNews)=>searchNews);
      if(failureOrSearchNews is Failure){
        emit(SearchNewsStateError());
        return;
      }
-     failureOrSearchNews as SearchNewsModel;
-     if(failureOrSearchNews.news.isEmpty){
+     final SearchNewsModel searchNewsModel = failureOrSearchNews;
+     if(searchNewsModel.news.isEmpty){
        print('isEmprty');
        emit(SearchNewsStateEmptyList());
      }
-     if(failureOrSearchNews.news.isNotEmpty){
-       emit(SearchNewsStateLoaded(searchNewsModel: failureOrSearchNews));
+     if(searchNewsModel.news.isNotEmpty){
+       emit(SearchNewsStateLoaded(searchNewsModel: searchNewsModel));
      }
    }catch(e){
      emit(SearchNewsStateError());
