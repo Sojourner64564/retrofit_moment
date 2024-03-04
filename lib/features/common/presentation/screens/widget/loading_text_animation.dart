@@ -48,4 +48,15 @@ class _LoadingTextAnimationState extends State<LoadingTextAnimation> with Single
     super.dispose();
   }
 }
+/*
+//TODO: потом переделать
+void initState() {
+    Timer.periodic(Duration(seconds: 1), (timer) {
+      setState(() {
+        counter++;
+      });
+    });
+    super.initState();
+  }
+ */
 

@@ -13,6 +13,18 @@ class SecondScreen extends StatelessWidget{
     return Scaffold(
       backgroundColor: MyColors.myWhiteColor,
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: (){
+
+        }, icon: const Icon(Icons.save_outlined, color: MyColors.myBlackColor),
+        ),
+        actions: [
+          IconButton(
+            onPressed: (){
+
+            }, icon: const Icon(Icons.list_outlined, color: MyColors.myBlackColor),
+          ),
+        ],
         elevation: 0,
         backgroundColor: MyColors.myWhiteColor,
         centerTitle: true,

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:retrofit_moment/core/assets/my_colors/my_colors.dart';
 import 'package:retrofit_moment/core/assets/my_text_styles/my_text_styles.dart';
 import 'package:retrofit_moment/core/injectable/injectable.dart';
-import 'package:retrofit_moment/features/latest_news_feature/presentation/screens/widget/loading_text_animation.dart';
+import 'package:retrofit_moment/features/common/presentation/screens/widget/loading_text_animation.dart';
 import 'package:retrofit_moment/features/search_news_feature/presentation/cubit/search_news_cubit/search_news_cubit.dart';
 import 'package:retrofit_moment/features/search_news_feature/presentation/screens/second_screen/widget/listview_tile_search_news.dart';
 
