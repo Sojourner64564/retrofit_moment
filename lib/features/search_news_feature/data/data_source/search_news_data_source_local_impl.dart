@@ -62,8 +62,8 @@ class  SearchNewsDataSourceLocalImpl extends SearchNewsDataSourceLocal{
   @override
   Future<SearchNewsModel> selectPreLastModelFromBd(Database database) async{
     final searchNewsTable = await database.select(database.searchNews).get();
-    final lastRow = searchNewsTable.last;
-    final maxId = lastRow.id;  // 54 ,   58
+    final lenght = searchNewsTable.length;
+
     if(maxId==1){
       return await selectLastModelFromBd(database);
     }
