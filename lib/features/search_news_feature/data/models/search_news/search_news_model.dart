@@ -1,10 +1,11 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:retrofit_moment/features/search_news_feature/data/models/search_news/news_model.dart';
 
 part 'search_news_model.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class SearchNewsModel {
+class SearchNewsModel extends Equatable{
   SearchNewsModel({
      this.status = '',
      this.news = const [],
@@ -18,4 +19,7 @@ class SearchNewsModel {
   factory SearchNewsModel.fromJson(Map<String,dynamic> json) => _$SearchNewsModelFromJson(json);
 
   Map<String,dynamic> toJson() => _$SearchNewsModelToJson(this);
+
+  @override
+  List<Object?> get props => [status, news, page];
 }

@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:retrofit_moment/core/injectable/injectable.dart';
 import 'package:retrofit_moment/features/search_news_feature/data/models/search_news/news_model.dart';
 import 'package:retrofit_moment/features/search_news_feature/data/search_news_local_drift_database/search_news_local_drift_database.dart';
 import 'package:retrofit_moment/features/search_news_feature/data/models/search_news/search_news_model.dart';
@@ -8,7 +9,7 @@ import 'package:retrofit_moment/features/search_news_feature/data/data_source/se
 class  SearchNewsDataSourceLocalImpl extends SearchNewsDataSourceLocal{
   @override
   Database getDb() {
-    final db = Database();
+    final Database db = getIt();
     return db;
   }
 
@@ -16,17 +17,18 @@ class  SearchNewsDataSourceLocalImpl extends SearchNewsDataSourceLocal{
   Future<void> saveModelToBd(Database database, SearchNewsModel searchNewsModel) async{
     final categoryId = await database.into(database.searchNews)
         .insert(SearchNewsCompanion.insert(status: searchNewsModel.status, page: searchNewsModel.page));
-    for(int i=0;i<=searchNewsModel.news.length;i++){
+    for(int i=0;i<searchNewsModel.news.length;i++){
      await database.into(database.news).
      insert(NewsCompanion.insert(newsId: searchNewsModel.news[i].id, title: searchNewsModel.news[i].title,
          description: searchNewsModel.news[i].description, url: searchNewsModel.news[i].url, author: searchNewsModel.news[i].author,
          image: searchNewsModel.news[i].image, language: searchNewsModel.news[i].language,
          category: searchNewsModel.news[i].category, published: searchNewsModel.news[i].published, searchNewsId: categoryId));
-
-     (await database.select(database.searchNews).get()).forEach((element) {print('$element');});
-     (await database.select(database.news).get()).forEach((element) {print('$element');});
-
    }
+    (await database.select(database.searchNews).get()).forEach((element) {print('$element');});
+    final uuulyalya = database.select(database.news)..where((row) => row.searchNewsId.isValue(categoryId));
+    final dfdf = await uuulyalya.get();
+    print(dfdf.first);
+
   }
 
   @override
@@ -56,6 +58,20 @@ class  SearchNewsDataSourceLocalImpl extends SearchNewsDataSourceLocal{
       searchNewsModel = SearchNewsModel(status: newRow.status,news: newsModelList, page: newRow.page);
       return searchNewsModel;
     }
+
+  @override
+  Future<SearchNewsModel> selectPreLastModelFromBd(Database database) async{
+    final searchNewsTable = await database.select(database.searchNews).get();
+    final lastRow = searchNewsTable.last;
+    final maxId = lastRow.id;  // 54 ,   58
+    if(maxId==1){
+      return await selectLastModelFromBd(database);
+    }
+    if(maxId<1){
+
+    }
+    //todo ебучий бред - изменить
+  }
 
 
 

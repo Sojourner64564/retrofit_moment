@@ -19,6 +19,12 @@ class SaveNewsToPhoneCubit extends Cubit<SaveNewsToPhoneState> {
     if(actualSearchNewsModel.news.isNotEmpty){
         final db = searchNewsLocalDriftDatabaseImpl.getDb();
         searchNewsLocalDriftDatabaseImpl.saveModelToBd(db, actualSearchNewsModel);
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            backgroundColor: MyColors.myBlackColor,
+            content: Text('News saved',),
+          ),
+        );
     }
     if(actualSearchNewsModel.news.isEmpty){
       ScaffoldMessenger.of(context).showSnackBar(

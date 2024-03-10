@@ -1,9 +1,10 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'news_model.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class NewsModel {
+class NewsModel extends Equatable{
   final String id;
   final String title;
   final String description;
@@ -29,4 +30,7 @@ class NewsModel {
   factory NewsModel.fromJson(Map<String,dynamic> json) => _$NewsModelFromJson(json);
 
   Map<String,dynamic> toJson() => _$NewsModelToJson(this);
+
+  @override
+  List<Object?> get props => [id, title, description, url, author, image, language, category, published];
 }
