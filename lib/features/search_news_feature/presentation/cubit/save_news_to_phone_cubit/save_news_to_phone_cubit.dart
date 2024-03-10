@@ -49,7 +49,6 @@ class SaveNewsToPhoneCubit extends Cubit<SaveNewsToPhoneState> {
         }
       }
     }
-
     if (actualSearchNewsModel.news.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(

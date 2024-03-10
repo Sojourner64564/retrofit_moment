@@ -14,6 +14,7 @@ class AutoTabsScaffolPage extends StatelessWidget{
       routes: [
         const FirstRoute(),
         SecondRoute(),
+        const ThirdRoute(),
       ],
       bottomNavigationBuilder: (buildContext, tabsRouter){
         return SalomonBottomBar(
@@ -29,6 +30,11 @@ class AutoTabsScaffolPage extends StatelessWidget{
               selectedColor: MyColors.myBlackColor,
               icon: const Icon(Icons.search),
               title:  const Text('Search News'),
+            ),
+            SalomonBottomBarItem(
+              selectedColor: MyColors.myBlackColor,
+              icon: const Icon(Icons.density_small),
+              title:  const Text('Saved News'),
             ),
           ],
 

@@ -59,43 +59,7 @@ class  SearchNewsDataSourceLocalImpl extends SearchNewsDataSourceLocal{
       return searchNewsModel;
     }
 
-  @override // (1)54  ,   (2)59
-  Future<SearchNewsModel> selectPreLastModelFromBd(Database database) async{
-    final searchNewsTable = await database.select(database.searchNews).get();
-    final length = searchNewsTable.length;
-    if(length==1){
-      return await selectLastModelFromBd(database);
-    } else if(length==0){
-      throw UnimplementedError();
-    }else if(length<1){
-      final SearchNewsModel searchNewsModel;
-      final preLast = length-1;
-      final preLastRow = searchNewsTable[preLast];
-      final preLastId = preLastRow.id;
-      final rowSearchNewsWithPreLastId = database.select(database.searchNews)..where((row) => row.id.isValue(preLastId));
-      final rowNewsWithPreLastOfSearchNews = database.select(database.news)..where((rows) => rows.searchNewsId.isValue(preLastId));
-      final rowSearchNews = await rowSearchNewsWithPreLastId.get();
-      final rowSearchNewsNotList = rowSearchNews[0];
-      final List<NewsModel> newsModelList = [];
-      for(final row in await rowNewsWithPreLastOfSearchNews.get()){
-        newsModelList.add(NewsModel(
-          id: row.newsId,
-          title: row.title,
-          description: row.description,
-          url: row.url,
-          author: row.author,
-          image: row.image,
-          language: row.language,
-          category: row.category,
-          published: row.published,
-        ));
-      }
-      searchNewsModel = SearchNewsModel(status: rowSearchNewsNotList.status, news: newsModelList, page: rowSearchNewsNotList.page);
-      return searchNewsModel;
-    }else{
-      throw UnimplementedError();
-    }
-  }
+
 
   @override
   Future<int> lenghtOfSearchNewsFromDb(Database database) async{
