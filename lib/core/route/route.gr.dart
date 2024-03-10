@@ -9,6 +9,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i4;
+import 'package:flutter/material.dart' as _i5;
 import 'package:retrofit_moment/features/common/presentation/screens/auto_tabs_scaffold/auto_tabs_scaffold.dart'
     as _i1;
 import 'package:retrofit_moment/features/latest_news_feature/presentation/screens/first_screen/first_screen.dart'
@@ -34,9 +35,11 @@ abstract class $AppRouter extends _i4.RootStackRouter {
       );
     },
     SecondRoute.name: (routeData) {
+      final args = routeData.argsAs<SecondRouteArgs>(
+          orElse: () => const SecondRouteArgs());
       return _i4.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i3.SecondScreen(),
+        child: _i3.SecondScreen(key: args.key),
       );
     },
   };
@@ -72,14 +75,29 @@ class FirstRoute extends _i4.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.SecondScreen]
-class SecondRoute extends _i4.PageRouteInfo<void> {
-  const SecondRoute({List<_i4.PageRouteInfo>? children})
-      : super(
+class SecondRoute extends _i4.PageRouteInfo<SecondRouteArgs> {
+  SecondRoute({
+    _i5.Key? key,
+    List<_i4.PageRouteInfo>? children,
+  }) : super(
           SecondRoute.name,
+          args: SecondRouteArgs(key: key),
           initialChildren: children,
         );
 
   static const String name = 'SecondRoute';
 
-  static const _i4.PageInfo<void> page = _i4.PageInfo<void>(name);
+  static const _i4.PageInfo<SecondRouteArgs> page =
+      _i4.PageInfo<SecondRouteArgs>(name);
+}
+
+class SecondRouteArgs {
+  const SecondRouteArgs({this.key});
+
+  final _i5.Key? key;
+
+  @override
+  String toString() {
+    return 'SecondRouteArgs{key: $key}';
+  }
 }

@@ -11,8 +11,8 @@ class AutoTabsScaffolPage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return AutoTabsScaffold(
-      routes: const [
-        FirstRoute(),
+      routes: [
+        const FirstRoute(),
         SecondRoute(),
       ],
       bottomNavigationBuilder: (buildContext, tabsRouter){
