@@ -19,18 +19,12 @@ class SecondScreen extends StatelessWidget{
         leading: IconButton(
           onPressed: (){
            saveNewsToPhoneCubit.saveNews(context);
-           // saveNewsToPhoneCubit.showMessage(context);
-           /* ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Nothing to save'),
-              ),
-            );*/
+
           }, icon: const Icon(Icons.save_outlined, color: MyColors.myBlackColor),
         ),
         actions: [
           IconButton(
             onPressed: (){
-
             }, icon: const Icon(Icons.list_outlined, color: MyColors.myBlackColor),
           ),
         ],
