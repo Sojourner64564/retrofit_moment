@@ -13,14 +13,16 @@ class SaveNewsToPhoneCubit extends Cubit<SaveNewsToPhoneState> {
   SaveNewsToPhoneCubit() : super(SaveNewsToPhoneInitial());
   SearchNewsModel actualSearchNewsModel = SearchNewsModel();
   SearchNewsDataSourceLocalImpl searchNewsLocalDriftDatabaseImpl = getIt();
+  String searchBarString = '';
 
   void saveNews(BuildContext context) async {
+    final DateTime saveData = DateTime.now();
     if (actualSearchNewsModel.news.isNotEmpty) {
       final db = searchNewsLocalDriftDatabaseImpl.getDb();
       final lenghtOfSearchNewsFromDb = await searchNewsLocalDriftDatabaseImpl.lenghtOfSearchNewsFromDb(db);
 
       if(lenghtOfSearchNewsFromDb==0){
-        searchNewsLocalDriftDatabaseImpl.saveModelToBd(db, actualSearchNewsModel);
+        searchNewsLocalDriftDatabaseImpl.saveModelToBd(db, actualSearchNewsModel, searchBarString, saveData.toString());
       }else if (context.mounted){
         if(lenghtOfSearchNewsFromDb!=0) {
           final lastSearhNewsModel = await searchNewsLocalDriftDatabaseImpl.selectLastModelFromBd(db);
@@ -36,7 +38,7 @@ class SaveNewsToPhoneCubit extends Cubit<SaveNewsToPhoneState> {
           }
           if (lastSearhNewsModel.news[0] != actualSearchNewsModel.news[0]) {
             searchNewsLocalDriftDatabaseImpl.saveModelToBd(
-                db, actualSearchNewsModel);
+                db, actualSearchNewsModel, searchBarString, saveData.toString());
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 backgroundColor: MyColors.myBlackColor,

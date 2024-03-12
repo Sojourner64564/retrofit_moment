@@ -15,9 +15,8 @@ class  SearchNewsDataSourceLocalImpl extends SearchNewsDataSourceLocal{
 
   @override
   Future<void> saveModelToBd(Database database, SearchNewsModel searchNewsModel, String queryString, String saveData) async{
-    //todo исправить добавления данных String queryString, String saveData
     final categoryId = await database.into(database.searchNews)
-        .insert(SearchNewsCompanion.insert(status: searchNewsModel.status, page: searchNewsModel.page));
+        .insert(SearchNewsCompanion.insert(status: searchNewsModel.status, page: searchNewsModel.page, queryString: queryString, saveData: saveData));
     for(int i=0;i<searchNewsModel.news.length;i++){
      await database.into(database.news).
      insert(NewsCompanion.insert(newsId: searchNewsModel.news[i].id, title: searchNewsModel.news[i].title,
@@ -66,6 +65,19 @@ class  SearchNewsDataSourceLocalImpl extends SearchNewsDataSourceLocal{
   Future<int> lenghtOfSearchNewsFromDb(Database database) async{
     final searchNewsTable = await database.select(database.searchNews).get();
     return searchNewsTable.length;
+  }
+
+  @override
+  Future<List<SearchNews>> loadAllNews(Database database) async{
+    List<SearchNews> searchNewsModelList; //todo возможно сделать дата модель
+    List<NewsModel> newsModelList;
+    final searchNewsTable = await database.select(database.searchNews).get();
+    final lenghtOfSearchNews = searchNewsTable.length;
+    for(int i=0; i<=lenghtOfSearchNews;i++){
+
+    }
+
+
   }
 
 

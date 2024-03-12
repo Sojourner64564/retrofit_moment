@@ -19,12 +19,12 @@ class SecondScreen extends StatelessWidget{
         leading: IconButton(
           onPressed: (){
            saveNewsToPhoneCubit.saveNews(context);
-
           }, icon: const Icon(Icons.save_outlined, color: MyColors.myBlackColor),
         ),
         actions: [
           IconButton(
             onPressed: (){
+              print(DateTime.now()); //2024-03-12 05:52:59.396991
             }, icon: const Icon(Icons.list_outlined, color: MyColors.myBlackColor),
           ),
         ],

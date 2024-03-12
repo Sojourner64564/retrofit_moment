@@ -34,6 +34,7 @@ class SearchNewsCubit extends Cubit<SearchNewsState> {
      if(failureOrSearchNews is SearchNewsModel){
        if(failureOrSearchNews.news.isNotEmpty){
          saveNewsToPhoneCubit.actualSearchNewsModel = failureOrSearchNews;
+         saveNewsToPhoneCubit.searchBarString = searchBarText;
          emit(SearchNewsStateLoaded(searchNewsModel: failureOrSearchNews));
        }
      }

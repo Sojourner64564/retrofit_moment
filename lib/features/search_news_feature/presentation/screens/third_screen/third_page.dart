@@ -32,6 +32,12 @@ class ThirdPage extends StatelessWidget {
         },
       ),
     ),
+      const Divider(
+        indent: 15,
+        endIndent: 15,
+        thickness: 3,
+        color: MyColors.myBlackColor,
+      ),
       const SizedBox(height: 10),
       Flexible(
         flex: 10,

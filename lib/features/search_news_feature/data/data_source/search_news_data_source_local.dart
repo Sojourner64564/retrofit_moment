@@ -6,4 +6,5 @@ abstract class SearchNewsDataSourceLocal{
   Future<void> saveModelToBd(Database database, SearchNewsModel searchNewsModel, String queryString, String saveData);
   Future<SearchNewsModel> selectLastModelFromBd(Database database);
   Future<int> lenghtOfSearchNewsFromDb(Database database);
+  Future<List<SearchNews>> loadAllNews(Database database);
 }
