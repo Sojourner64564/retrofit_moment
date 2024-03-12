@@ -38,4 +38,14 @@ class MyTextStyles{
     fontWeight: FontWeight.w400,
     color: MyColors.myGreyColor,
   );
+  static const TextStyle mediumThickBlackTextStyle = TextStyle(
+    fontSize: 15,
+    fontWeight: FontWeight.w700,
+    color: MyColors.myBlackColor,
+  );
+  static const TextStyle littleThickTextStyle = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.w700,
+    color: MyColors.myBlackColor,
+  );
 }

@@ -31,15 +31,15 @@ class _ListviewTileSearchNewsState extends State<ListviewTileSearchNews> {
                       children: [
                         Text(
                           widget.newsModel.title,
-                          softWrap: true,
                           maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
                           style: MyTextStyles.mediumNewsTitleTextStyle,
                         ),
                         const SizedBox(height: 10),
                         Text(
                           widget.newsModel.description,
-                          softWrap: true,
                           maxLines: 7,
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ],
                     ),
