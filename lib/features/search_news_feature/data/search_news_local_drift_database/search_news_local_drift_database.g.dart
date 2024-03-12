@@ -28,8 +28,21 @@ class $SearchNewsTable extends SearchNews
   late final GeneratedColumn<int> page = GeneratedColumn<int>(
       'page', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _queryStringMeta =
+      const VerificationMeta('queryString');
   @override
-  List<GeneratedColumn> get $columns => [id, status, page];
+  late final GeneratedColumn<String> queryString = GeneratedColumn<String>(
+      'query_string', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _saveDataMeta =
+      const VerificationMeta('saveData');
+  @override
+  late final GeneratedColumn<String> saveData = GeneratedColumn<String>(
+      'save_data', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns =>
+      [id, status, page, queryString, saveData];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -55,6 +68,20 @@ class $SearchNewsTable extends SearchNews
     } else if (isInserting) {
       context.missing(_pageMeta);
     }
+    if (data.containsKey('query_string')) {
+      context.handle(
+          _queryStringMeta,
+          queryString.isAcceptableOrUnknown(
+              data['query_string']!, _queryStringMeta));
+    } else if (isInserting) {
+      context.missing(_queryStringMeta);
+    }
+    if (data.containsKey('save_data')) {
+      context.handle(_saveDataMeta,
+          saveData.isAcceptableOrUnknown(data['save_data']!, _saveDataMeta));
+    } else if (isInserting) {
+      context.missing(_saveDataMeta);
+    }
     return context;
   }
 
@@ -70,6 +97,10 @@ class $SearchNewsTable extends SearchNews
           .read(DriftSqlType.string, data['${effectivePrefix}status'])!,
       page: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}page'])!,
+      queryString: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}query_string'])!,
+      saveData: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}save_data'])!,
     );
   }
 
@@ -83,13 +114,22 @@ class SearchNew extends DataClass implements Insertable<SearchNew> {
   final int id;
   final String status;
   final int page;
-  const SearchNew({required this.id, required this.status, required this.page});
+  final String queryString;
+  final String saveData;
+  const SearchNew(
+      {required this.id,
+      required this.status,
+      required this.page,
+      required this.queryString,
+      required this.saveData});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
     map['status'] = Variable<String>(status);
     map['page'] = Variable<int>(page);
+    map['query_string'] = Variable<String>(queryString);
+    map['save_data'] = Variable<String>(saveData);
     return map;
   }
 
@@ -98,6 +138,8 @@ class SearchNew extends DataClass implements Insertable<SearchNew> {
       id: Value(id),
       status: Value(status),
       page: Value(page),
+      queryString: Value(queryString),
+      saveData: Value(saveData),
     );
   }
 
@@ -108,6 +150,8 @@ class SearchNew extends DataClass implements Insertable<SearchNew> {
       id: serializer.fromJson<int>(json['id']),
       status: serializer.fromJson<String>(json['status']),
       page: serializer.fromJson<int>(json['page']),
+      queryString: serializer.fromJson<String>(json['queryString']),
+      saveData: serializer.fromJson<String>(json['saveData']),
     );
   }
   @override
@@ -117,68 +161,100 @@ class SearchNew extends DataClass implements Insertable<SearchNew> {
       'id': serializer.toJson<int>(id),
       'status': serializer.toJson<String>(status),
       'page': serializer.toJson<int>(page),
+      'queryString': serializer.toJson<String>(queryString),
+      'saveData': serializer.toJson<String>(saveData),
     };
   }
 
-  SearchNew copyWith({int? id, String? status, int? page}) => SearchNew(
+  SearchNew copyWith(
+          {int? id,
+          String? status,
+          int? page,
+          String? queryString,
+          String? saveData}) =>
+      SearchNew(
         id: id ?? this.id,
         status: status ?? this.status,
         page: page ?? this.page,
+        queryString: queryString ?? this.queryString,
+        saveData: saveData ?? this.saveData,
       );
   @override
   String toString() {
     return (StringBuffer('SearchNew(')
           ..write('id: $id, ')
           ..write('status: $status, ')
-          ..write('page: $page')
+          ..write('page: $page, ')
+          ..write('queryString: $queryString, ')
+          ..write('saveData: $saveData')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, status, page);
+  int get hashCode => Object.hash(id, status, page, queryString, saveData);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is SearchNew &&
           other.id == this.id &&
           other.status == this.status &&
-          other.page == this.page);
+          other.page == this.page &&
+          other.queryString == this.queryString &&
+          other.saveData == this.saveData);
 }
 
 class SearchNewsCompanion extends UpdateCompanion<SearchNew> {
   final Value<int> id;
   final Value<String> status;
   final Value<int> page;
+  final Value<String> queryString;
+  final Value<String> saveData;
   const SearchNewsCompanion({
     this.id = const Value.absent(),
     this.status = const Value.absent(),
     this.page = const Value.absent(),
+    this.queryString = const Value.absent(),
+    this.saveData = const Value.absent(),
   });
   SearchNewsCompanion.insert({
     this.id = const Value.absent(),
     required String status,
     required int page,
+    required String queryString,
+    required String saveData,
   })  : status = Value(status),
-        page = Value(page);
+        page = Value(page),
+        queryString = Value(queryString),
+        saveData = Value(saveData);
   static Insertable<SearchNew> custom({
     Expression<int>? id,
     Expression<String>? status,
     Expression<int>? page,
+    Expression<String>? queryString,
+    Expression<String>? saveData,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (status != null) 'status': status,
       if (page != null) 'page': page,
+      if (queryString != null) 'query_string': queryString,
+      if (saveData != null) 'save_data': saveData,
     });
   }
 
   SearchNewsCompanion copyWith(
-      {Value<int>? id, Value<String>? status, Value<int>? page}) {
+      {Value<int>? id,
+      Value<String>? status,
+      Value<int>? page,
+      Value<String>? queryString,
+      Value<String>? saveData}) {
     return SearchNewsCompanion(
       id: id ?? this.id,
       status: status ?? this.status,
       page: page ?? this.page,
+      queryString: queryString ?? this.queryString,
+      saveData: saveData ?? this.saveData,
     );
   }
 
@@ -194,6 +270,12 @@ class SearchNewsCompanion extends UpdateCompanion<SearchNew> {
     if (page.present) {
       map['page'] = Variable<int>(page.value);
     }
+    if (queryString.present) {
+      map['query_string'] = Variable<String>(queryString.value);
+    }
+    if (saveData.present) {
+      map['save_data'] = Variable<String>(saveData.value);
+    }
     return map;
   }
 
@@ -202,7 +284,9 @@ class SearchNewsCompanion extends UpdateCompanion<SearchNew> {
     return (StringBuffer('SearchNewsCompanion(')
           ..write('id: $id, ')
           ..write('status: $status, ')
-          ..write('page: $page')
+          ..write('page: $page, ')
+          ..write('queryString: $queryString, ')
+          ..write('saveData: $saveData')
           ..write(')'))
         .toString();
   }

@@ -3,7 +3,7 @@ import 'package:retrofit_moment/features/search_news_feature/data/models/search_
 
 abstract class SearchNewsDataSourceLocal{
   Database getDb();
-  Future<void> saveModelToBd(Database database, SearchNewsModel searchNewsModel);
+  Future<void> saveModelToBd(Database database, SearchNewsModel searchNewsModel, String queryString, String saveData);
   Future<SearchNewsModel> selectLastModelFromBd(Database database);
   Future<int> lenghtOfSearchNewsFromDb(Database database);
 }

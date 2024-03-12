@@ -17,6 +17,8 @@ class SearchNews extends Table{
   IntColumn get id => integer().autoIncrement()();
   TextColumn get status => text()();
   IntColumn get page => integer()();
+  TextColumn get queryString => text()();
+  TextColumn get saveData => text()();
 }
 
 class News extends Table{

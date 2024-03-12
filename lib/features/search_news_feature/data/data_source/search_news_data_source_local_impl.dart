@@ -14,7 +14,8 @@ class  SearchNewsDataSourceLocalImpl extends SearchNewsDataSourceLocal{
   }
 
   @override
-  Future<void> saveModelToBd(Database database, SearchNewsModel searchNewsModel) async{
+  Future<void> saveModelToBd(Database database, SearchNewsModel searchNewsModel, String queryString, String saveData) async{
+    //todo исправить добавления данных String queryString, String saveData
     final categoryId = await database.into(database.searchNews)
         .insert(SearchNewsCompanion.insert(status: searchNewsModel.status, page: searchNewsModel.page));
     for(int i=0;i<searchNewsModel.news.length;i++){
