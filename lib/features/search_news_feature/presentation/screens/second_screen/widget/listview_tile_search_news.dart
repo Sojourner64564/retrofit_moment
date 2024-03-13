@@ -2,15 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:retrofit_moment/core/assets/my_text_styles/my_text_styles.dart';
 import 'package:retrofit_moment/features/search_news_feature/data/models/search_news/news_model.dart';
 
-class ListviewTileSearchNews extends StatefulWidget {
+class ListviewTileSearchNews extends StatelessWidget {
   const ListviewTileSearchNews({super.key, required this.newsModel});
   final NewsModel newsModel;
 
-  @override
-  State<ListviewTileSearchNews> createState() => _ListviewTileSearchNewsState();
-}
+  Widget networkOrAsset(){
+    if(newsModel.image == 'None' || newsModel.image == ''){
+      return Image.asset('assets/images/default_image.jpg',fit: BoxFit.fill);
+    }else{
+      return Image.network(newsModel.image,fit: BoxFit.fitHeight);
+    }
+  }
 
-class _ListviewTileSearchNewsState extends State<ListviewTileSearchNews> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -30,14 +33,14 @@ class _ListviewTileSearchNewsState extends State<ListviewTileSearchNews> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          widget.newsModel.title,
+                          newsModel.title,
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
                           style: MyTextStyles.mediumNewsTitleTextStyle,
                         ),
                         const SizedBox(height: 10),
                         Text(
-                          widget.newsModel.description,
+                          newsModel.description,
                           maxLines: 7,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -51,12 +54,7 @@ class _ListviewTileSearchNewsState extends State<ListviewTileSearchNews> {
                     height: 200,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
-                      child: Image.network(
-                        widget.newsModel.image=='None' || widget.newsModel.image=='' ?
-                        'https://cdn.cnn.com/cnnnext/dam/assets/230725145534-mayorkas-may-11-file-super-tease.jpg'
-                            : widget.newsModel.image,
-                        fit: BoxFit.cover,
-                      ),
+                      child: networkOrAsset(),
                     ),
                   ),
                 ),
@@ -64,11 +62,11 @@ class _ListviewTileSearchNewsState extends State<ListviewTileSearchNews> {
             ),
           ),
           const SizedBox(height: 10),
-          Text(widget.newsModel.published.replaceRange(19, null, ''),
+          Text(newsModel.published.replaceRange(19, null, ''),
             style: MyTextStyles.authorNewsTextStyle,
             maxLines: 1,
           ),
-          Text(widget.newsModel.author,
+          Text(newsModel.author,
           style: MyTextStyles.authorNewsTextStyle,
             maxLines: 1,
 

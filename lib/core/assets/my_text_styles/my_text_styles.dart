@@ -43,9 +43,19 @@ class MyTextStyles{
     fontWeight: FontWeight.w700,
     color: MyColors.myBlackColor,
   );
-  static const TextStyle littleThickTextStyle = TextStyle(
+  static const TextStyle mediumThickWhiteTextStyle = TextStyle(
+    fontSize: 15,
+    fontWeight: FontWeight.w700,
+    color: MyColors.myWhiteColor,
+  );
+  static const TextStyle littleThickBlackTextStyle = TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.w700,
     color: MyColors.myBlackColor,
+  );
+  static const TextStyle littleThickWhiteTextStyle = TextStyle(
+    fontSize: 9,
+    fontWeight: FontWeight.w700,
+    color: MyColors.myWhiteColor,
   );
 }

@@ -7,7 +7,7 @@ import 'package:retrofit_moment/features/search_news_feature/data/search_news_lo
 import 'package:retrofit_moment/features/search_news_feature/data/models/search_news/search_news_model.dart';
 import 'package:retrofit_moment/features/search_news_feature/data/data_source/search_news_data_source_local.dart';
 
-@lazySingleton
+@LazySingleton(as: SearchNewsDataSourceLocal)
 class  SearchNewsDataSourceLocalImpl extends SearchNewsDataSourceLocal{
   @override
   Database getDb() {
@@ -26,11 +26,6 @@ class  SearchNewsDataSourceLocalImpl extends SearchNewsDataSourceLocal{
          image: searchNewsModel.news[i].image, language: searchNewsModel.news[i].language,
          category: searchNewsModel.news[i].category, published: searchNewsModel.news[i].published, searchNewsId: categoryId));
    }
-    (await database.select(database.searchNews).get()).forEach((element) {print('$element');});
-    final uuulyalya = database.select(database.news)..where((row) => row.searchNewsId.isValue(categoryId));
-    final dfdf = await uuulyalya.get();
-    print(dfdf.first);
-
   }
 
   @override

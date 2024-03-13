@@ -6,6 +6,7 @@ class MyColors{
   static const myWhiteColor = Colors.white;
   static const myBlack12Colors = Colors.black12;
   static const myWhite60Colors = Colors.white60;
+  static const myBlack54Colors = Colors.black54;
 
 
 }
