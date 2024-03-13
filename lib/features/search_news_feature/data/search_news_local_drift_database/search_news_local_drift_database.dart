@@ -12,7 +12,7 @@ import 'package:path/path.dart';
 
 part 'search_news_local_drift_database.g.dart';
 
-
+@DataClassName('SearchNewsTable')
 class SearchNews extends Table{
   IntColumn get id => integer().autoIncrement()();
   TextColumn get status => text()();
@@ -21,6 +21,7 @@ class SearchNews extends Table{
   TextColumn get saveData => text()();
 }
 
+@DataClassName('NewsDataTable')
 class News extends Table{
   IntColumn get id => integer().autoIncrement()();
   TextColumn get newsId => text()();

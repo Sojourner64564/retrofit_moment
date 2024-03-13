@@ -1,5 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:retrofit_moment/core/injectable/injectable.dart';
+import 'package:retrofit_moment/features/search_news_feature/data/data_models/news_data_model.dart';
+import 'package:retrofit_moment/features/search_news_feature/data/data_models/search_news_data_model.dart';
 import 'package:retrofit_moment/features/search_news_feature/data/models/search_news/news_model.dart';
 import 'package:retrofit_moment/features/search_news_feature/data/search_news_local_drift_database/search_news_local_drift_database.dart';
 import 'package:retrofit_moment/features/search_news_feature/data/models/search_news/search_news_model.dart';
@@ -68,16 +70,29 @@ class  SearchNewsDataSourceLocalImpl extends SearchNewsDataSourceLocal{
   }
 
   @override
-  Future<List<SearchNews>> loadAllNews(Database database) async{
-    List<SearchNews> searchNewsModelList; //todo возможно сделать дата модель
-    List<NewsModel> newsModelList;
+  Future<List<SearchNewsDataModel>> loadAllNews(Database database) async{
+    List<SearchNewsDataModel> searchNewsModelList = [];
     final searchNewsTable = await database.select(database.searchNews).get();
-    final lenghtOfSearchNews = searchNewsTable.length;
-    for(int i=0; i<=lenghtOfSearchNews;i++){
 
+    for(int i=0; i<searchNewsTable.length;i++){
+      final rowSearchNews = searchNewsTable[i];
+      final searchNewsId = rowSearchNews.id;
+      final newsTable = database.select(database.news)..where((rows) => rows.searchNewsId.isValue(searchNewsId));
+      final newsRow = await newsTable.get();
+      List<NewsDataModel> newsModelList = [];
+
+      for(int b=0;b<newsRow.length;b++){
+        final row = newsRow[b];
+        newsModelList.add(
+             NewsDataModel(newsId: row.newsId,title: row.title,
+                description: row.description, url: row.url, author: row.author,
+                image:row.image,language:row.language,category:row.category ,published: row.published));
+      }
+      searchNewsModelList.add(
+          SearchNewsDataModel(status: rowSearchNews.status, news: newsModelList,
+            queryString: rowSearchNews.queryString, saveData: rowSearchNews.saveData));
     }
-
-
+    return searchNewsModelList;
   }
 
 

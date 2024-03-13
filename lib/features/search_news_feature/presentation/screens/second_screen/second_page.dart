@@ -59,7 +59,6 @@ class SecondPage extends StatelessWidget {
                 }
                 if(state is SearchNewsStateLoaded){
                   return Scrollbar(
-
                     child: ListView.separated(
                       itemCount: state.searchNewsModel.news.length,
                       itemBuilder: (BuildContext context, int index) {
@@ -82,8 +81,7 @@ class SecondPage extends StatelessWidget {
                 }
                 if(state is SearchNewsStateError){
                   return const Center(child: Text('Error', style: MyTextStyles.mediumThickGreyTextStyle,));
-                }
-                else{
+                } else{
                   return const Text('bruh');
                 }
               },

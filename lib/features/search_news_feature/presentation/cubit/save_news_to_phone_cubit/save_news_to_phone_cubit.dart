@@ -5,6 +5,7 @@ import 'package:retrofit_moment/core/assets/my_colors/my_colors.dart';
 import 'package:retrofit_moment/core/injectable/injectable.dart';
 import 'package:retrofit_moment/features/search_news_feature/data/data_source/search_news_data_source_local_impl.dart';
 import 'package:retrofit_moment/features/search_news_feature/data/models/search_news/search_news_model.dart';
+import 'package:retrofit_moment/features/search_news_feature/presentation/cubit/update_search_news_list_cubit/update_search_news_list_cubit.dart';
 
 part 'save_news_to_phone_state.dart';
 
@@ -12,10 +13,11 @@ part 'save_news_to_phone_state.dart';
 class SaveNewsToPhoneCubit extends Cubit<SaveNewsToPhoneState> {
   SaveNewsToPhoneCubit() : super(SaveNewsToPhoneInitial());
   SearchNewsModel actualSearchNewsModel = SearchNewsModel();
-  SearchNewsDataSourceLocalImpl searchNewsLocalDriftDatabaseImpl = getIt();
+  final SearchNewsDataSourceLocalImpl searchNewsLocalDriftDatabaseImpl = getIt();
+  final UpdateSearchNewsListCubit updateSearchNewsListCubit = getIt();
   String searchBarString = '';
 
-  void saveNews(BuildContext context) async {
+  Future<void> saveNews(BuildContext context) async {
     final DateTime saveData = DateTime.now();
     if (actualSearchNewsModel.news.isNotEmpty) {
       final db = searchNewsLocalDriftDatabaseImpl.getDb();
@@ -23,6 +25,7 @@ class SaveNewsToPhoneCubit extends Cubit<SaveNewsToPhoneState> {
 
       if(lenghtOfSearchNewsFromDb==0){
         searchNewsLocalDriftDatabaseImpl.saveModelToBd(db, actualSearchNewsModel, searchBarString, saveData.toString());
+        updateSearchNewsListCubit.updateSearchNewsList();
       }else if (context.mounted){
         if(lenghtOfSearchNewsFromDb!=0) {
           final lastSearhNewsModel = await searchNewsLocalDriftDatabaseImpl.selectLastModelFromBd(db);
@@ -39,6 +42,7 @@ class SaveNewsToPhoneCubit extends Cubit<SaveNewsToPhoneState> {
           if (lastSearhNewsModel.news[0] != actualSearchNewsModel.news[0]) {
             searchNewsLocalDriftDatabaseImpl.saveModelToBd(
                 db, actualSearchNewsModel, searchBarString, saveData.toString());
+            updateSearchNewsListCubit.updateSearchNewsList();
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 backgroundColor: MyColors.myBlackColor,

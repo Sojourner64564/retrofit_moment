@@ -4,7 +4,7 @@ part of 'search_news_local_drift_database.dart';
 
 // ignore_for_file: type=lint
 class $SearchNewsTable extends SearchNews
-    with TableInfo<$SearchNewsTable, SearchNew> {
+    with TableInfo<$SearchNewsTable, SearchNewsTable> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
@@ -49,7 +49,7 @@ class $SearchNewsTable extends SearchNews
   String get actualTableName => $name;
   static const String $name = 'search_news';
   @override
-  VerificationContext validateIntegrity(Insertable<SearchNew> instance,
+  VerificationContext validateIntegrity(Insertable<SearchNewsTable> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -88,9 +88,9 @@ class $SearchNewsTable extends SearchNews
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  SearchNew map(Map<String, dynamic> data, {String? tablePrefix}) {
+  SearchNewsTable map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return SearchNew(
+    return SearchNewsTable(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       status: attachedDatabase.typeMapping
@@ -110,13 +110,13 @@ class $SearchNewsTable extends SearchNews
   }
 }
 
-class SearchNew extends DataClass implements Insertable<SearchNew> {
+class SearchNewsTable extends DataClass implements Insertable<SearchNewsTable> {
   final int id;
   final String status;
   final int page;
   final String queryString;
   final String saveData;
-  const SearchNew(
+  const SearchNewsTable(
       {required this.id,
       required this.status,
       required this.page,
@@ -143,10 +143,10 @@ class SearchNew extends DataClass implements Insertable<SearchNew> {
     );
   }
 
-  factory SearchNew.fromJson(Map<String, dynamic> json,
+  factory SearchNewsTable.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return SearchNew(
+    return SearchNewsTable(
       id: serializer.fromJson<int>(json['id']),
       status: serializer.fromJson<String>(json['status']),
       page: serializer.fromJson<int>(json['page']),
@@ -166,13 +166,13 @@ class SearchNew extends DataClass implements Insertable<SearchNew> {
     };
   }
 
-  SearchNew copyWith(
+  SearchNewsTable copyWith(
           {int? id,
           String? status,
           int? page,
           String? queryString,
           String? saveData}) =>
-      SearchNew(
+      SearchNewsTable(
         id: id ?? this.id,
         status: status ?? this.status,
         page: page ?? this.page,
@@ -181,7 +181,7 @@ class SearchNew extends DataClass implements Insertable<SearchNew> {
       );
   @override
   String toString() {
-    return (StringBuffer('SearchNew(')
+    return (StringBuffer('SearchNewsTable(')
           ..write('id: $id, ')
           ..write('status: $status, ')
           ..write('page: $page, ')
@@ -196,7 +196,7 @@ class SearchNew extends DataClass implements Insertable<SearchNew> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is SearchNew &&
+      (other is SearchNewsTable &&
           other.id == this.id &&
           other.status == this.status &&
           other.page == this.page &&
@@ -204,7 +204,7 @@ class SearchNew extends DataClass implements Insertable<SearchNew> {
           other.saveData == this.saveData);
 }
 
-class SearchNewsCompanion extends UpdateCompanion<SearchNew> {
+class SearchNewsCompanion extends UpdateCompanion<SearchNewsTable> {
   final Value<int> id;
   final Value<String> status;
   final Value<int> page;
@@ -227,7 +227,7 @@ class SearchNewsCompanion extends UpdateCompanion<SearchNew> {
         page = Value(page),
         queryString = Value(queryString),
         saveData = Value(saveData);
-  static Insertable<SearchNew> custom({
+  static Insertable<SearchNewsTable> custom({
     Expression<int>? id,
     Expression<String>? status,
     Expression<int>? page,
@@ -292,7 +292,7 @@ class SearchNewsCompanion extends UpdateCompanion<SearchNew> {
   }
 }
 
-class $NewsTable extends News with TableInfo<$NewsTable, New> {
+class $NewsTable extends News with TableInfo<$NewsTable, NewsDataTable> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
@@ -385,7 +385,7 @@ class $NewsTable extends News with TableInfo<$NewsTable, New> {
   String get actualTableName => $name;
   static const String $name = 'news';
   @override
-  VerificationContext validateIntegrity(Insertable<New> instance,
+  VerificationContext validateIntegrity(Insertable<NewsDataTable> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -457,9 +457,9 @@ class $NewsTable extends News with TableInfo<$NewsTable, New> {
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  New map(Map<String, dynamic> data, {String? tablePrefix}) {
+  NewsDataTable map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return New(
+    return NewsDataTable(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       newsId: attachedDatabase.typeMapping
@@ -495,7 +495,7 @@ class $NewsTable extends News with TableInfo<$NewsTable, New> {
       StringListTypeConverter();
 }
 
-class New extends DataClass implements Insertable<New> {
+class NewsDataTable extends DataClass implements Insertable<NewsDataTable> {
   final int id;
   final String newsId;
   final String title;
@@ -507,7 +507,7 @@ class New extends DataClass implements Insertable<New> {
   final List<String> category;
   final String published;
   final int searchNewsId;
-  const New(
+  const NewsDataTable(
       {required this.id,
       required this.newsId,
       required this.title,
@@ -555,10 +555,10 @@ class New extends DataClass implements Insertable<New> {
     );
   }
 
-  factory New.fromJson(Map<String, dynamic> json,
+  factory NewsDataTable.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return New(
+    return NewsDataTable(
       id: serializer.fromJson<int>(json['id']),
       newsId: serializer.fromJson<String>(json['newsId']),
       title: serializer.fromJson<String>(json['title']),
@@ -590,7 +590,7 @@ class New extends DataClass implements Insertable<New> {
     };
   }
 
-  New copyWith(
+  NewsDataTable copyWith(
           {int? id,
           String? newsId,
           String? title,
@@ -602,7 +602,7 @@ class New extends DataClass implements Insertable<New> {
           List<String>? category,
           String? published,
           int? searchNewsId}) =>
-      New(
+      NewsDataTable(
         id: id ?? this.id,
         newsId: newsId ?? this.newsId,
         title: title ?? this.title,
@@ -617,7 +617,7 @@ class New extends DataClass implements Insertable<New> {
       );
   @override
   String toString() {
-    return (StringBuffer('New(')
+    return (StringBuffer('NewsDataTable(')
           ..write('id: $id, ')
           ..write('newsId: $newsId, ')
           ..write('title: $title, ')
@@ -639,7 +639,7 @@ class New extends DataClass implements Insertable<New> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is New &&
+      (other is NewsDataTable &&
           other.id == this.id &&
           other.newsId == this.newsId &&
           other.title == this.title &&
@@ -653,7 +653,7 @@ class New extends DataClass implements Insertable<New> {
           other.searchNewsId == this.searchNewsId);
 }
 
-class NewsCompanion extends UpdateCompanion<New> {
+class NewsCompanion extends UpdateCompanion<NewsDataTable> {
   final Value<int> id;
   final Value<String> newsId;
   final Value<String> title;
@@ -700,7 +700,7 @@ class NewsCompanion extends UpdateCompanion<New> {
         category = Value(category),
         published = Value(published),
         searchNewsId = Value(searchNewsId);
-  static Insertable<New> custom({
+  static Insertable<NewsDataTable> custom({
     Expression<int>? id,
     Expression<String>? newsId,
     Expression<String>? title,

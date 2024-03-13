@@ -16,7 +16,7 @@ class SearchNewsCubit extends Cubit<SearchNewsState> {
   final SearchNewsUseCase searchNewsUseCase;
   final SaveNewsToPhoneCubit saveNewsToPhoneCubit = getIt();
 
- void fetchSearchNews(String searchBarText) async{
+  Future<void> fetchSearchNews(String searchBarText) async{
    final myText = searchBarText.trim();
    emit(SearchNewsStateLoading());
    try{

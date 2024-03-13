@@ -1,37 +1,74 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:retrofit_moment/core/assets/my_colors/my_colors.dart';
 import 'package:retrofit_moment/core/assets/my_text_styles/my_text_styles.dart';
+import 'package:retrofit_moment/features/search_news_feature/presentation/cubit/update_search_news_list_cubit/update_search_news_list_cubit.dart';
 import 'package:retrofit_moment/features/search_news_feature/presentation/screens/third_screen/widget/saved_search_news_tile_widget.dart';
 
 class ThirdPage extends StatelessWidget {
-  const ThirdPage({super.key});
+   ThirdPage({super.key});
+  final UpdateSearchNewsListCubit updateSearchNewsListCubit = UpdateSearchNewsListCubit();
 
   @override
   Widget build(BuildContext context) {
     return Column(children: [
       const Text(
-      'SAVED NEWS',
-      style: MyTextStyles.giantTitleTextStyle,
-    ),
+        'SAVED NEWS',
+        style: MyTextStyles.giantTitleTextStyle,
+      ),
       const Divider(
         indent: 15,
         endIndent: 15,
         thickness: 3,
         color: MyColors.myBlackColor,
       ),
-    Flexible(
-      flex: 2,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        itemCount: 32,
-        itemBuilder: (BuildContext context, int index) {
-          return const SavedSearchNewsTileWidget();
-        },
-        separatorBuilder: (BuildContext context, int index) {
-          return const SizedBox(width: 20);
-        },
+      Flexible(
+        flex: 2,
+        child: BlocBuilder<UpdateSearchNewsListCubit, UpdateSearchNewsListState>(
+          bloc: updateSearchNewsListCubit,
+          builder: (context, state) {
+            if(state is UpdateSearchNewsListInitialState){
+              return const Center(child: Text('Initial',
+                style: MyTextStyles.mediumThickGreyTextStyle,
+              ));            }
+            if(state is UpdateSearchNewsListLoadingState){
+              return const Center(child: Text('Loading',
+                style: MyTextStyles.mediumThickGreyTextStyle,
+              ));            }
+            if(state is UpdateSearchNewsListLoadedState){
+              return ListView.separated(
+                scrollDirection: Axis.horizontal,
+                itemCount: state.dataModelList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return GestureDetector(
+                    onTap: () {
+
+                    },
+                    child: SavedSearchNewsTileWidget(searchNewsDataModel: state.dataModelList[index],),
+                  );
+                },
+                separatorBuilder: (BuildContext context, int index) {
+                  return const SizedBox(width: 20);
+                },
+              );
+            }
+            if(state is UpdateSearchNewsListEmptyState){
+              return const Center(child: Text('No saves',
+              style: MyTextStyles.mediumThickGreyTextStyle,
+              ));
+            }
+            if(state is UpdateSearchNewsListErrorState){
+              return const Center(child: Text('Error',
+                style: MyTextStyles.mediumThickGreyTextStyle,
+              ));
+            } else{
+              return const Center(child: Text('Unknown error',
+                style: MyTextStyles.mediumThickGreyTextStyle,
+              ));
+            }
+          },
+        ),
       ),
-    ),
       const Divider(
         indent: 15,
         endIndent: 15,
@@ -42,9 +79,9 @@ class ThirdPage extends StatelessWidget {
       Flexible(
         flex: 10,
         child:
-      Container(color: Colors.green,),
+        Container(color: Colors.green,),
       )
     ],
-  );
+    );
   }
 }
