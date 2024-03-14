@@ -1,0 +1,10 @@
+{
+  "latest_news": "Latest News",
+  "search_news": "Search News",
+  "saved_news": "Saved News",
+  "find_news_by_keywords": "find news by keywords",
+  "enter_request_word": "Enter request word",
+  "not_found_request_word": "Not found request word",
+  "error": "Error",
+  "unknown_error": "Unknown error"
+}

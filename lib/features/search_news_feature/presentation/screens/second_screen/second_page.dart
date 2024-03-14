@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:retrofit_moment/core/assets/my_colors/my_colors.dart';
@@ -6,6 +7,7 @@ import 'package:retrofit_moment/core/injectable/injectable.dart';
 import 'package:retrofit_moment/features/common/presentation/screens/widget/loading_text_animation.dart';
 import 'package:retrofit_moment/features/search_news_feature/presentation/cubit/search_news_cubit/search_news_cubit.dart';
 import 'package:retrofit_moment/features/search_news_feature/presentation/screens/second_screen/widget/listview_tile_search_news.dart';
+import 'package:retrofit_moment/generated/locale_keys.g.dart';
 
 class SecondPage extends StatelessWidget {
   SecondPage({super.key});
@@ -14,6 +16,7 @@ class SecondPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('fdfdfdfdfdfdfdfsdafdsfaaaaaaaaaaaaaaaaa');
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Column(
@@ -40,7 +43,7 @@ class SecondPage extends StatelessWidget {
             leading: const Icon(Icons.search),
             backgroundColor: MaterialStateProperty.all(MyColors.myBlack12Colors),
             elevation: MaterialStateProperty.all(0),
-            hintText: 'find news by keywords',
+            hintText: LocaleKeys.find_news_by_keywords.tr(),
             hintStyle: MaterialStateProperty.all(MyTextStyles.mediumThinGreyTextStyle),
             shape: MaterialStateProperty.all(const ContinuousRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -52,7 +55,7 @@ class SecondPage extends StatelessWidget {
               bloc: searchNewsCubit,
               builder: (context, state) {
                 if(state is SearchNewsStateInitial){
-                  return const Center(child: Text('Enter request word', style: MyTextStyles.mediumThickGreyTextStyle));
+                  return Center(child: Text(LocaleKeys.enter_request_word.tr(), style: MyTextStyles.mediumThickGreyTextStyle));
                 }
                 if(state is SearchNewsStateLoading){
                   return const Center(child: LoadingTextAnimation(textStyle: MyTextStyles.mediumThickGreyTextStyle));
@@ -77,12 +80,12 @@ class SecondPage extends StatelessWidget {
                   );
                 }
                 if(state is SearchNewsStateEmptyList){
-                  return const Center(child: Text('Not found request word', style: MyTextStyles.mediumThickGreyTextStyle));
+                  return Center(child: Text(LocaleKeys.not_found_request_word.tr(), style: MyTextStyles.mediumThickGreyTextStyle));
                 }
                 if(state is SearchNewsStateError){
-                  return const Center(child: Text('Error', style: MyTextStyles.mediumThickGreyTextStyle,));
+                  return Center(child: Text(LocaleKeys.error.tr(), style: MyTextStyles.mediumThickGreyTextStyle,));
                 } else{
-                  return const Text('bruh');
+                  return Center(child: Text(LocaleKeys.unknown_error.tr(), style: MyTextStyles.mediumThickGreyTextStyle,));
                 }
               },
             ),

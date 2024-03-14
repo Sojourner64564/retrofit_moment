@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:retrofit_moment/core/assets/my_colors/my_colors.dart';
 import 'package:retrofit_moment/core/assets/my_text_styles/my_text_styles.dart';
@@ -13,6 +14,14 @@ class FirstScreen extends StatelessWidget{
     return Scaffold(
       backgroundColor: MyColors.myWhiteColor,
       appBar: AppBar(
+        leading: IconButton(onPressed: (){
+          if(context.locale == Locale('ru')){
+
+            context.setLocale( Locale('en'));
+          }else{
+            context.setLocale( Locale('ru'));
+          }
+        }, icon: const Icon(Icons.add_circle, color: Colors.black,)),
         elevation: 0,
         backgroundColor: MyColors.myWhiteColor,
         centerTitle: true,
