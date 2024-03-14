@@ -84,10 +84,34 @@ class  SearchNewsDataSourceLocalImpl extends SearchNewsDataSourceLocal{
                 image:row.image,language:row.language,category:row.category ,published: row.published));
       }
       searchNewsModelList.add(
-          SearchNewsDataModel(status: rowSearchNews.status, news: newsModelList,
+          SearchNewsDataModel(id: rowSearchNews.id,status: rowSearchNews.status, news: newsModelList,
             queryString: rowSearchNews.queryString, saveData: rowSearchNews.saveData));
     }
     return searchNewsModelList;
+  }
+
+  @override
+  Future<SearchNewsModel> selectSearchNewsModelById(Database database, int id) async{
+    final SearchNewsModel searchNewsModel;
+    final rowSearchNewsWithId = database.select(database.searchNews)..where((row) => row.id.isValue(id));
+    final rowNewsWithIdOfSearchNews = database.select(database.news)..where((rows) => rows.searchNewsId.isValue(id));
+    final List<NewsModel> newsModelList = [];
+    for(final row in await rowNewsWithIdOfSearchNews.get()){
+    newsModelList.add(NewsModel(
+    id: row.newsId,
+    title: row.title,
+    description: row.description,
+    url: row.url,
+    author: row.author,
+    image: row.image,
+    language: row.language,
+    category: row.category,
+    published: row.published,
+    ));
+    }
+    final rowsSearchNews = await rowSearchNewsWithId.get();
+    searchNewsModel = SearchNewsModel(status: rowsSearchNews[0].status,news: newsModelList,page: rowsSearchNews[0].page);
+    return searchNewsModel;
   }
 
 

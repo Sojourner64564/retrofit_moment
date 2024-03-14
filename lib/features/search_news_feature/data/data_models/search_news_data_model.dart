@@ -3,6 +3,7 @@ import 'package:retrofit_moment/features/search_news_feature/data/data_models/ne
 
 class SearchNewsDataModel extends Equatable{
   const SearchNewsDataModel({
+    this.id = 0,
     this.status = '',
     this.news = const [],
     this.page = 0,
@@ -10,6 +11,7 @@ class SearchNewsDataModel extends Equatable{
     this.saveData = '',
   });
 
+  final int id;
   final String status;
   final List<NewsDataModel> news;
   final int page;
@@ -17,5 +19,5 @@ class SearchNewsDataModel extends Equatable{
   final String saveData;
 
   @override
-  List<Object?> get props => [status, news, page, queryString, saveData];
+  List<Object?> get props => [id, status, news, page, queryString, saveData];
 }

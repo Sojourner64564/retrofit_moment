@@ -8,4 +8,5 @@ abstract class SearchNewsDataSourceLocal{
   Future<SearchNewsModel> selectLastModelFromBd(Database database);
   Future<int> lenghtOfSearchNewsFromDb(Database database);
   Future<List<SearchNewsDataModel>> loadAllNews(Database database);
+  Future<SearchNewsModel> selectSearchNewsModelById(Database database, int id);
 }

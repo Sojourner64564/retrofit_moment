@@ -11,6 +11,7 @@ import 'package:retrofit_moment/features/search_news_feature/data/search_news_lo
 import 'package:retrofit_moment/features/search_news_feature/domain/repository/search_news_repository.dart';
 import 'package:retrofit_moment/features/search_news_feature/domain/usecase/params/lenght_search_news_from_db_params.dart';
 import 'package:retrofit_moment/features/search_news_feature/domain/usecase/params/load_all_news_params.dart';
+import 'package:retrofit_moment/features/search_news_feature/domain/usecase/params/load_saved_search_news_params.dart';
 import 'package:retrofit_moment/features/search_news_feature/domain/usecase/params/save_model_to_db_params.dart';
 import 'package:retrofit_moment/features/search_news_feature/domain/usecase/params/select_last_model_from_db_params.dart';
 
@@ -74,6 +75,16 @@ class SearchNewsRepositoryImpl implements SearchNewsRepository{
   Future<Either<Failure, SearchNewsModel>> selectSearchNewsLastModel(SelectLastModelFromBdParams selectLastModelFromBdParams) async{
     try{
       final returnVariable = await searchNewsDataSourceLocal.selectLastModelFromBd(selectLastModelFromBdParams.database);
+      return Right(returnVariable);
+    }catch(e){
+      return Left(DatabaseFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, SearchNewsModel>> loadSearchNewsModel(LoadSavedSearchNewsParams loadSavedSearchNewsParams) async{
+    try{
+      final returnVariable = await searchNewsDataSourceLocal.selectSearchNewsModelById(loadSavedSearchNewsParams.database, loadSavedSearchNewsParams.id);
       return Right(returnVariable);
     }catch(e){
       return Left(DatabaseFailure());
