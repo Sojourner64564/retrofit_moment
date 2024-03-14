@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:retrofit_moment/core/params/params.dart';
+import 'package:retrofit_moment/features/search_news_feature/domain/usecase/params/params.dart';
 import 'package:retrofit_moment/features/latest_news_feature/data/models/latest_news/latest_news_model.dart';
 import 'package:retrofit_moment/features/latest_news_feature/domain/usecase/latest_news_use_case.dart';
 part 'latest_news_state.dart';
