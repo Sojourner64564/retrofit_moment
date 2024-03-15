@@ -3,7 +3,8 @@ import 'package:retrofit_moment/features/search_news_feature/data/search_news_lo
 import 'package:retrofit_moment/features/search_news_feature/data/models/search_news/search_news_model.dart';
 
 abstract class SearchNewsDataSourceLocal{
-  Database getDb();
+  Database getDb(); //TODO: НЕЛЬЗЯ ПРОСТО ТАК ОТДАВАТЬ РЕСУРС, НУЖНО ОБМЕНИВАТЬСЯ МЕЖДУ СЛОЯМИ ТОЛЬКО МОДЕЛЯМИ ЭНТИТЯМИ И ТАК ДАЛЕЕ
+  
   Future<void> saveModelToBd(Database database, SearchNewsModel searchNewsModel, String queryString, String saveData);
   Future<SearchNewsModel> selectLastModelFromBd(Database database);
   Future<int> lenghtOfSearchNewsFromDb(Database database);

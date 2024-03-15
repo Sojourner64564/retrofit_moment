@@ -6,8 +6,11 @@ import 'package:retrofit_moment/core/injectable/injectable.dart';
 import 'package:retrofit_moment/features/common/presentation/screens/widget/loading_text_animation.dart';
 import 'package:retrofit_moment/features/search_news_feature/presentation/cubit/load_search_news_cubit/load_search_news_cubit.dart';
 import 'package:retrofit_moment/features/search_news_feature/presentation/cubit/update_search_news_list_cubit/update_search_news_list_cubit.dart';
-import 'package:retrofit_moment/features/search_news_feature/presentation/screens/second_screen/widget/listview_tile_search_news.dart';
-import 'package:retrofit_moment/features/search_news_feature/presentation/screens/third_screen/widget/saved_search_news_tile_widget.dart';
+import 'package:retrofit_moment/features/search_news_feature/presentation/screens/widget/listview_tile_search_news.dart';
+import 'package:retrofit_moment/features/search_news_feature/presentation/screens/widget/saved_search_news_tile_widget.dart';
+//TODO РАЗДЕЛИТЬ ВЕРСТКУ ПО БЛОКАМ, ЧТОБЫ ВЕРСТКА НЕ БЫЛА ИЗ БЛОКОВ IF СПЛОШНЫХ
+// НАЗВАНИЕ ДЕБИЛЬНОЕ THIRD PAGE
+// КОГДА БУДЕШЬ ПЕРЕИСПОЛЬЗОВАТЬ ВСПОМНИШЬ КАК НАЗЫВАЕТСЯ ?
 
 class ThirdPage extends StatelessWidget {
   ThirdPage({super.key});
@@ -19,7 +22,7 @@ class ThirdPage extends StatelessWidget {
     return Column(
       children: [
         const Text(
-          'SAVED NEWS',
+          'SAVED NEWS', //TODO В ЛОКАЛИЗАЦИЮ ТЕКСТ
           style: MyTextStyles.giantTitleTextStyle,
         ),
         const Divider(
@@ -37,14 +40,14 @@ class ThirdPage extends StatelessWidget {
               if (state is UpdateSearchNewsListInitialState) {
                 return const Center(
                     child: Text(
-                  'Initial',
+                  'Initial', //TODO В ЛОКАЛИЗАЦИЮ ТЕКСТ
                   style: MyTextStyles.mediumThickGreyTextStyle,
                 ));
               }
               if (state is UpdateSearchNewsListLoadingState) {
                 return const Center(
                     child: Text(
-                  'Loading',
+                  'Loading', //TODO В ЛОКАЛИЗАЦИЮ ТЕКСТ
                   style: MyTextStyles.mediumThickGreyTextStyle,
                 ));
               }
@@ -55,7 +58,8 @@ class ThirdPage extends StatelessWidget {
                   itemBuilder: (BuildContext context, int index) {
                     return GestureDetector(
                       onTap: () {
-                        loadSearchNewsCubit.loadSearchNews(state.dataModelList[index].id);
+                        loadSearchNewsCubit
+                            .loadSearchNews(state.dataModelList[index].id);
                       },
                       child: SavedSearchNewsTileWidget(
                         searchNewsDataModel: state.dataModelList[index],
@@ -70,20 +74,20 @@ class ThirdPage extends StatelessWidget {
               if (state is UpdateSearchNewsListEmptyState) {
                 return const Center(
                     child: Text(
-                  'No saves',
+                  'No saves', //TODO В ЛОКАЛИЗАЦИЮ ТЕКСТ
                   style: MyTextStyles.mediumThickGreyTextStyle,
                 ));
               }
               if (state is UpdateSearchNewsListErrorState) {
                 return const Center(
                     child: Text(
-                  'Error',
+                  'Error', //TODO В ЛОКАЛИЗАЦИЮ ТЕКСТ
                   style: MyTextStyles.mediumThickGreyTextStyle,
                 ));
               } else {
                 return const Center(
                     child: Text(
-                  'Unknown error',
+                  'Unknown error', //TODO В ЛОКАЛИЗАЦИЮ ТЕКСТ
                   style: MyTextStyles.mediumThickGreyTextStyle,
                 ));
               }
@@ -102,23 +106,26 @@ class ThirdPage extends StatelessWidget {
           child: BlocBuilder<LoadSearchNewsCubit, LoadSearchNewsState>(
             bloc: loadSearchNewsCubit,
             builder: (context, state) {
-              if(state is LoadSearchNewsInitial){
+              if (state is LoadSearchNewsInitial) {
                 return const Center(
                     child: Text(
-                      'Choose news',
-                      style: MyTextStyles.mediumThickGreyTextStyle,
-                    ));
+                  'Choose news', //TODO В ЛОКАЛИЗАЦИЮ ТЕКСТ
+                  style: MyTextStyles.mediumThickGreyTextStyle,
+                ));
               }
-              if(state is LoadSearchNewsLoading){
-                return const Center(child: LoadingTextAnimation(textStyle: MyTextStyles.mediumThickGreyTextStyle));
+              if (state is LoadSearchNewsLoading) {
+                return const Center(
+                    child: LoadingTextAnimation(
+                        textStyle: MyTextStyles.mediumThickGreyTextStyle));
               }
-              if(state is LoadSearchNewsLoaded){
+              if (state is LoadSearchNewsLoaded) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: ListView.separated(
                     itemCount: state.searchNewsModel.news.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return ListviewTileSearchNews(newsModel: state.searchNewsModel.news[index]);
+                      return ListviewTileSearchNews(
+                          newsModel: state.searchNewsModel.news[index]);
                     },
                     separatorBuilder: (BuildContext context, int index) {
                       return const Divider(
@@ -132,21 +139,19 @@ class ThirdPage extends StatelessWidget {
                   ),
                 );
               }
-              if(state is LoadSearchNewsError){
+              if (state is LoadSearchNewsError) {
                 return const Center(
                     child: Text(
-                      'Database error',
-                      style: MyTextStyles.mediumThickGreyTextStyle,
-                    ));
-              }
-              else{
+                  'Database error', //TODO В ЛОКАЛИЗАЦИЮ ТЕКСТ
+                  style: MyTextStyles.mediumThickGreyTextStyle,
+                ));
+              } else {
                 return const Center(
                     child: Text(
-                      'Unknown error',
-                      style: MyTextStyles.mediumThickGreyTextStyle,
-                    ));
+                  'Unknown error', //TODO В ЛОКАЛИЗАЦИЮ ТЕКСТ
+                  style: MyTextStyles.mediumThickGreyTextStyle,
+                ));
               }
-
             },
           ),
         ),
@@ -154,3 +159,5 @@ class ThirdPage extends StatelessWidget {
     );
   }
 } //ListviewTileSearchNews(newsModel: state.searchNewsModel.news[index])
+
+//TODO: НАЗВАНИЕ ДЕБИЛЬНЫЕ SECONDS SCREEN THIRD SCREEN  

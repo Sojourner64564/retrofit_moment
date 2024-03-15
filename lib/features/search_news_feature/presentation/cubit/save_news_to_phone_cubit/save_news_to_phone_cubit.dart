@@ -21,7 +21,13 @@ part 'save_news_to_phone_state.dart';
 
 @lazySingleton
 class SaveNewsToPhoneCubit extends Cubit<SaveNewsToPhoneState> {
-  SaveNewsToPhoneCubit(this.getDbSearchNewsUseCase, this.saveSearchNewsModelVoidUseCase, this.searchNewsLastModelUseCase, this.lenghtSearchNewsUseCase,) : super(SaveNewsToPhoneInitial());
+  SaveNewsToPhoneCubit(
+    this.getDbSearchNewsUseCase,
+    this.saveSearchNewsModelVoidUseCase,
+    this.searchNewsLastModelUseCase,
+    this.lenghtSearchNewsUseCase,
+  ) : super(SaveNewsToPhoneInitial());
+
   SearchNewsModel actualSearchNewsModel = SearchNewsModel();
   final UpdateSearchNewsListCubit updateSearchNewsListCubit = getIt();
   final GetDbSearchNewsUseCase getDbSearchNewsUseCase;
@@ -31,73 +37,87 @@ class SaveNewsToPhoneCubit extends Cubit<SaveNewsToPhoneState> {
   String searchBarString = '';
 
   Future<void> saveNews(BuildContext context) async {
-    final String saveData = DateTime.now().toString().substring(0,19);
+    final String saveData = DateTime.now().toString().substring(0, 19);
     if (actualSearchNewsModel.news.isNotEmpty) {
       final db = await getDbSearchNewsUseCase.call(NoParams());
       final eitherDbOrFailure = db.fold((l) => l, (r) => r);
-      if(eitherDbOrFailure is Failure){
+      if (eitherDbOrFailure is Failure) {
+        if (!context.mounted) return;
         _activateScaMess(context, 'Database error');
         return;
       }
       //final db = searchNewsLocalDriftDatabaseImpl.getDb(); //todo---------------------------------
-      if(eitherDbOrFailure is Database){
-        final lenghtOfSearchNewsFromDb = await lenghtSearchNewsUseCase.call(LenghtSearchNewsFromDbParams(database: eitherDbOrFailure));
-        final eitherLenghtOrFailure = lenghtOfSearchNewsFromDb.fold((l) => l, (r) => r);
-        if(eitherLenghtOrFailure is Failure){
+      if (eitherDbOrFailure is Database) {
+        final lenghtOfSearchNewsFromDb = await lenghtSearchNewsUseCase
+            .call(LenghtSearchNewsFromDbParams(database: eitherDbOrFailure));
+        final eitherLenghtOrFailure =
+            lenghtOfSearchNewsFromDb.fold((l) => l, (r) => r);
+        if (eitherLenghtOrFailure is Failure) {
+          if (!context.mounted) return;
           _activateScaMess(context, 'Database error');
         }
-        if(eitherLenghtOrFailure is int){
-          if(eitherLenghtOrFailure==0){
+        if (eitherLenghtOrFailure is int) {
+          if (eitherLenghtOrFailure == 0) {
             saveSearchNewsModelVoidUseCase.call(SaveModelToDbParams(
-                database: eitherDbOrFailure, searchNewsModel: actualSearchNewsModel,
-                queryString: searchBarString, saveData: saveData));
+                database: eitherDbOrFailure,
+                searchNewsModel: actualSearchNewsModel,
+                queryString: searchBarString,
+                saveData: saveData));
 
             //searchNewsLocalDriftDatabaseImpl.saveModelToBd(eitherDbOrFailure, actualSearchNewsModel, searchBarString, saveData);//todo---------------------------------
             updateSearchNewsListCubit.updateSearchNewsList();
             //actualSearchNewsModel = SearchNewsModel();
-            _activateScaMess(context, 'News saved');
-
-          }else if (context.mounted){
-            if(eitherLenghtOrFailure!=0) {
-              final lastSearchNewsModel = await searchNewsLastModelUseCase.call(SelectLastModelFromBdParams(database: eitherDbOrFailure));
-              final eitherModelOrFailure = lastSearchNewsModel.fold((l) => l, (r) => r);
-              if(eitherModelOrFailure is Failure){
+            if (context.mounted) _activateScaMess(context, 'News saved');
+          } else if (context.mounted) {
+            if (eitherLenghtOrFailure != 0) {
+              final lastSearchNewsModel = await searchNewsLastModelUseCase.call(
+                  SelectLastModelFromBdParams(database: eitherDbOrFailure));
+              final eitherModelOrFailure =
+                  lastSearchNewsModel.fold((l) => l, (r) => r);
+              if (eitherModelOrFailure is Failure) {
+                if (!context.mounted) return;
                 _activateScaMess(context, 'Database error');
+
                 return;
               }
               // final lastSearchNewsModel = await searchNewsLocalDriftDatabaseImpl.selectLastModelFromBd(eitherDbOrFailure);//todo---------------------------------
-              if(eitherModelOrFailure is SearchNewsModel){
-                if (eitherModelOrFailure.news[0] == actualSearchNewsModel.news[0]) {
+              if (eitherModelOrFailure is SearchNewsModel) {
+                ///isEmpty
+                if (eitherModelOrFailure.news[0] ==
+                    actualSearchNewsModel.news[0]) {
+                  if (!context.mounted) return;
                   _activateScaMess(context, 'Already saved');
-
                 }
-                if (eitherModelOrFailure.news[0] != actualSearchNewsModel.news[0]) {
-                  saveSearchNewsModelVoidUseCase.call(SaveModelToDbParams(database: eitherDbOrFailure,
-                      searchNewsModel: actualSearchNewsModel, queryString: searchBarString, saveData: saveData));
+
+                ///isEmpty
+                if (eitherModelOrFailure.news[0] !=
+                    actualSearchNewsModel.news[0]) {
+                  saveSearchNewsModelVoidUseCase.call(SaveModelToDbParams(
+                      database: eitherDbOrFailure,
+                      searchNewsModel: actualSearchNewsModel,
+                      queryString: searchBarString,
+                      saveData: saveData));
                   /*searchNewsLocalDriftDatabaseImpl.saveModelToBd(
-                    eitherDbOrFailure, actualSearchNewsModel, searchBarString, saveData);*///todo---------------------------------
+                    eitherDbOrFailure, actualSearchNewsModel, searchBarString, saveData);*/ //todo---------------------------------
                   updateSearchNewsListCubit.updateSearchNewsList();
                   //actualSearchNewsModel = SearchNewsModel();
+                  if (!context.mounted) return;
                   _activateScaMess(context, 'News saved');
-
                 }
               }
-
             }
           }
         }
         //final lenghtOfSearchNewsFromDb = await searchNewsLocalDriftDatabaseImpl.lenghtOfSearchNewsFromDb(eitherDbOrFailure); //todo ------------------
-
       }
-      }
-    else{
+    } else {
       _activateScaMess(context, 'Empty list of news');
     }
   }
 
-  void _activateScaMess(BuildContext context, String message){
+  void _activateScaMess(BuildContext context, String message) {
     ScaffoldMessenger.of(context).showSnackBar(
-       SnackBar(
+      SnackBar(
         backgroundColor: MyColors.myBlackColor,
         content: Text(
           message,
@@ -105,5 +125,4 @@ class SaveNewsToPhoneCubit extends Cubit<SaveNewsToPhoneState> {
       ),
     );
   }
-
 }

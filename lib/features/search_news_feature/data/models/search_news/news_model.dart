@@ -15,7 +15,7 @@ class NewsModel extends Equatable{
   final List<String> category;
   final String published;
 
-  NewsModel({
+  const NewsModel({
      this.id = '',
      this.title = '',
      this.description = '',

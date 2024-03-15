@@ -59,23 +59,21 @@ class Database extends _$Database {
     return MigrationStrategy(
         beforeOpen: (details) async{
           await customStatement('PRAGMA foreign_keys = ON');
-
-
         }
     );
   }
 
 }
 
-LazyDatabase _openConnection() {
-  return LazyDatabase(() async {
-    final dbFolder = await getApplicationDocumentsDirectory();
-    final file = File(p.join(dbFolder.path, 'db.sqlite'));
-    if (Platform.isAndroid) {
-      await applyWorkaroundToOpenSqlite3OnOldAndroidVersions();
-    }
-    final cachebase = (await getTemporaryDirectory()).path;
-    sqlite3.tempDirectory = cachebase;
-    return NativeDatabase.createInBackground(file);
-  });
-}
+// LazyDatabase _openConnection() {
+//   return LazyDatabase(() async {
+//     final dbFolder = await getApplicationDocumentsDirectory();
+//     final file = File(p.join(dbFolder.path, 'db.sqlite'));
+//     if (Platform.isAndroid) {
+//       await applyWorkaroundToOpenSqlite3OnOldAndroidVersions();
+//     }
+//     final cachebase = (await getTemporaryDirectory()).path;
+//     sqlite3.tempDirectory = cachebase;
+//     return NativeDatabase.createInBackground(file);
+//   });
+// }

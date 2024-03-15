@@ -16,31 +16,40 @@ class SearchNewsCubit extends Cubit<SearchNewsState> {
   final SearchNewsUseCase searchNewsUseCase;
   final SaveNewsToPhoneCubit saveNewsToPhoneCubit = getIt();
 
-  Future<void> fetchSearchNews(String searchBarText) async{
-   final myText = searchBarText.trim();
-   emit(SearchNewsStateLoading());
-   try{
-     final failureOrSearchNewsEither = await searchNewsUseCase.call(Params(apiKey: '0F6ApTX1KpMotLBDoMiIkeBVPdRgdFjw95ITDk_Bt6PY6x_e', keywords: myText));
-     final failureOrSearchNews = failureOrSearchNewsEither.fold((failure)=> failure, (searchNews)=>searchNews);
-     if(failureOrSearchNews is Failure){
-       emit(SearchNewsStateError());
-       return;
-     }
-     if(failureOrSearchNews is SearchNewsModel){
-       if(failureOrSearchNews.news.isEmpty){
-         emit(SearchNewsStateEmptyList());
-       }
-     }
-     if(failureOrSearchNews is SearchNewsModel){
-       if(failureOrSearchNews.news.isNotEmpty){
-         saveNewsToPhoneCubit.actualSearchNewsModel = failureOrSearchNews;
-         saveNewsToPhoneCubit.searchBarString = searchBarText;
-         emit(SearchNewsStateLoaded(searchNewsModel: failureOrSearchNews));
-       }
-     }
-   }catch(e){
-     emit(SearchNewsStateError());
-   }
+  Future<void> fetchSearchNews(String searchBarText) async {
+    final myText = searchBarText.trim();
+    emit(SearchNewsStateLoading());
+    try {
+      final failureOrSearchNewsEither = await searchNewsUseCase.call(
+        Params(
+          apiKey: '0F6ApTX1KpMotLBDoMiIkeBVPdRgdFjw95ITDk_Bt6PY6x_e',
+          keywords: myText,
+        ),
+      );
 
- }
+      final failureOrSearchNews = failureOrSearchNewsEither.fold(
+        (failure) => failure,
+        (searchNews) => searchNews,
+      )
+      ;
+      if (failureOrSearchNews is Failure) {
+        emit(SearchNewsStateError());
+        return;
+      }
+      if (failureOrSearchNews is SearchNewsModel) {
+        if (failureOrSearchNews.news.isEmpty) {
+          emit(SearchNewsStateEmptyList());
+        }
+      }
+      if (failureOrSearchNews is SearchNewsModel) {
+        if (failureOrSearchNews.news.isNotEmpty) {
+          saveNewsToPhoneCubit.actualSearchNewsModel = failureOrSearchNews;
+          saveNewsToPhoneCubit.searchBarString = searchBarText;
+          emit(SearchNewsStateLoaded(searchNewsModel: failureOrSearchNews));
+        }
+      }
+    } catch (e) {
+      emit(SearchNewsStateError());
+    }
+  }
 }

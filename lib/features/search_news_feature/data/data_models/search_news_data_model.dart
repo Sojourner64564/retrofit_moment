@@ -1,7 +1,14 @@
 import 'package:equatable/equatable.dart';
 import 'package:retrofit_moment/features/search_news_feature/data/data_models/news_data_model.dart';
 
-class SearchNewsDataModel extends Equatable{
+class SearchNewsDataModel extends Equatable {
+  final int id;
+  final String status;
+  final List<NewsDataModel> news;
+  final int page;
+  final String queryString;
+  final String saveData;
+
   const SearchNewsDataModel({
     this.id = 0,
     this.status = '',
@@ -11,13 +18,13 @@ class SearchNewsDataModel extends Equatable{
     this.saveData = '',
   });
 
-  final int id;
-  final String status;
-  final List<NewsDataModel> news;
-  final int page;
-  final String queryString;
-  final String saveData;
-
   @override
-  List<Object?> get props => [id, status, news, page, queryString, saveData];
+  List<Object?> get props => [
+        id,
+        status,
+        news,
+        page,
+        queryString,
+        saveData,
+      ];
 }

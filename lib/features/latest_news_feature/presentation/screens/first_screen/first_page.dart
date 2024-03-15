@@ -39,7 +39,7 @@ class _FirstPageState extends State<FirstPage> {
           thickness: 3,
         color: MyColors.myBlackColor,
         ),
-        const Center(child: Text('среда | октябрь 23 | 2020', //todo сделать
+        const Center(child: Text('среда | октябрь 23 | 2020', //TODO сделать
         )),
         const Divider(
           indent: 15,
