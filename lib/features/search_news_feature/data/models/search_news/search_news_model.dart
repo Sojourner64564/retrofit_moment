@@ -6,7 +6,7 @@ part 'search_news_model.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class SearchNewsModel extends Equatable{
-  SearchNewsModel({
+  const SearchNewsModel({
      this.status = '',
      this.news = const [],
      this.page = 0,

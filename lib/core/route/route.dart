@@ -1,7 +1,10 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:injectable/injectable.dart';
 import 'package:retrofit_moment/core/route/route.gr.dart';
 
 
+
+@lazySingleton
 @AutoRouterConfig()
 class AppRouter extends $AppRouter {
 

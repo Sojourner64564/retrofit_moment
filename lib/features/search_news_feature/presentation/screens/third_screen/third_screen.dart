@@ -16,7 +16,7 @@ class ThirdScreen extends StatelessWidget{
         elevation: 0,
         backgroundColor: MyColors.myWhiteColor,
         centerTitle: true,
-        title: const Text('Retrofit Moment',
+        title: const Text('Retrofit Moment', //TODO название чисто для сани покажешь потом работадателю он тоже посмеется
           style: MyTextStyles.appbarTextStyle,
         ),
       ),

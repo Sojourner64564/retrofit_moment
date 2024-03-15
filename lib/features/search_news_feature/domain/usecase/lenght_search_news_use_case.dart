@@ -15,4 +15,5 @@ class LenghtSearchNewsUseCase implements UseCase<int, LenghtSearchNewsFromDbPara
     return searchNewsRepository.lenghtSearchNews(params);
   }
 
+
 }

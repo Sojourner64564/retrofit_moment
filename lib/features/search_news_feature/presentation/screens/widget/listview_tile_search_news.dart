@@ -6,11 +6,16 @@ class ListviewTileSearchNews extends StatelessWidget {
   const ListviewTileSearchNews({super.key, required this.newsModel});
   final NewsModel newsModel;
 
-  Widget networkOrAsset(){
-    if(newsModel.image == 'None' || newsModel.image == ''){
-      return Image.asset('assets/images/default_image.jpg',fit: BoxFit.fill);
-    }else{
-      return Image.network(newsModel.image,fit: BoxFit.fitHeight);
+  Widget networkOrAsset() {
+    if (newsModel.image == 'None' || newsModel.image == '') {
+      return Image.asset(
+        'assets/images/default_image.jpg', //TODO СДЕЛАТЬ В CORE КЛАСС СО СТАТИЧЕСКИМИ ПЕРЕМЕННЫМИ КОТОРЫЕ УКАЗЫВАЮТ НА КАРТИНКИ
+        //TODO MyImages.defaultImage
+        // const static defaultImage = 'assets/images/default_image.jpg';
+        fit: BoxFit.fill,
+      );
+    } else {
+      return Image.network(newsModel.image, fit: BoxFit.fitHeight);
     }
   }
 
@@ -25,7 +30,7 @@ class ListviewTileSearchNews extends StatelessWidget {
             height: 200,
             child: Row(
               children: [
-                 Flexible(
+                Flexible(
                   flex: 2,
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(0, 0, 5, 0),
@@ -62,14 +67,15 @@ class ListviewTileSearchNews extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 10),
-          Text(newsModel.published.replaceRange(19, null, ''),
+          Text(
+            newsModel.published.replaceRange(19, null, ''),
             style: MyTextStyles.authorNewsTextStyle,
             maxLines: 1,
           ),
-          Text(newsModel.author,
-          style: MyTextStyles.authorNewsTextStyle,
+          Text(
+            newsModel.author,
+            style: MyTextStyles.authorNewsTextStyle,
             maxLines: 1,
-
           )
         ],
       ),
