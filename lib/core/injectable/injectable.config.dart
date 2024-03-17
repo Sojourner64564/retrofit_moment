@@ -40,7 +40,7 @@ import '../../features/search_news_feature/domain/usecase/load_saved_search_news
     as _i20;
 import '../../features/search_news_feature/domain/usecase/load_search_news_all_news_use_case.dart'
     as _i21;
-import '../../features/search_news_feature/domain/usecase/save_search_news_model_void_use_case.dart'
+import '../../features/search_news_feature/domain/usecase/save_search_news_model_use_case.dart'
     as _i23;
 import '../../features/search_news_feature/domain/usecase/search_news_use_case.dart'
     as _i13;

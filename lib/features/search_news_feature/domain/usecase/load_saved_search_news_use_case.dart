@@ -13,7 +13,7 @@ class LoadSavedSearchNewsUseCase implements UseCase<SearchNewsModel, LoadSavedSe
 
   @override
   Future<Either<Failure, SearchNewsModel>> call(LoadSavedSearchNewsParams params) async{
-    return await searchNewsRepository.loadSearchNewsModel(params);
+    return await searchNewsRepository.loadSearchNewsByIdModel(params);
   }
 
 }

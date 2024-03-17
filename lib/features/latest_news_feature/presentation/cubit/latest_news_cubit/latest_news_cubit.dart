@@ -14,9 +14,22 @@ class LatestNewsCubit extends Cubit<LatestNewsState> {
 
   Future<void> myTestCubitMethod() async {
     emit(LatestNewsStateLoading());
-    try{
-      final failureOrLatestNewsEither = await latestNewsUseCaseImpl.call(Params(apiKey: '0F6ApTX1KpMotLBDoMiIkeBVPdRgdFjw95ITDk_Bt6PY6x_e'));
-      final  failureOrLatestNews = failureOrLatestNewsEither.fold(
+    final failureOrLatestNewsEither = await latestNewsUseCaseImpl.call(
+        Params(apiKey: '0F6ApTX1KpMotLBDoMiIkeBVPdRgdFjw95ITDk_Bt6PY6x_e'));
+    final failureOrLatestNews =
+        failureOrLatestNewsEither.toOption().toNullable();
+    if (failureOrLatestNews == null) {
+      emit(LatestNewsStateError());
+      return;
+    }
+    if (failureOrLatestNews.news.isEmpty) {
+      emit(LatestNewsStateEmptyList());
+    }
+    if (failureOrLatestNews.news.isNotEmpty) {
+      emit(LatestNewsStateLoaded(failureOrLatestNews));
+    }
+
+    /*  final  failureOrLatestNews = failureOrLatestNewsEither.fold(
               (failure) => LatestNewsStateError(), (latestNews) => latestNews);
       if (failureOrLatestNews is LatestNewsStateError) {
         emit(LatestNewsStateError());
@@ -31,10 +44,6 @@ class LatestNewsCubit extends Cubit<LatestNewsState> {
         if(failureOrLatestNews.news.isNotEmpty){
           emit(LatestNewsStateLoaded(failureOrLatestNews));
         }
-      }
-    }catch(e){
-      emit(LatestNewsStateError());
-    }
-
+      }*/
   }
 }

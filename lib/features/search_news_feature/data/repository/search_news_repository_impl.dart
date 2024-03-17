@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
+import 'package:retrofit_moment/core/enums/save_response.dart';
 import 'package:retrofit_moment/core/error/failure.dart';
 import 'package:retrofit_moment/core/network/network_info.dart';
 import 'package:retrofit_moment/features/search_news_feature/domain/usecase/params/params.dart';
@@ -14,6 +15,9 @@ import 'package:retrofit_moment/features/search_news_feature/domain/usecase/para
 import 'package:retrofit_moment/features/search_news_feature/domain/usecase/params/load_saved_search_news_params.dart';
 import 'package:retrofit_moment/features/search_news_feature/domain/usecase/params/save_model_to_db_params.dart';
 import 'package:retrofit_moment/features/search_news_feature/domain/usecase/params/select_last_model_from_db_params.dart';
+
+
+
 
 @LazySingleton(as: SearchNewsRepository)
 class SearchNewsRepositoryImpl implements SearchNewsRepository{
@@ -33,20 +37,11 @@ class SearchNewsRepositoryImpl implements SearchNewsRepository{
     }
   }
 
-  @override
-  Either<Failure, Database> getSearchNewsDb() {
-    try{
-      final db = searchNewsDataSourceLocal.getDb();
-      return Right(db);
-    }catch(e){
-      return Left(DatabaseFailure());
-    }
-  }
 
   @override
   Future<Either<Failure, int>> lenghtSearchNews(LenghtSearchNewsFromDbParams lenghtSearchNewsFromDbParams) async{
     try{
-      final returnVariable = await searchNewsDataSourceLocal.lenghtOfSearchNewsFromDb(lenghtSearchNewsFromDbParams.database);
+      final returnVariable = await searchNewsDataSourceLocal.lenghtOfSearchNewsFromDb();
       return Right(returnVariable);
     }catch(e){
       return Left(DatabaseFailure());
@@ -54,9 +49,9 @@ class SearchNewsRepositoryImpl implements SearchNewsRepository{
   }
 
   @override
-  Future<Either<Failure, List<SearchNewsDataModel>>> loadSearchNewsAllNews(LoadAllNewsParams loadAllNewsParams) async{
+  Future<Either<Failure, List<SearchNewsDataModel>>> loadSearchNewsAllNews() async{
     try{
-      final returnVariable = await searchNewsDataSourceLocal.loadAllNews(loadAllNewsParams.database);
+      final returnVariable = await searchNewsDataSourceLocal.loadAllNews();
       return Right(returnVariable);
     }catch(e){
       return Left(DatabaseFailure());
@@ -64,17 +59,35 @@ class SearchNewsRepositoryImpl implements SearchNewsRepository{
   }
 
   @override
-  Future<void> saveSearchNewsModel(SaveModelToDbParams saveModelToDbParams) async{
+  Future<Either<Failure, SaveResponse>> saveSearchNewsModel(SaveModelToDbParams saveModelToDbParams) async{
     try{
-       await searchNewsDataSourceLocal.saveModelToBd(saveModelToDbParams.database,
-          saveModelToDbParams.searchNewsModel, saveModelToDbParams.queryString, saveModelToDbParams.saveData);
-    }catch(e){}
+      final lastQueryWord = await searchNewsDataSourceLocal.selectQueryLastModel();
+      if(lastQueryWord == null){
+        await searchNewsDataSourceLocal.saveModelToBd(
+            saveModelToDbParams.searchNewsModel,
+            saveModelToDbParams.queryString,
+            saveModelToDbParams.saveData,
+        );
+        return const Right(SaveResponse.saved);
+      }
+      if(lastQueryWord == saveModelToDbParams.queryString){
+        return const Right(SaveResponse.alreadySaved);
+      }
+       await searchNewsDataSourceLocal.saveModelToBd(
+          saveModelToDbParams.searchNewsModel,
+           saveModelToDbParams.queryString,
+           saveModelToDbParams.saveData,
+       );
+      return const Right(SaveResponse.saved);
+    }catch(e){
+      return Left(DatabaseFailure());
+    }
   }
 
   @override
   Future<Either<Failure, SearchNewsModel>> selectSearchNewsLastModel(SelectLastModelFromBdParams selectLastModelFromBdParams) async{
     try{
-      final returnVariable = await searchNewsDataSourceLocal.selectLastModelFromBd(selectLastModelFromBdParams.database);
+      final returnVariable = await searchNewsDataSourceLocal.selectLastModelFromBd();
       return Right(returnVariable);
     }catch(e){
       return Left(DatabaseFailure());
@@ -82,9 +95,9 @@ class SearchNewsRepositoryImpl implements SearchNewsRepository{
   }
 
   @override
-  Future<Either<Failure, SearchNewsModel>> loadSearchNewsModel(LoadSavedSearchNewsParams loadSavedSearchNewsParams) async{
+  Future<Either<Failure, SearchNewsModel>> loadSearchNewsByIdModel(LoadSavedSearchNewsParams loadSavedSearchNewsParams) async{
     try{
-      final returnVariable = await searchNewsDataSourceLocal.selectSearchNewsModelById(loadSavedSearchNewsParams.database, loadSavedSearchNewsParams.id);
+      final returnVariable = await searchNewsDataSourceLocal.selectSearchNewsModelById(loadSavedSearchNewsParams.id);
       return Right(returnVariable);
     }catch(e){
       return Left(DatabaseFailure());

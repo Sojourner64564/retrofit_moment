@@ -17,8 +17,12 @@ class LatestNewsRepositoryImpl implements LatestNewsRepository{
   @override
   Future<Either<Failure, LatestNewsModel>> fetchLatestNewsData(Params params) async{
     if(await networkInfo.isConnected){
-      final latestNews = await latestNewsClientDataSourceRemote.client().fetchLatestNews(params.apiKey);
-      return Right(latestNews);
+      try{
+        final latestNews = await latestNewsClientDataSourceRemote.client().fetchLatestNews(params.apiKey);
+        return Right(latestNews);
+      }catch(e){
+        return Left(ServerFailure());
+      }
     }else{
       return Left(ServerFailure());
     }

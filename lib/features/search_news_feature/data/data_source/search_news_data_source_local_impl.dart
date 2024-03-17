@@ -8,117 +8,147 @@ import 'package:retrofit_moment/features/search_news_feature/data/models/search_
 import 'package:retrofit_moment/features/search_news_feature/data/data_source/search_news_data_source_local.dart';
 
 @LazySingleton(as: SearchNewsDataSourceLocal)
-class  SearchNewsDataSourceLocalImpl extends SearchNewsDataSourceLocal{
+class SearchNewsDataSourceLocalImpl extends SearchNewsDataSourceLocal {
   @override
-  Database getDb() {
-    final Database db = getIt();
-    return db;
+  Future<void> saveModelToBd(
+    SearchNewsModel searchNewsModel,
+    String queryString,
+    String saveData,
+  ) async {
+    final Database database = getIt();
+    final dbSearchNews = database.into(database.searchNews);
+    final dbNews = database.into(database.news);
+    final categoryId = await dbSearchNews.insert(SearchNewsCompanion.insert(
+        status: searchNewsModel.status,
+        page: searchNewsModel.page,
+        queryString: queryString,
+        saveData: saveData));
+    searchNewsModel.news.map((element) {
+      dbNews.insert(NewsCompanion.insert(
+          newsId: element.id,
+          title: element.title,
+          description: element.description,
+          url: element.url,
+          author: element.author,
+          image: element.image,
+          language: element.language,
+          category: element.category,
+          published: element.published,
+          searchNewsId: categoryId));
+    });
   }
 
   @override
-  Future<void> saveModelToBd(Database database, SearchNewsModel searchNewsModel, String queryString, String saveData) async{
-    final categoryId = await database.into(database.searchNews)
-        .insert(SearchNewsCompanion.insert(status: searchNewsModel.status, page: searchNewsModel.page, queryString: queryString, saveData: saveData));
-    for(int i=0;i<searchNewsModel.news.length;i++){
-     await database.into(database.news).
-     insert(NewsCompanion.insert(newsId: searchNewsModel.news[i].id, title: searchNewsModel.news[i].title,
-         description: searchNewsModel.news[i].description, url: searchNewsModel.news[i].url, author: searchNewsModel.news[i].author,
-         image: searchNewsModel.news[i].image, language: searchNewsModel.news[i].language,
-         category: searchNewsModel.news[i].category, published: searchNewsModel.news[i].published, searchNewsId: categoryId));
-   }
+  Future<SearchNewsModel> selectLastModelFromBd() async {
+    final Database database = getIt();
+    final List<NewsModel> newsModelList = [];
+    final searchNewsTable = await database.select(database.searchNews).get();
+    final newsSorted = database.select(database.news)
+      ..where((row) => row.searchNewsId.isValue(searchNewsTable.last.id));
+    (await newsSorted.get()).map((element) => newsModelList.add(
+        NewsModel(
+          id: element.newsId,
+          title: element.title,
+          description: element.description,
+          url: element.url,
+          author: element.author,
+          image: element.image,
+          language: element.language,
+          category: element.category,
+          published: element.published,
+        )
+    ));
+    return SearchNewsModel(
+      status: searchNewsTable.last.status,
+        news: newsModelList,
+        page: searchNewsTable.last.page,
+    );
   }
 
   @override
-  Future<SearchNewsModel> selectLastModelFromBd(Database database) async{
-      final SearchNewsModel searchNewsModel;
-      final searchNewsTable = await database.select(database.searchNews).get();
-      final lastRow = searchNewsTable.last;
-      final maxId = lastRow.id;
-      final rowSearchNewsWithMaxId = database.select(database.searchNews)..where((row) => row.id.isValue(maxId));
-      final rowNewsWithMaxIdOfSearchNews = database.select(database.news)..where((rows) => rows.searchNewsId.isValue(maxId));
-      final row = await rowSearchNewsWithMaxId.get();
-      final newRow = row[0];
-      final List<NewsModel> newsModelList = [];
-      for(final row in await rowNewsWithMaxIdOfSearchNews.get()){
-        newsModelList.add(NewsModel(
-          id: row.newsId,
-          title: row.title,
-          description: row.description,
-          url: row.url,
-          author: row.author,
-          image: row.image,
-          language: row.language,
-          category: row.category,
-          published: row.published,
-        ));
-      }
-      searchNewsModel = SearchNewsModel(status: newRow.status,news: newsModelList, page: newRow.page);
-      return searchNewsModel;
-    }
-
-
-
-  @override
-  Future<int> lenghtOfSearchNewsFromDb(Database database) async{
+  Future<int> lenghtOfSearchNewsFromDb() async {
+    final Database database = getIt();
     final searchNewsTable = await database.select(database.searchNews).get();
     return searchNewsTable.length;
   }
 
   @override
-  Future<List<SearchNewsDataModel>> loadAllNews(Database database) async{
+  Future<List<SearchNewsDataModel>> loadAllNews() async {
+    final Database database = getIt();
     List<SearchNewsDataModel> searchNewsModelList = [];
     final searchNewsTable = await database.select(database.searchNews).get();
 
-    for(int i=0; i<searchNewsTable.length;i++){
+    for (int i = 0; i < searchNewsTable.length; i++) {
       final rowSearchNews = searchNewsTable[i];
       final searchNewsId = rowSearchNews.id;
-      final newsTable = database.select(database.news)..where((rows) => rows.searchNewsId.isValue(searchNewsId));
+      final newsTable = database.select(database.news)
+        ..where((rows) => rows.searchNewsId.isValue(searchNewsId));
       final newsRow = await newsTable.get();
       List<NewsDataModel> newsModelList = [];
 
-      for(int b=0;b<newsRow.length;b++){
+      for (int b = 0; b < newsRow.length; b++) {
         final row = newsRow[b];
-        newsModelList.add(
-             NewsDataModel(newsId: row.newsId,title: row.title,
-                description: row.description, url: row.url, author: row.author,
-                image:row.image,language:row.language,category:row.category ,published: row.published));
+        newsModelList.add(NewsDataModel(
+            newsId: row.newsId,
+            title: row.title,
+            description: row.description,
+            url: row.url,
+            author: row.author,
+            image: row.image,
+            language: row.language,
+            category: row.category,
+            published: row.published));
       }
-      searchNewsModelList.add(
-          SearchNewsDataModel(id: rowSearchNews.id,status: rowSearchNews.status, news: newsModelList,
-            queryString: rowSearchNews.queryString, saveData: rowSearchNews.saveData));
+      searchNewsModelList.add(SearchNewsDataModel(
+          id: rowSearchNews.id,
+          status: rowSearchNews.status,
+          news: newsModelList,
+          queryString: rowSearchNews.queryString,
+          saveData: rowSearchNews.saveData));
     }
     return searchNewsModelList;
   }
 
   @override
-  Future<SearchNewsModel> selectSearchNewsModelById(Database database, int id) async{
+  Future<SearchNewsModel> selectSearchNewsModelById(int id) async {
+    final Database database = getIt(); //TODO сделать читаемым
     final SearchNewsModel searchNewsModel;
-    final rowSearchNewsWithId = database.select(database.searchNews)..where((row) => row.id.isValue(id));
-    final rowNewsWithIdOfSearchNews = database.select(database.news)..where((rows) => rows.searchNewsId.isValue(id));
+    final rowSearchNewsWithId = database.select(database.searchNews)
+      ..where((row) => row.id.isValue(id));
+    final rowNewsWithIdOfSearchNews = database.select(database.news)
+      ..where((rows) => rows.searchNewsId.isValue(id));
     final List<NewsModel> newsModelList = [];
-    for(final row in await rowNewsWithIdOfSearchNews.get()){
-    newsModelList.add(NewsModel(
-    id: row.newsId,
-    title: row.title,
-    description: row.description,
-    url: row.url,
-    author: row.author,
-    image: row.image,
-    language: row.language,
-    category: row.category,
-    published: row.published,
-    ));
+    for (final row in await rowNewsWithIdOfSearchNews.get()) {
+      newsModelList.add(NewsModel(
+        id: row.newsId,
+        title: row.title,
+        description: row.description,
+        url: row.url,
+        author: row.author,
+        image: row.image,
+        language: row.language,
+        category: row.category,
+        published: row.published,
+      ));
     }
     final rowsSearchNews = await rowSearchNewsWithId.get();
-    searchNewsModel = SearchNewsModel(status: rowsSearchNews[0].status,news: newsModelList,page: rowsSearchNews[0].page);
+    searchNewsModel = SearchNewsModel(
+        status: rowsSearchNews[0].status,
+        news: newsModelList,
+        page: rowsSearchNews[0].page);
     return searchNewsModel;
   }
 
-
-
-
-
+  @override
+  Future<String?> selectQueryLastModel() async{
+    final Database database = getIt();
+    final searchNews = await database.select(database.searchNews).get();
+    if(searchNews.isEmpty){
+      return null;
+    }
+    if(searchNews.isNotEmpty){
+      final query = searchNews.last.queryString;
+      return query;
+    }
   }
-
-
-
+}

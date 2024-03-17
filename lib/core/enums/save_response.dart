@@ -1,0 +1,4 @@
+enum SaveResponse{
+  saved,
+  alreadySaved,
+}
