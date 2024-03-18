@@ -16,6 +16,7 @@ class SearchNewsDataSourceLocalImpl extends SearchNewsDataSourceLocal {
     String saveData,
   ) async {
     final Database database = getIt();
+
     final dbSearchNews = database.into(database.searchNews);
     final dbNews = database.into(database.news);
     final categoryId = await dbSearchNews.insert(SearchNewsCompanion.insert(
@@ -61,21 +62,14 @@ class SearchNewsDataSourceLocalImpl extends SearchNewsDataSourceLocal {
     return SearchNewsModel(
       status: searchNewsTable.last.status,
         news: newsModelList,
-        page: searchNewsTable.last.page,
-    );
+        page: searchNewsTable.last.page,);
   }
 
-  @override
-  Future<int> lenghtOfSearchNewsFromDb() async {
-    final Database database = getIt();
-    final searchNewsTable = await database.select(database.searchNews).get();
-    return searchNewsTable.length;
-  }
 
-  @override
   Future<List<SearchNewsDataModel>> loadAllNews() async {
     final Database database = getIt();
     List<SearchNewsDataModel> searchNewsModelList = [];
+
     final searchNewsTable = await database.select(database.searchNews).get();
 
     for (int i = 0; i < searchNewsTable.length; i++) {
@@ -99,18 +93,22 @@ class SearchNewsDataSourceLocalImpl extends SearchNewsDataSourceLocal {
             category: row.category,
             published: row.published));
       }
-      searchNewsModelList.add(SearchNewsDataModel(
+      searchNewsModelList.add(
+        SearchNewsDataModel(
           id: rowSearchNews.id,
           status: rowSearchNews.status,
           news: newsModelList,
           queryString: rowSearchNews.queryString,
-          saveData: rowSearchNews.saveData));
+          saveData: rowSearchNews.saveData
+        ),
+      );
     }
     return searchNewsModelList;
   }
 
   @override
-  Future<SearchNewsModel> selectSearchNewsModelById(int id) async {
+  Future<SearchNewsModel> selectSearchNewsModelById(
+    int id) async {
     final Database database = getIt(); //TODO сделать читаемым
     final SearchNewsModel searchNewsModel;
     final rowSearchNewsWithId = database.select(database.searchNews)
@@ -146,9 +144,10 @@ class SearchNewsDataSourceLocalImpl extends SearchNewsDataSourceLocal {
     if(searchNews.isEmpty){
       return null;
     }
-    if(searchNews.isNotEmpty){
       final query = searchNews.last.queryString;
       return query;
-    }
+
   }
+
 }
+

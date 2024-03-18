@@ -8,11 +8,17 @@ class SavedSearchNewsTileWidget extends StatelessWidget {
       {super.key, required this.searchNewsDataModel});
   final SearchNewsDataModel searchNewsDataModel;
 
-  Widget networkOrAsset(){
-    if(searchNewsDataModel.news[0].image == 'None' || searchNewsDataModel.news[0].image == ''){
-      return Image.asset('assets/images/default_image.jpg',fit: BoxFit.fill);
-    }else{
-      return Image.network(searchNewsDataModel.news[0].image,fit: BoxFit.fitHeight);
+  Widget networkOrAsset() {
+    if (searchNewsDataModel.news.isEmpty) {
+      return const SizedBox();
+    }
+    if (searchNewsDataModel.news[0].image == 'None' ||
+        searchNewsDataModel.news[0].image == '') {
+      return Image.asset('assets/images/default_image.jpg', fit: BoxFit.fill);
+    } else {
+      print(searchNewsDataModel.news[0].image + 'dffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff');
+      return Image.network(searchNewsDataModel.news[0].image,
+          fit: BoxFit.fitHeight);
     }
   }
 
@@ -32,7 +38,7 @@ class SavedSearchNewsTileWidget extends StatelessWidget {
             ),
             Container(
               decoration: BoxDecoration(
-                  color: MyColors.myBlack54Colors,
+                color: MyColors.myBlack54Colors,
                 borderRadius: BorderRadius.circular(15),
               ),
             ),

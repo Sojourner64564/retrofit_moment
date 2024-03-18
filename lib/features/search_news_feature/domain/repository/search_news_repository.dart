@@ -13,7 +13,6 @@ abstract class SearchNewsRepository{
   Future<Either<Failure, SearchNewsModel>> fetchSearchNewsData(Params params);
   Future<Either<Failure, SaveResponse>> saveSearchNewsModel(SaveModelToDbParams saveModelToDbParams);
   Future<Either<Failure, SearchNewsModel>> selectSearchNewsLastModel(SelectLastModelFromBdParams selectLastModelFromBdParams);
-  Future<Either<Failure, int>> lenghtSearchNews(LenghtSearchNewsFromDbParams lenghtSearchNewsFromDbParams);
   Future<Either<Failure, List<SearchNewsDataModel>>> loadSearchNewsAllNews();
   Future<Either<Failure, SearchNewsModel>> loadSearchNewsByIdModel(LoadSavedSearchNewsParams loadSavedSearchNewsParams);
 }

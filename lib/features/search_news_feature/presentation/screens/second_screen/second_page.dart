@@ -6,7 +6,7 @@ import 'package:retrofit_moment/core/assets/my_text_styles/my_text_styles.dart';
 import 'package:retrofit_moment/core/injectable/injectable.dart';
 import 'package:retrofit_moment/features/common/presentation/screens/widget/loading_text_animation.dart';
 import 'package:retrofit_moment/features/search_news_feature/presentation/cubit/search_news_cubit/search_news_cubit.dart';
-import 'package:retrofit_moment/features/search_news_feature/presentation/screens/second_screen/widget/listview_tile_search_news.dart';
+import 'package:retrofit_moment/features/search_news_feature/presentation/screens/widget/listview_tile_search_news.dart';
 import 'package:retrofit_moment/generated/locale_keys.g.dart';
 
 class SecondPage extends StatelessWidget {
@@ -16,7 +16,7 @@ class SecondPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('fdfdfdfdfdfdfdfsdafdsfaaaaaaaaaaaaaaaaa');
+    print('fdfdfdfdfdfdfdfsdafdsfaaaaaaaaaaaaaaaaa'); //TODO лыкасов я твою мать в кино водил
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Column(
@@ -24,7 +24,7 @@ class SecondPage extends StatelessWidget {
           const SizedBox(height: 15),
           const Center(
             child: Text(
-              'SEARCH NEWS',
+              'SEARCH NEWS',//TODO капсом Не пиши ты че додстер, в локализацию
               style: MyTextStyles.giantTitleTextStyle,
             ),
           ),

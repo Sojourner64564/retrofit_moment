@@ -4,7 +4,7 @@ import 'package:retrofit_moment/core/error/failure.dart';
 import 'package:retrofit_moment/core/usecase/use_case.dart';
 import 'package:retrofit_moment/features/search_news_feature/domain/repository/search_news_repository.dart';
 import 'package:retrofit_moment/features/search_news_feature/domain/usecase/params/lenght_search_news_from_db_params.dart';
-
+/*
 @injectable
 class LenghtSearchNewsUseCase implements UseCase<int, LenghtSearchNewsFromDbParams>{
   LenghtSearchNewsUseCase(this.searchNewsRepository);
@@ -15,4 +15,5 @@ class LenghtSearchNewsUseCase implements UseCase<int, LenghtSearchNewsFromDbPara
     return searchNewsRepository.lenghtSearchNews(params);
   }
 
-}
+
+}*/

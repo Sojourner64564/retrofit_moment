@@ -16,92 +16,89 @@ import 'package:retrofit_moment/features/search_news_feature/domain/usecase/para
 import 'package:retrofit_moment/features/search_news_feature/domain/usecase/params/save_model_to_db_params.dart';
 import 'package:retrofit_moment/features/search_news_feature/domain/usecase/params/select_last_model_from_db_params.dart';
 
-
-
-
 @LazySingleton(as: SearchNewsRepository)
-class SearchNewsRepositoryImpl implements SearchNewsRepository{
-  SearchNewsRepositoryImpl(this.networkInfo, this.searchNewsClientDataSourceRemote, this.searchNewsDataSourceLocal);
+class SearchNewsRepositoryImpl implements SearchNewsRepository {
+  SearchNewsRepositoryImpl(this.networkInfo,
+      this.searchNewsClientDataSourceRemote, this.searchNewsDataSourceLocal);
 
   final NetworkInfo networkInfo;
   final SearchNewsClientDataSourceRemote searchNewsClientDataSourceRemote;
   final SearchNewsDataSourceLocal searchNewsDataSourceLocal;
 
   @override
-  Future<Either<Failure, SearchNewsModel>> fetchSearchNewsData(Params params) async{
-    if(await networkInfo.isConnected){
-      final searchNews = await searchNewsClientDataSourceRemote.client().fetchSearchNews(params.apiKey, params.keywords);
+  Future<Either<Failure, SearchNewsModel>> fetchSearchNewsData(
+      Params params) async {
+    if (await networkInfo.isConnected) {
+      final searchNews = await searchNewsClientDataSourceRemote
+          .client()
+          .fetchSearchNews(params.apiKey, params.keywords);
       return Right(searchNews);
-    }else{
+    } else {
       return Left(ServerFailure());
     }
   }
 
-
-  @override
-  Future<Either<Failure, int>> lenghtSearchNews(LenghtSearchNewsFromDbParams lenghtSearchNewsFromDbParams) async{
-    try{
-      final returnVariable = await searchNewsDataSourceLocal.lenghtOfSearchNewsFromDb();
-      return Right(returnVariable);
-    }catch(e){
-      return Left(DatabaseFailure());
-    }
-  }
-
-  @override
-  Future<Either<Failure, List<SearchNewsDataModel>>> loadSearchNewsAllNews() async{
-    try{
+  Future<Either<Failure, List<SearchNewsDataModel>>>
+      loadSearchNewsAllNews() async {
+    try {
       final returnVariable = await searchNewsDataSourceLocal.loadAllNews();
       return Right(returnVariable);
-    }catch(e){
+    } catch (e) {
       return Left(DatabaseFailure());
     }
   }
 
   @override
-  Future<Either<Failure, SaveResponse>> saveSearchNewsModel(SaveModelToDbParams saveModelToDbParams) async{
-    try{
-      final lastQueryWord = await searchNewsDataSourceLocal.selectQueryLastModel();
-      if(lastQueryWord == null){
+  Future<Either<Failure, SaveResponse>> saveSearchNewsModel(
+      SaveModelToDbParams saveModelToDbParams) async {
+    try {
+      final lastQueryWord =
+          await searchNewsDataSourceLocal.selectQueryLastModel();
+      if (lastQueryWord == null) {
         await searchNewsDataSourceLocal.saveModelToBd(
-            saveModelToDbParams.searchNewsModel,
-            saveModelToDbParams.queryString,
-            saveModelToDbParams.saveData,
+          saveModelToDbParams.searchNewsModel,
+          saveModelToDbParams.queryString,
+          saveModelToDbParams.saveData,
         );
         return const Right(SaveResponse.saved);
       }
-      if(lastQueryWord == saveModelToDbParams.queryString){
+      if (lastQueryWord == saveModelToDbParams.queryString) {
         return const Right(SaveResponse.alreadySaved);
       }
-       await searchNewsDataSourceLocal.saveModelToBd(
-          saveModelToDbParams.searchNewsModel,
-           saveModelToDbParams.queryString,
-           saveModelToDbParams.saveData,
-       );
+      await searchNewsDataSourceLocal.saveModelToBd(
+        saveModelToDbParams.searchNewsModel,
+        saveModelToDbParams.queryString,
+        saveModelToDbParams.saveData,
+      );
       return const Right(SaveResponse.saved);
-    }catch(e){
+    } catch (e) {
       return Left(DatabaseFailure());
     }
   }
 
   @override
-  Future<Either<Failure, SearchNewsModel>> selectSearchNewsLastModel(SelectLastModelFromBdParams selectLastModelFromBdParams) async{
-    try{
-      final returnVariable = await searchNewsDataSourceLocal.selectLastModelFromBd();
+  Future<Either<Failure, SearchNewsModel>> selectSearchNewsLastModel(
+      SelectLastModelFromBdParams selectLastModelFromBdParams) async {
+    try {
+      final returnVariable =
+          await searchNewsDataSourceLocal.selectLastModelFromBd();
       return Right(returnVariable);
-    }catch(e){
+    } catch (e) {
       return Left(DatabaseFailure());
     }
   }
 
   @override
-  Future<Either<Failure, SearchNewsModel>> loadSearchNewsByIdModel(LoadSavedSearchNewsParams loadSavedSearchNewsParams) async{
-    try{
-      final returnVariable = await searchNewsDataSourceLocal.selectSearchNewsModelById(loadSavedSearchNewsParams.id);
+  Future<Either<Failure, SearchNewsModel>> loadSearchNewsByIdModel(
+      LoadSavedSearchNewsParams loadSavedSearchNewsParams) async {
+    try {
+      final returnVariable = await searchNewsDataSourceLocal
+          .selectSearchNewsModelById(loadSavedSearchNewsParams.id);
       return Right(returnVariable);
-    }catch(e){
+    } catch (e) {
       return Left(DatabaseFailure());
     }
   }
+
 
 }

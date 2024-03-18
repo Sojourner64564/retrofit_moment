@@ -15,51 +15,20 @@ class UpdateSearchNewsListCubit extends Cubit<UpdateSearchNewsListState> {
 
   Future<void> updateSearchNewsList() async {
     emit(UpdateSearchNewsListLoadingState());
-    final eitherFailureOrAllNews = await loadSearchNewsAllNewsUseCase.call(NoParams());
+    final eitherFailureOrAllNews = await loadSearchNewsAllNewsUseCase.call(
+        NoParams());
     final allNews = eitherFailureOrAllNews.toOption().toNullable();
-    if(allNews == null){
+    if (allNews == null) {
       emit(UpdateSearchNewsListErrorState());
       return;
     }
-    if(allNews.isEmpty){
+    if (allNews.isEmpty) {
       emit(UpdateSearchNewsListEmptyState());
       return;
     }
-    if(allNews.isNotEmpty){
+    if (allNews.isNotEmpty) {
       emit(UpdateSearchNewsListLoadedState(dataModelList: allNews));
       return;
     }
-    /*
-       if(eitherDbOrFailure is Database){
-         final lenghtOfSearchNewsFromDb = await lenghtSearchNewsUseCase.call(LenghtSearchNewsFromDbParams(database: eitherDbOrFailure));
-         final eitherLenghtOrFailure = lenghtOfSearchNewsFromDb.fold((l) => l, (r) => r);
-         if(eitherLenghtOrFailure is Failure){
-           emit(UpdateSearchNewsListErrorState());
-           return;}
-         if(eitherLenghtOrFailure is int){
-           if(eitherLenghtOrFailure==0){
-             emit(UpdateSearchNewsListEmptyState());
-             return;}
-           final allNewsFromBd = await loadSearchNewsAllNewsUseCase.call(LoadAllNewsParams(database: eitherDbOrFailure));
-           final eitherAllNewsOrFailure = allNewsFromBd.fold((l) => l, (r) => r);
-           if(eitherAllNewsOrFailure is Failure){
-             emit(UpdateSearchNewsListErrorState());
-             return;
-           }
-           if(eitherAllNewsOrFailure is List<SearchNewsDataModel>){
-             emit(UpdateSearchNewsListLoadedState(dataModelList: eitherAllNewsOrFailure));
-           }
-         }
-         }
-       }*/
-    //final db = searchNewsLocalDriftDatabaseImpl.getDb();
-    /*final lenghtOfSearchNewsFromDb = await searchNewsLocalDriftDatabaseImpl.lenghtOfSearchNewsFromDb(db);
-       if(lenghtOfSearchNewsFromDb==0){
-         emit(UpdateSearchNewsListEmptyState());
-         return;
-       }
-       final allNews = await searchNewsLocalDriftDatabaseImpl.loadAllNews(db);
-       emit(UpdateSearchNewsListLoadedState(dataModelList: allNews));
-*/
   }
 }

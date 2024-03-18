@@ -12,8 +12,11 @@ import 'package:retrofit_moment/features/search_news_feature/presentation/cubit/
 part 'save_news_to_phone_state.dart';
 
 @lazySingleton
-class SaveNewsToPhoneCubit extends Cubit {
-  SaveNewsToPhoneCubit(this.saveSearchNewsModelUseCase) : super(SaveNewsToPhoneInitial());
+class SaveNewsToPhoneCubit extends Cubit<SaveNewsToPhoneState> {
+  SaveNewsToPhoneCubit(
+    this.saveSearchNewsModelUseCase,
+  ) : super(SaveNewsToPhoneInitial());
+
   SearchNewsModel actualSearchNewsModel = SearchNewsModel();
   final UpdateSearchNewsListCubit updateSearchNewsListCubit = getIt();
   final SaveSearchNewsModelUseCase saveSearchNewsModelUseCase;
@@ -41,62 +44,11 @@ class SaveNewsToPhoneCubit extends Cubit {
       return;
     }
 
-   /* if (actualSearchNewsModel.news.isNotEmpty) {
-      final eitherDbOrFailure = db.fold((l) => l, (r) => r);
-      if(eitherDbOrFailure is Failure){
-        _activateScaMess(context, 'Database error');
-        return;
-      }
-      if(eitherDbOrFailure is Database){
-        final lenghtOfSearchNewsFromDb = await lenghtSearchNewsUseCase.call(LenghtSearchNewsFromDbParams(database: eitherDbOrFailure));
-        final eitherLenghtOrFailure = lenghtOfSearchNewsFromDb.fold((l) => l, (r) => r);
-        if(eitherLenghtOrFailure is Failure){
-          _activateScaMess(context, 'Database error');
-        }
-        if(eitherLenghtOrFailure is int){
-          if(eitherLenghtOrFailure==0){
-            saveSearchNewsModelVoidUseCase.call(SaveModelToDbParams(
-                database: eitherDbOrFailure, searchNewsModel: actualSearchNewsModel,
-                queryString: searchBarString, saveData: saveData));
-
-            updateSearchNewsListCubit.updateSearchNewsList();
-            _activateScaMess(context, 'News saved');
-
-          }else if (context.mounted){
-            if(eitherLenghtOrFailure!=0) {
-              final lastSearchNewsModel = await searchNewsLastModelUseCase.call(SelectLastModelFromBdParams(database: eitherDbOrFailure));
-              final eitherModelOrFailure = lastSearchNewsModel.fold((l) => l, (r) => r);
-              if(eitherModelOrFailure is Failure){
-                _activateScaMess(context, 'Database error');
-                return;
-              }
-              if(eitherModelOrFailure is SearchNewsModel){
-                if (eitherModelOrFailure.news[0] == actualSearchNewsModel.news[0]) {
-                  _activateScaMess(context, 'Already saved');
-
-                }
-                if (eitherModelOrFailure.news[0] != actualSearchNewsModel.news[0]) {
-                  saveSearchNewsModelVoidUseCase.call(SaveModelToDbParams(database: eitherDbOrFailure,
-                      searchNewsModel: actualSearchNewsModel, queryString: searchBarString, saveData: saveData));
-                  updateSearchNewsListCubit.updateSearchNewsList();
-                  _activateScaMess(context, 'News saved');
-
-                }
-              }
-
-            }
-          }
-        }
-      }
-      }
-    else{
-      _activateScaMess(context, 'Empty list of news');
-    }*/
   }
 
-  void _activateScaMess(BuildContext context, String message){
+  void _activateScaMess(BuildContext context, String message) {
     ScaffoldMessenger.of(context).showSnackBar(
-       SnackBar(
+      SnackBar(
         backgroundColor: MyColors.myBlackColor,
         content: Text(
           message,
@@ -104,5 +56,4 @@ class SaveNewsToPhoneCubit extends Cubit {
       ),
     );
   }
-
 }

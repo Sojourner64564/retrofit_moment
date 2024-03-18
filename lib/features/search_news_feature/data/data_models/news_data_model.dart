@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-
-class NewsDataModel extends Equatable{
+class NewsDataModel extends Equatable {
   final String newsId;
   final String title;
   final String description;
@@ -25,5 +24,15 @@ class NewsDataModel extends Equatable{
   });
 
   @override
-  List<Object?> get props => [newsId, title, description, url, author, image, language, category, published];
+  List<Object?> get props => [
+        newsId,
+        title,
+        description,
+        url,
+        author,
+        image,
+        language,
+        category,
+        published,
+      ];
 }
