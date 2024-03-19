@@ -26,34 +26,8 @@ class SearchNewsDataSourceLocalImpl extends SearchNewsDataSourceLocal {
         queryString: queryString,
         saveData: saveData),
     );
-    /*for(int i=0;i<searchNewsModel.news.length;i++){
-     await dbNews.insert(NewsCompanion.insert(
-          newsId: searchNewsModel.news[i].id,
-          title: searchNewsModel.news[i].title,
-          description: searchNewsModel.news[i].description,
-          url: searchNewsModel.news[i].url,
-          author: searchNewsModel.news[i].author,
-          image: searchNewsModel.news[i].image,
-          language: searchNewsModel.news[i].language,
-          category: searchNewsModel.news[i].category,
-          published: searchNewsModel.news[i].published,
-          searchNewsId: categoryId));
-    }*/
-    /* searchNewsModel.news.map((element) {
-       dbNews.insert(NewsCompanion.insert(
-          newsId: element.id,
-          title: element.title,
-          description: element.description,
-          url: element.url,
-          author: element.author,
-          image: element.image,
-          language: element.language,
-          category: element.category,
-          published: element.published,
-          searchNewsId: categoryId));
-    });*/
     for(final element in searchNewsModel.news){
-      dbNews.insert(NewsCompanion.insert(
+       dbNews.insert(NewsCompanion.insert(
           newsId: element.id,
           title: element.title,
           description: element.description,
@@ -90,7 +64,8 @@ class SearchNewsDataSourceLocalImpl extends SearchNewsDataSourceLocal {
     return SearchNewsModel(
       status: searchNewsTable.last.status,
         news: newsModelList,
-        page: searchNewsTable.last.page,);
+        page: searchNewsTable.last.page,
+    );
   }
 
 
@@ -127,8 +102,7 @@ class SearchNewsDataSourceLocalImpl extends SearchNewsDataSourceLocal {
   }
 
   @override
-  Future<SearchNewsModel> selectSearchNewsModelById(
-    int id) async {
+  Future<SearchNewsModel> selectSearchNewsModelById(int id) async {
     final Database database = getIt(); //TODO сделать читаемым
     final SearchNewsModel searchNewsModel;
     final rowSearchNewsWithId = database.select(database.searchNews)

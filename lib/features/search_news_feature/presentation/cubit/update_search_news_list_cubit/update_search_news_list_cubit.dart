@@ -19,13 +19,16 @@ class UpdateSearchNewsListCubit extends Cubit<UpdateSearchNewsListState> {
     final allNews = eitherFailureOrAllNews.toOption().toNullable();
     if (allNews == null) {
       emit(UpdateSearchNewsListErrorState());
+      print('allNews == null');
       return;
     }
     if (allNews.isEmpty) {
+      print('allNews.isEmpty');
       emit(UpdateSearchNewsListEmptyState());
       return;
     }
     if (allNews.isNotEmpty) {
+      print('allNewsisNotEmptyisNotEmptyisNotEmpty');
       emit(UpdateSearchNewsListLoadedState(dataModelList: allNews));
       return;
     }

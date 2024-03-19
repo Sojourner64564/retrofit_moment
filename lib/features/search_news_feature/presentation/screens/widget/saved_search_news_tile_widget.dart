@@ -5,8 +5,7 @@ import 'package:retrofit_moment/features/search_news_feature/data/data_models/se
 import 'package:retrofit_moment/features/search_news_feature/presentation/screens/widget/network_or_asset_search_news_widget.dart';
 
 class SavedSearchNewsTileWidget extends StatelessWidget {
-  const SavedSearchNewsTileWidget(
-      {super.key, required this.searchNewsDataModel});
+  const SavedSearchNewsTileWidget({super.key, required this.searchNewsDataModel});
   final SearchNewsDataModel searchNewsDataModel;
 
   @override

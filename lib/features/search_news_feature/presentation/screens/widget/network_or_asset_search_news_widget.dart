@@ -7,11 +7,16 @@ class NetworkOrAssetSearchNews{
     if (searchNewsDataModel.news.isEmpty) {
       return Image.asset(MyLinks.assetDefaultImage, fit: BoxFit.fill);
     }
-    if(searchNewsDataModel.news[0].image == 'None' || searchNewsDataModel.news[0].image == '') {
+    if(searchNewsDataModel.news.first.image == 'None' || searchNewsDataModel.news.first.image == '') {
       return Image.asset(MyLinks.assetDefaultImage, fit: BoxFit.fill);
     } else {
-      return Image.network(searchNewsDataModel.news[0].image,
-          fit: BoxFit.fitHeight);
+      try{
+        return Image.network(searchNewsDataModel.news[0].image,
+            fit: BoxFit.fitHeight);
+      }catch(e){
+        return Image.asset(MyLinks.assetDefaultImage, fit: BoxFit.fill);
+      }
+
     }
   }
 }

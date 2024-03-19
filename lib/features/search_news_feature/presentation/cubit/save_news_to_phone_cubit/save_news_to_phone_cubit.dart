@@ -17,7 +17,7 @@ class SaveNewsToPhoneCubit extends Cubit<SaveNewsToPhoneState> {
     this.saveSearchNewsModelUseCase,
   ) : super(SaveNewsToPhoneInitial());
 
-  SearchNewsModel actualSearchNewsModel = const SearchNewsModel();
+  SearchNewsModel actualSearchNewsModel = SearchNewsModel();
   final UpdateSearchNewsListCubit updateSearchNewsListCubit = getIt();
   final SaveSearchNewsModelUseCase saveSearchNewsModelUseCase;
   String searchBarString = '';
