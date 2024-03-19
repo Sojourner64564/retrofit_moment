@@ -28,22 +28,5 @@ class LatestNewsCubit extends Cubit<LatestNewsState> {
     if (failureOrLatestNews.news.isNotEmpty) {
       emit(LatestNewsStateLoaded(failureOrLatestNews));
     }
-
-    /*  final  failureOrLatestNews = failureOrLatestNewsEither.fold(
-              (failure) => LatestNewsStateError(), (latestNews) => latestNews);
-      if (failureOrLatestNews is LatestNewsStateError) {
-        emit(LatestNewsStateError());
-        return;
-      }
-      if(failureOrLatestNews is LatestNewsModel){
-        if(failureOrLatestNews.news.isEmpty){
-          emit(LatestNewsStateEmptyList());
-        }
-      }
-      if(failureOrLatestNews is LatestNewsModel){
-        if(failureOrLatestNews.news.isNotEmpty){
-          emit(LatestNewsStateLoaded(failureOrLatestNews));
-        }
-      }*/
   }
 }

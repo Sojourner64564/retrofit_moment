@@ -9,13 +9,12 @@ import 'package:retrofit_moment/features/search_news_feature/domain/usecase/para
 import 'package:retrofit_moment/features/search_news_feature/domain/usecase/save_search_news_model_use_case.dart';
 import 'package:retrofit_moment/features/search_news_feature/presentation/cubit/update_search_news_list_cubit/update_search_news_list_cubit.dart';
 
-part 'save_news_to_phone_state.dart';
 
 @lazySingleton
-class SaveNewsToPhoneCubit extends Cubit<SaveNewsToPhoneState> {
+class SaveNewsToPhoneCubit extends Cubit{
   SaveNewsToPhoneCubit(
     this.saveSearchNewsModelUseCase,
-  ) : super(SaveNewsToPhoneInitial());
+  ) : super(null);
 
   SearchNewsModel actualSearchNewsModel = SearchNewsModel();
   final UpdateSearchNewsListCubit updateSearchNewsListCubit = getIt();

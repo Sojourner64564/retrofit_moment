@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:retrofit_moment/core/error/failure.dart';
 import 'package:retrofit_moment/core/injectable/injectable.dart';
 import 'package:retrofit_moment/features/search_news_feature/data/data_models/news_data_model.dart';
 import 'package:retrofit_moment/features/search_news_feature/data/data_models/search_news_data_model.dart';
@@ -41,33 +42,6 @@ class SearchNewsDataSourceLocalImpl extends SearchNewsDataSourceLocal {
     }
   }
 
-  @override
-  Future<SearchNewsModel> selectLastModelFromBd() async {
-    final Database database = getIt();
-    final List<NewsModel> newsModelList = [];
-    final searchNewsTable = await database.select(database.searchNews).get();
-    final newsSorted = database.select(database.news)
-      ..where((row) => row.searchNewsId.isValue(searchNewsTable.last.id));
-    (await newsSorted.get()).map((element) => newsModelList.add(
-        NewsModel(
-          id: element.newsId,
-          title: element.title,
-          description: element.description,
-          url: element.url,
-          author: element.author,
-          image: element.image,
-          language: element.language,
-          category: element.category,
-          published: element.published,
-        )
-    ));
-    return SearchNewsModel(
-      status: searchNewsTable.last.status,
-        news: newsModelList,
-        page: searchNewsTable.last.page,
-    );
-  }
-
 
   @override
   Future<List<SearchNewsDataModel>> loadAllNews() async {
@@ -103,14 +77,14 @@ class SearchNewsDataSourceLocalImpl extends SearchNewsDataSourceLocal {
 
   @override
   Future<SearchNewsModel> selectSearchNewsModelById(int id) async {
-    final Database database = getIt(); //TODO сделать читаемым
+    final Database database = getIt();
     final SearchNewsModel searchNewsModel;
     final rowSearchNewsWithId = database.select(database.searchNews)
       ..where((row) => row.id.isValue(id));
     final rowNewsWithIdOfSearchNews = database.select(database.news)
       ..where((rows) => rows.searchNewsId.isValue(id));
     final List<NewsModel> newsModelList = [];
-    for (final row in await rowNewsWithIdOfSearchNews.get()) {
+    for(final row in await rowNewsWithIdOfSearchNews.get()) {
       newsModelList.add(NewsModel(
         id: row.newsId,
         title: row.title,
@@ -124,10 +98,11 @@ class SearchNewsDataSourceLocalImpl extends SearchNewsDataSourceLocal {
       ));
     }
     final rowsSearchNews = await rowSearchNewsWithId.get();
+    if(rowsSearchNews.isEmpty) throw DatabaseFailure();
     searchNewsModel = SearchNewsModel(
-        status: rowsSearchNews[0].status,
+        status: rowsSearchNews.first.status,
         news: newsModelList,
-        page: rowsSearchNews[0].page);
+        page: rowsSearchNews.first.page);
     return searchNewsModel;
   }
 
