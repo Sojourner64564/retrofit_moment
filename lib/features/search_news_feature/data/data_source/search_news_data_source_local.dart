@@ -7,5 +7,4 @@ abstract class SearchNewsDataSourceLocal{
   Future<List<SearchNewsDataModel>> loadAllNews();
   Future<SearchNewsModel> selectSearchNewsModelById(int id);
   Future<String?> selectQueryLastModel();
-  //TODO: НЕЛЬЗЯ ПРОСТО ТАК ОТДАВАТЬ РЕСУРС, НУЖНО ОБМЕНИВАТЬСЯ МЕЖДУ СЛОЯМИ ТОЛЬКО МОДЕЛЯМИ ЭНТИТЯМИ И ТАК ДАЛЕЕ
 }

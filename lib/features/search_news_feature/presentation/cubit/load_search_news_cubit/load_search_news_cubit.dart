@@ -20,7 +20,6 @@ class LoadSearchNewsCubit extends Cubit<LoadSearchNewsState> {
      return;
    }
     emit(LoadSearchNewsLoaded(searchNewsModel: searchNewsById));
-    return;
 
    /* if(eitherDbOrFailure is Database){
       final loadNews = await  loadSavedSearchNewsUseCase.call(LoadSavedSearchNewsParams(id: id));

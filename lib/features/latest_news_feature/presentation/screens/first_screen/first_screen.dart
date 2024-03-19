@@ -15,11 +15,11 @@ class FirstScreen extends StatelessWidget{
       backgroundColor: MyColors.myWhiteColor,
       appBar: AppBar(
         leading: IconButton(onPressed: (){
-          if(context.locale == Locale('ru')){
+          if(context.locale == const Locale('ru')){
 
-            context.setLocale( Locale('en'));
+            context.setLocale( const Locale('en'));
           }else{
-            context.setLocale( Locale('ru'));
+            context.setLocale( const Locale('ru'));
           }
         }, icon: const Icon(Icons.add_circle, color: Colors.black,)),
         elevation: 0,

@@ -8,10 +8,7 @@ import 'package:retrofit_moment/features/search_news_feature/data/data_models/se
 import 'package:retrofit_moment/features/search_news_feature/data/data_source/search_news_data_source_local.dart';
 import 'package:retrofit_moment/features/search_news_feature/data/data_source/search_news_data_source_remote.dart';
 import 'package:retrofit_moment/features/search_news_feature/data/models/search_news/search_news_model.dart';
-import 'package:retrofit_moment/features/search_news_feature/data/search_news_local_drift_database/search_news_local_drift_database.dart';
 import 'package:retrofit_moment/features/search_news_feature/domain/repository/search_news_repository.dart';
-import 'package:retrofit_moment/features/search_news_feature/domain/usecase/params/lenght_search_news_from_db_params.dart';
-import 'package:retrofit_moment/features/search_news_feature/domain/usecase/params/load_all_news_params.dart';
 import 'package:retrofit_moment/features/search_news_feature/domain/usecase/params/load_saved_search_news_params.dart';
 import 'package:retrofit_moment/features/search_news_feature/domain/usecase/params/save_model_to_db_params.dart';
 import 'package:retrofit_moment/features/search_news_feature/domain/usecase/params/select_last_model_from_db_params.dart';
@@ -38,8 +35,7 @@ class SearchNewsRepositoryImpl implements SearchNewsRepository {
     }
   }
 
-  Future<Either<Failure, List<SearchNewsDataModel>>>
-      loadSearchNewsAllNews() async {
+  Future<Either<Failure, List<SearchNewsDataModel>>> loadSearchNewsAllNews() async {
     try {
       final returnVariable = await searchNewsDataSourceLocal.loadAllNews();
       return Right(returnVariable);
@@ -49,11 +45,9 @@ class SearchNewsRepositoryImpl implements SearchNewsRepository {
   }
 
   @override
-  Future<Either<Failure, SaveResponse>> saveSearchNewsModel(
-      SaveModelToDbParams saveModelToDbParams) async {
+  Future<Either<Failure, SaveResponse>> saveSearchNewsModel(SaveModelToDbParams saveModelToDbParams) async {
     try {
-      final lastQueryWord =
-          await searchNewsDataSourceLocal.selectQueryLastModel();
+      final lastQueryWord = await searchNewsDataSourceLocal.selectQueryLastModel();
       if (lastQueryWord == null) {
         await searchNewsDataSourceLocal.saveModelToBd(
           saveModelToDbParams.searchNewsModel,

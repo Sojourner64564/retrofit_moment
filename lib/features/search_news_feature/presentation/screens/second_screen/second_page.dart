@@ -16,7 +16,6 @@ class SecondPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('fdfdfdfdfdfdfdfsdafdsfaaaaaaaaaaaaaaaaa'); //TODO лыкасов я твою мать в кино водил
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Column(

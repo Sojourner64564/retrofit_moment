@@ -15,8 +15,7 @@ class UpdateSearchNewsListCubit extends Cubit<UpdateSearchNewsListState> {
 
   Future<void> updateSearchNewsList() async {
     emit(UpdateSearchNewsListLoadingState());
-    final eitherFailureOrAllNews = await loadSearchNewsAllNewsUseCase.call(
-        NoParams());
+    final eitherFailureOrAllNews = await loadSearchNewsAllNewsUseCase.call(NoParams());
     final allNews = eitherFailureOrAllNews.toOption().toNullable();
     if (allNews == null) {
       emit(UpdateSearchNewsListErrorState());
@@ -27,6 +26,9 @@ class UpdateSearchNewsListCubit extends Cubit<UpdateSearchNewsListState> {
       return;
     }
     if (allNews.isNotEmpty) {
+      print(allNews.first);
+      print(allNews.first.news);
+      print(allNews.first.news.toString() + 'allNews.first.news.toString()allNews.first.news.toString()allNews.first.news.toString()');
       emit(UpdateSearchNewsListLoadedState(dataModelList: allNews));
       return;
     }

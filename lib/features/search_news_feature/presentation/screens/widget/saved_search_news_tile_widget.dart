@@ -10,10 +10,11 @@ class SavedSearchNewsTileWidget extends StatelessWidget {
 
   Widget networkOrAsset() {
     if (searchNewsDataModel.news.isEmpty) {
+      print('isEmptyisEmptyisEmptyisEmptyisEmptyisEmptyisEmptyisEmptyisEmptyisEmptyisEmptyisEmptyisEmpty');
       return const SizedBox();
     }
-    if (searchNewsDataModel.news[0].image == 'None' ||
-        searchNewsDataModel.news[0].image == '') {
+    if(searchNewsDataModel.news[0].image == 'None' || searchNewsDataModel.news[0].image == '') {
+      print('imageimageimageimageimageimageimageimageimageimageimageimageimageimageimageimageimage');
       return Image.asset('assets/images/default_image.jpg', fit: BoxFit.fill);
     } else {
       print(searchNewsDataModel.news[0].image + 'dffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff');

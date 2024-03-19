@@ -28,7 +28,8 @@ class SaveNewsToPhoneCubit extends Cubit<SaveNewsToPhoneState> {
         SaveModelToDbParams(
             searchNewsModel: actualSearchNewsModel,
             queryString: searchBarString,
-            saveData: saveData));
+            saveData: saveData)
+    );
     final saveResponse = eitherOrSaveResponse.toOption().toNullable();
     if(saveResponse == null){
       if (context.mounted) _activateScaMess(context, 'Database error');
