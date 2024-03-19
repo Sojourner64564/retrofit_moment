@@ -26,9 +26,6 @@ class UpdateSearchNewsListCubit extends Cubit<UpdateSearchNewsListState> {
       return;
     }
     if (allNews.isNotEmpty) {
-      print(allNews.first);
-      print(allNews.first.news);
-      print(allNews.first.news.toString() + 'allNews.first.news.toString()allNews.first.news.toString()allNews.first.news.toString()');
       emit(UpdateSearchNewsListLoadedState(dataModelList: allNews));
       return;
     }

@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:retrofit_moment/core/easy_localization/codegen_loader.g.dart';
+import 'package:retrofit_moment/core/links/my_links.dart';
 
 class LocalizationWrapper extends StatelessWidget {
   final Widget child;
@@ -17,7 +18,7 @@ class LocalizationWrapper extends StatelessWidget {
         Locale('en'),
         Locale('ru'),
       ],
-      path: 'assets/translations', //TODO В CORE сформировать файл links это тоже ссылка, 
+      path: MyLinks.assetTranslation,
       fallbackLocale: const Locale('en'),
       assetLoader: const CodegenLoader(),
       child: child,

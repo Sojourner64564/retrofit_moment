@@ -11,7 +11,6 @@ import 'package:retrofit_moment/features/search_news_feature/data/models/search_
 import 'package:retrofit_moment/features/search_news_feature/domain/repository/search_news_repository.dart';
 import 'package:retrofit_moment/features/search_news_feature/domain/usecase/params/load_saved_search_news_params.dart';
 import 'package:retrofit_moment/features/search_news_feature/domain/usecase/params/save_model_to_db_params.dart';
-import 'package:retrofit_moment/features/search_news_feature/domain/usecase/params/select_last_model_from_db_params.dart';
 
 @LazySingleton(as: SearchNewsRepository)
 class SearchNewsRepositoryImpl implements SearchNewsRepository {
@@ -35,6 +34,7 @@ class SearchNewsRepositoryImpl implements SearchNewsRepository {
     }
   }
 
+  @override
   Future<Either<Failure, List<SearchNewsDataModel>>> loadSearchNewsAllNews() async {
     try {
       final returnVariable = await searchNewsDataSourceLocal.loadAllNews();
@@ -70,17 +70,6 @@ class SearchNewsRepositoryImpl implements SearchNewsRepository {
     }
   }
 
-  @override
-  Future<Either<Failure, SearchNewsModel>> selectSearchNewsLastModel(
-      SelectLastModelFromBdParams selectLastModelFromBdParams) async {
-    try {
-      final returnVariable =
-          await searchNewsDataSourceLocal.selectLastModelFromBd();
-      return Right(returnVariable);
-    } catch (e) {
-      return Left(DatabaseFailure());
-    }
-  }
 
   @override
   Future<Either<Failure, SearchNewsModel>> loadSearchNewsByIdModel(

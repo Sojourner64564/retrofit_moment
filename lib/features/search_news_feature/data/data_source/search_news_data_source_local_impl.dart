@@ -26,8 +26,8 @@ class SearchNewsDataSourceLocalImpl extends SearchNewsDataSourceLocal {
         queryString: queryString,
         saveData: saveData),
     );
-    for(int i=0;i<searchNewsModel.news.length;i++){
-      dbNews.insert(NewsCompanion.insert(
+    /*for(int i=0;i<searchNewsModel.news.length;i++){
+     await dbNews.insert(NewsCompanion.insert(
           newsId: searchNewsModel.news[i].id,
           title: searchNewsModel.news[i].title,
           description: searchNewsModel.news[i].description,
@@ -38,9 +38,21 @@ class SearchNewsDataSourceLocalImpl extends SearchNewsDataSourceLocal {
           category: searchNewsModel.news[i].category,
           published: searchNewsModel.news[i].published,
           searchNewsId: categoryId));
-
-    }
-   /* searchNewsModel.news.map((element) =>
+    }*/
+    /* searchNewsModel.news.map((element) {
+       dbNews.insert(NewsCompanion.insert(
+          newsId: element.id,
+          title: element.title,
+          description: element.description,
+          url: element.url,
+          author: element.author,
+          image: element.image,
+          language: element.language,
+          category: element.category,
+          published: element.published,
+          searchNewsId: categoryId));
+    });*/
+    for(final element in searchNewsModel.news){
       dbNews.insert(NewsCompanion.insert(
           newsId: element.id,
           title: element.title,
@@ -51,8 +63,8 @@ class SearchNewsDataSourceLocalImpl extends SearchNewsDataSourceLocal {
           language: element.language,
           category: element.category,
           published: element.published,
-          searchNewsId: categoryId))
-    );*/
+          searchNewsId: categoryId));
+    }
   }
 
   @override
@@ -88,41 +100,28 @@ class SearchNewsDataSourceLocalImpl extends SearchNewsDataSourceLocal {
     List<SearchNewsDataModel> searchNewsModelList = [];
     final searchNewsTable = await database.select(database.searchNews).get();
 
-    for (int i = 0; i < searchNewsTable.length; i++) {
-      final newsTable = database.select(database.news)..where((rows) => rows.searchNewsId.isValue(searchNewsTable[i].id));
+    for(final searchNewsElement in searchNewsTable){
+      final newsTable = database.select(database.news)..where((rows) => rows.searchNewsId.isValue(searchNewsElement.id));
       final newsRow = await newsTable.get();
       List<NewsDataModel> newsModelList = [];
-
-      for(int b=0;b<newsRow.length;b++){
+      for(final newsElement in newsRow){
         newsModelList.add(NewsDataModel(
-            newsId: newsRow[b].newsId,
-            title: newsRow[b].title,
-            description: newsRow[b].description,
-            url: newsRow[b].url,
-            author: newsRow[b].author,
-            image: newsRow[b].image,
-            language: newsRow[b].language,
-            category: newsRow[b].category,
-            published: newsRow[b].published));
+            newsId: newsElement.newsId,
+            title: newsElement.title,
+            description: newsElement.description,
+            url: newsElement.url,
+            author: newsElement.author,
+            image: newsElement.image,
+            language: newsElement.language,
+            category: newsElement.category,
+            published: newsElement.published));
       }
-     /* newsRow.map((element) =>  {
-        newsModelList.add(NewsDataModel(
-          newsId: element.newsId,
-          title: element.title,
-          description: element.description,
-          url: element.url,
-          author: element.author,
-          image: element.image,
-          language: element.language,
-          category: element.category,
-          published: element.published))
-      });*/
       searchNewsModelList.add(SearchNewsDataModel(
-          id: searchNewsTable[i].id,
-          status: searchNewsTable[i].status,
+          id: searchNewsElement.id,
+          status: searchNewsElement.status,
           news: newsModelList,
-          queryString: searchNewsTable[i].queryString,
-          saveData: searchNewsTable[i].saveData));
+          queryString: searchNewsElement.queryString,
+          saveData: searchNewsElement.saveData));
     }
     return searchNewsModelList;
   }
