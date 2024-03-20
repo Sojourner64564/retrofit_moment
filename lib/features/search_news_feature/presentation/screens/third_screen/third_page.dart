@@ -9,8 +9,7 @@ import 'package:retrofit_moment/features/search_news_feature/presentation/cubit/
 import 'package:retrofit_moment/features/search_news_feature/presentation/screens/widget/listview_tile_search_news.dart';
 import 'package:retrofit_moment/features/search_news_feature/presentation/screens/widget/saved_search_news_tile_widget.dart';
 //TODO РАЗДЕЛИТЬ ВЕРСТКУ ПО БЛОКАМ, ЧТОБЫ ВЕРСТКА НЕ БЫЛА ИЗ БЛОКОВ IF СПЛОШНЫХ
-// НАЗВАНИЕ ДЕБИЛЬНОЕ THIRD PAGE
-// КОГДА БУДЕШЬ ПЕРЕИСПОЛЬЗОВАТЬ ВСПОМНИШЬ КАК НАЗЫВАЕТСЯ ?
+// изменить название странци и экранов
 
 class ThirdPage extends StatelessWidget {
   ThirdPage({super.key});
@@ -160,4 +159,3 @@ class ThirdPage extends StatelessWidget {
   }
 } //ListviewTileSearchNews(newsModel: state.searchNewsModel.news[index])
 
-//TODO: НАЗВАНИЕ ДЕБИЛЬНЫЕ SECONDS SCREEN THIRD SCREEN  
