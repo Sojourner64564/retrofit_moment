@@ -9,7 +9,7 @@ import 'package:retrofit_moment/features/search_news_feature/presentation/screen
 @RoutePage()
 class SecondScreen extends StatelessWidget{
   SecondScreen({super.key});
-  SaveNewsToPhoneCubit saveNewsToPhoneCubit = getIt();
+  final SaveNewsToPhoneCubit saveNewsToPhoneCubit = getIt<SaveNewsToPhoneCubit>();
 
   @override
   Widget build(BuildContext context) {

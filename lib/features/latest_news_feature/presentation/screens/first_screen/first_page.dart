@@ -16,7 +16,7 @@ class FirstPage extends StatefulWidget {
 }
 
 class _FirstPageState extends State<FirstPage> {
-  final LatestNewsCubit latestNewsCubit = getIt();
+  final LatestNewsCubit latestNewsCubit = getIt<LatestNewsCubit>();
 
   @override
   void initState() {

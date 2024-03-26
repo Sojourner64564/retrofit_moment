@@ -6,6 +6,16 @@ import 'package:retrofit_moment/core/links/my_links.dart';
 import 'package:retrofit_moment/core/route/route.dart';
 import 'package:retrofit_moment/localization_wrapper.dart';
 
+
+
+//TODO Убрать эти шизанутые парамсы
+//TODO РАЗДЕЛИТЬ ВЕРСТКУ ПО БЛОКАМ, ЧТОБЫ ВЕРСТКА НЕ БЫЛА ИЗ БЛОКОВ IF СПЛОШНЫХ
+// изменить название странци и экранов
+//TODO saveResponse заэмитить
+//TODO сделать getIt<SomeClass>()
+
+//TODO в латест ньювс переконверитить модель в ентити
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();

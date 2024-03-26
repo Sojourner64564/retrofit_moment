@@ -8,13 +8,12 @@ import 'package:retrofit_moment/features/search_news_feature/presentation/cubit/
 import 'package:retrofit_moment/features/search_news_feature/presentation/cubit/update_search_news_list_cubit/update_search_news_list_cubit.dart';
 import 'package:retrofit_moment/features/search_news_feature/presentation/screens/widget/listview_tile_search_news.dart';
 import 'package:retrofit_moment/features/search_news_feature/presentation/screens/widget/saved_search_news_tile_widget.dart';
-//TODO РАЗДЕЛИТЬ ВЕРСТКУ ПО БЛОКАМ, ЧТОБЫ ВЕРСТКА НЕ БЫЛА ИЗ БЛОКОВ IF СПЛОШНЫХ
-// изменить название странци и экранов
+
 
 class ThirdPage extends StatelessWidget {
   ThirdPage({super.key});
-  final UpdateSearchNewsListCubit updateSearchNewsListCubit = getIt();
-  final LoadSearchNewsCubit loadSearchNewsCubit = getIt();
+  final UpdateSearchNewsListCubit updateSearchNewsListCubit = getIt<UpdateSearchNewsListCubit>();
+  final LoadSearchNewsCubit loadSearchNewsCubit = getIt<LoadSearchNewsCubit>();
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +55,7 @@ class ThirdPage extends StatelessWidget {
                   itemCount: state.dataModelList.length,
                   itemBuilder: (BuildContext context, int index) {
                     return GestureDetector(
-                      onTap: () {
+                      onTap: () {//TODO сделать реакцию кнопок
                         loadSearchNewsCubit
                             .loadSearchNews(state.dataModelList[index].id);
                       },

@@ -20,7 +20,7 @@ class ThirdScreen extends StatelessWidget{
               final UpdateSearchNewsListCubit updateSearchNewsListCubit = getIt();
               updateSearchNewsListCubit.updateSearchNewsList();
             },
-            icon: Icon(Icons.ac_unit_rounded, color: Colors.green,)),
+            icon: const Icon(Icons.ac_unit_rounded, color: Colors.green,)),
         elevation: 0,
         backgroundColor: MyColors.myWhiteColor,
         centerTitle: true,

@@ -13,41 +13,41 @@ import 'package:internet_connection_checker/internet_connection_checker.dart'
 import '../../features/latest_news_feature/data/data_source/latest_news_data_source_remote.dart'
     as _i6;
 import '../../features/latest_news_feature/data/repository/latest_news_repository_impl.dart'
-    as _i16;
+    as _i19;
 import '../../features/latest_news_feature/domain/repository/latest_news_repository.dart'
-    as _i15;
+    as _i18;
 import '../../features/latest_news_feature/domain/usecase/latest_news_use_case.dart'
-    as _i17;
+    as _i20;
 import '../../features/latest_news_feature/presentation/cubit/latest_news_cubit/latest_news_cubit.dart'
-    as _i24;
+    as _i25;
 import '../../features/search_news_feature/data/data_source/search_news_data_source_local.dart'
     as _i10;
 import '../../features/search_news_feature/data/data_source/search_news_data_source_local_impl.dart'
     as _i11;
 import '../../features/search_news_feature/data/data_source/search_news_data_source_remote.dart'
     as _i9;
+import '../../features/search_news_feature/data/repository/db_search_news_repository_impl.dart'
+    as _i16;
 import '../../features/search_news_feature/data/repository/search_news_repository_impl.dart'
     as _i13;
 import '../../features/search_news_feature/data/search_news_local_drift_database/search_news_local_drift_database.dart'
     as _i4;
+import '../../features/search_news_feature/domain/repository/db_search_news_repository.dart'
+    as _i15;
 import '../../features/search_news_feature/domain/repository/search_news_repository.dart'
     as _i12;
-import '../../features/search_news_feature/domain/usecase/load_saved_search_news_use_case.dart'
-    as _i18;
-import '../../features/search_news_feature/domain/usecase/load_search_news_all_news_use_case.dart'
-    as _i19;
-import '../../features/search_news_feature/domain/usecase/save_search_news_model_use_case.dart'
-    as _i21;
+import '../../features/search_news_feature/domain/usecase/db_search_news_use_case.dart'
+    as _i17;
 import '../../features/search_news_feature/domain/usecase/search_news_use_case.dart'
     as _i14;
 import '../../features/search_news_feature/presentation/cubit/load_search_news_cubit/load_search_news_cubit.dart'
-    as _i20;
+    as _i21;
 import '../../features/search_news_feature/presentation/cubit/save_news_to_phone_cubit/save_news_to_phone_cubit.dart'
-    as _i25;
-import '../../features/search_news_feature/presentation/cubit/search_news_cubit/search_news_cubit.dart'
     as _i22;
-import '../../features/search_news_feature/presentation/cubit/update_search_news_list_cubit/update_search_news_list_cubit.dart'
+import '../../features/search_news_feature/presentation/cubit/search_news_cubit/search_news_cubit.dart'
     as _i23;
+import '../../features/search_news_feature/presentation/cubit/update_search_news_list_cubit/update_search_news_list_cubit.dart'
+    as _i24;
 import '../network/internet_connection_checker.dart' as _i26;
 import '../network/network_info.dart' as _i7;
 import '../network/network_info_impl.dart' as _i8;
@@ -82,33 +82,33 @@ _i1.GetIt $initGetIt(
       () => _i13.SearchNewsRepositoryImpl(
             get<_i7.NetworkInfo>(),
             get<_i9.SearchNewsClientDataSourceRemote>(),
-            get<_i10.SearchNewsDataSourceLocal>(),
           ));
   gh.factory<_i14.SearchNewsUseCase>(
       () => _i14.SearchNewsUseCase(get<_i12.SearchNewsRepository>()));
-  gh.lazySingleton<_i15.LatestNewsRepository>(
-      () => _i16.LatestNewsRepositoryImpl(
+  gh.lazySingleton<_i15.DbSearchNewsRepository>(
+      () => _i16.DbSearchNewsRepositoryImpl(
+            get<_i7.NetworkInfo>(),
+            get<_i10.SearchNewsDataSourceLocal>(),
+          ));
+  gh.lazySingleton<_i17.DbSearchNewsUseCase>(
+      () => _i17.DbSearchNewsUseCase(get<_i15.DbSearchNewsRepository>()));
+  gh.lazySingleton<_i18.LatestNewsRepository>(
+      () => _i19.LatestNewsRepositoryImpl(
             get<_i7.NetworkInfo>(),
             get<_i6.LatestNewsClientDataSourceRemote>(),
           ));
-  gh.factory<_i17.LatestNewsUseCaseImpl>(
-      () => _i17.LatestNewsUseCaseImpl(get<_i15.LatestNewsRepository>()));
-  gh.factory<_i18.LoadSavedSearchNewsUseCase>(
-      () => _i18.LoadSavedSearchNewsUseCase(get<_i12.SearchNewsRepository>()));
-  gh.factory<_i19.LoadSearchNewsAllNewsUseCase>(() =>
-      _i19.LoadSearchNewsAllNewsUseCase(get<_i12.SearchNewsRepository>()));
-  gh.lazySingleton<_i20.LoadSearchNewsCubit>(
-      () => _i20.LoadSearchNewsCubit(get<_i18.LoadSavedSearchNewsUseCase>()));
-  gh.factory<_i21.SaveSearchNewsModelUseCase>(
-      () => _i21.SaveSearchNewsModelUseCase(get<_i12.SearchNewsRepository>()));
-  gh.lazySingleton<_i22.SearchNewsCubit>(
-      () => _i22.SearchNewsCubit(get<_i14.SearchNewsUseCase>()));
-  gh.lazySingleton<_i23.UpdateSearchNewsListCubit>(() =>
-      _i23.UpdateSearchNewsListCubit(get<_i19.LoadSearchNewsAllNewsUseCase>()));
-  gh.lazySingleton<_i24.LatestNewsCubit>(
-      () => _i24.LatestNewsCubit(get<_i17.LatestNewsUseCaseImpl>()));
-  gh.lazySingleton<_i25.SaveNewsToPhoneCubit>(
-      () => _i25.SaveNewsToPhoneCubit(get<_i21.SaveSearchNewsModelUseCase>()));
+  gh.factory<_i20.LatestNewsUseCaseImpl>(
+      () => _i20.LatestNewsUseCaseImpl(get<_i18.LatestNewsRepository>()));
+  gh.lazySingleton<_i21.LoadSearchNewsCubit>(
+      () => _i21.LoadSearchNewsCubit(get<_i17.DbSearchNewsUseCase>()));
+  gh.lazySingleton<_i22.SaveNewsToPhoneCubit>(
+      () => _i22.SaveNewsToPhoneCubit(get<_i17.DbSearchNewsUseCase>()));
+  gh.lazySingleton<_i23.SearchNewsCubit>(
+      () => _i23.SearchNewsCubit(get<_i14.SearchNewsUseCase>()));
+  gh.lazySingleton<_i24.UpdateSearchNewsListCubit>(
+      () => _i24.UpdateSearchNewsListCubit(get<_i17.DbSearchNewsUseCase>()));
+  gh.lazySingleton<_i25.LatestNewsCubit>(
+      () => _i25.LatestNewsCubit(get<_i20.LatestNewsUseCaseImpl>()));
   return get;
 }
 

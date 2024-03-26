@@ -11,7 +11,7 @@ import 'package:retrofit_moment/generated/locale_keys.g.dart';
 
 class SecondPage extends StatelessWidget {
   SecondPage({super.key});
-  final SearchNewsCubit searchNewsCubit = getIt();
+  final SearchNewsCubit searchNewsCubit = getIt<SearchNewsCubit>();
   final TextEditingController textEditingController = TextEditingController();
 
   @override
