@@ -28,11 +28,10 @@ class DbSearchNewsUseCase implements DbSearchNewsRepository {
   Future<Either<Failure, SaveResponse>> saveSearchNewsModel({
     required SearchNewsEntity searchNewsEntity,
       required String queryString,
-      required String saveData,
   }) async {
     return await dbSearchNewsRepository.saveSearchNewsModel(
         searchNewsEntity: searchNewsEntity,
         queryString: queryString,
-        saveData: saveData);
+        );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit_moment/core/enums/save_response.dart';
 import 'package:retrofit_moment/core/error/failure.dart';
@@ -37,9 +38,9 @@ class DbSearchNewsRepositoryImpl implements DbSearchNewsRepository {
   Future<Either<Failure, SaveResponse>> saveSearchNewsModel({
     required SearchNewsEntity searchNewsEntity,
     required String queryString,
-    required String saveData,
   }) async {
     final searchNewsModel = searchNewsEntity.toModel();
+    final String saveData = DateFormat("dd-MM-yyyy – kk:mm").format(DateTime.now());
     try {
       final lastQueryWord =
           await searchNewsDataSourceLocal.selectQueryLastModel();

@@ -22,14 +22,9 @@ class SaveNewsToPhoneCubit extends Cubit{
   String searchBarString = '';
 
   Future<void> saveNews(BuildContext context) async {
-    final String saveData = DateFormat.yMMMd().format(DateTime.now());
-    //final String saveData = DateTime.now().toString().substring(0,19);//TODO седлать форматирование DateFormat('dd:ff:bb')
-    //TODO saveResponse заэмитить
-    
     final eitherOrSaveResponse = await dbSearchNewsUseCase.saveSearchNewsModel(
             searchNewsEntity: actualSearchNewsEntity,
             queryString: searchBarString,
-            saveData: saveData
     );
     final saveResponse = eitherOrSaveResponse.toOption().toNullable();
     if(saveResponse == null){

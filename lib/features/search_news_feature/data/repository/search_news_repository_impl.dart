@@ -23,11 +23,15 @@ class SearchNewsRepositoryImpl implements SearchNewsRepository {
    required String keyword
   }) async {
     if (await networkInfo.isConnected) {
-      final searchNews = await searchNewsClientDataSourceRemote
-          .client()
-          .fetchSearchNews(apiKey, keyword);
-      final answer = searchNews.toEntity();
-      return Right(answer);
+      try{
+        final searchNews = await searchNewsClientDataSourceRemote
+            .client()
+            .fetchSearchNews(apiKey, keyword);
+        final answer = searchNews.toEntity();
+        return Right(answer);
+      }catch(e){
+        return Left(ServerFailure());
+      }
     } else {
       return Left(ServerFailure());
     }

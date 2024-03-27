@@ -39,7 +39,6 @@ class ListviewTileLatestNews extends StatelessWidget{
           style: MyTextStyles.authorNewsTextStyle,
             maxLines: 3,
           ),
-
         ],
       ),
     );
