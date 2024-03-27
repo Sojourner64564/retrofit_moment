@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:retrofit_moment/features/latest_news_feature/domain/entity/news_entity.dart';
 
-class LatestNewsModel extends Equatable{
-  const LatestNewsModel({
+class LatestNewsEntity extends Equatable{
+  const LatestNewsEntity({
     this.status = '',
     this.news = const [],
   });
@@ -12,5 +12,4 @@ class LatestNewsModel extends Equatable{
 
   @override
   List<Object?> get props => [status, news];
-
 }

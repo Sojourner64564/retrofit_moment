@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:retrofit_moment/core/error/failure.dart';
-import 'package:retrofit_moment/features/latest_news_feature/data/models/latest_news/latest_news_model.dart';
+import 'package:retrofit_moment/features/latest_news_feature/domain/entity/latest_news_entity.dart';
 
 abstract class LatestNewsRepository{
-Future<Either<Failure, LatestNewsModel>> fetchLatestNewsData({required String apiKey});
+Future<Either<Failure, LatestNewsEntity>> fetchLatestNewsData({required String apiKey});
 }

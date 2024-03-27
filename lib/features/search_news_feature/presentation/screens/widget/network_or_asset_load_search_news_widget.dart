@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:retrofit_moment/core/links/my_links.dart';
 import 'package:retrofit_moment/features/search_news_feature/domain/entity/search_news_data_entity/search_news_data_entity.dart';
 
-class NetworkOrAssetLatestNews{
-  static Widget networkOrAssetLatestNews(SearchNewsDataEntity searchNewsDataEntity) {
+class NetworkOrAssetLoadSearchNews{
+ static Widget networkOrAssetLoadSearchNews(SearchNewsDataEntity searchNewsDataEntity) {
     if (searchNewsDataEntity.news.isEmpty) {
       return Image.asset(MyLinks.assetDefaultImage, fit: BoxFit.fill);
     }

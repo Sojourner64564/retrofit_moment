@@ -97,8 +97,8 @@ _i1.GetIt $initGetIt(
             get<_i7.NetworkInfo>(),
             get<_i6.LatestNewsClientDataSourceRemote>(),
           ));
-  gh.factory<_i20.LatestNewsUseCaseImpl>(
-      () => _i20.LatestNewsUseCaseImpl(get<_i18.LatestNewsRepository>()));
+  gh.factory<_i20.LatestNewsUseCase>(
+      () => _i20.LatestNewsUseCase(get<_i18.LatestNewsRepository>()));
   gh.lazySingleton<_i21.LoadSearchNewsCubit>(
       () => _i21.LoadSearchNewsCubit(get<_i17.DbSearchNewsUseCase>()));
   gh.lazySingleton<_i22.SaveNewsToPhoneCubit>(
@@ -108,7 +108,7 @@ _i1.GetIt $initGetIt(
   gh.lazySingleton<_i24.UpdateSearchNewsListCubit>(
       () => _i24.UpdateSearchNewsListCubit(get<_i17.DbSearchNewsUseCase>()));
   gh.lazySingleton<_i25.LatestNewsCubit>(
-      () => _i25.LatestNewsCubit(get<_i20.LatestNewsUseCaseImpl>()));
+      () => _i25.LatestNewsCubit(get<_i20.LatestNewsUseCase>()));
   return get;
 }
 

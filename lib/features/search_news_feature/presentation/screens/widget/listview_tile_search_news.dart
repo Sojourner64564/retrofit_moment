@@ -1,23 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:retrofit_moment/core/assets/my_text_styles/my_text_styles.dart';
-import 'package:retrofit_moment/features/search_news_feature/data/models/search_news/news_model.dart';
+import 'package:retrofit_moment/features/search_news_feature/domain/entity/search_news_entity/news_entity.dart';
+import 'package:retrofit_moment/features/search_news_feature/presentation/screens/widget/network_or_asset_loaded_listview_tile_widget.dart';
 
 class ListviewTileSearchNews extends StatelessWidget {
-  const ListviewTileSearchNews({super.key, required this.newsModel});
-  final NewsModel newsModel;
-
-  Widget networkOrAsset() {
-    if (newsModel.image == 'None' || newsModel.image == '') {
-      return Image.asset(
-        'assets/images/default_image.jpg', //TODO СДЕЛАТЬ В CORE КЛАСС СО СТАТИЧЕСКИМИ ПЕРЕМЕННЫМИ КОТОРЫЕ УКАЗЫВАЮТ НА КАРТИНКИ
-        //TODO MyImages.defaultImage
-        // const static defaultImage = 'assets/images/default_image.jpg';
-        fit: BoxFit.fill,
-      );
-    } else {
-      return Image.network(newsModel.image, fit: BoxFit.fitHeight);
-    }
-  }
+  const ListviewTileSearchNews({super.key, required this.newsEntity});
+  final NewsEntity newsEntity;
 
   @override
   Widget build(BuildContext context) {
@@ -38,14 +26,14 @@ class ListviewTileSearchNews extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          newsModel.title,
+                          newsEntity.title,
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
                           style: MyTextStyles.mediumNewsTitleTextStyle,
                         ),
                         const SizedBox(height: 10),
                         Text(
-                          newsModel.description,
+                          newsEntity.description,
                           maxLines: 7,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -59,7 +47,7 @@ class ListviewTileSearchNews extends StatelessWidget {
                     height: 200,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
-                      child: networkOrAsset(),
+                      child: NetworkOrAssetLoadedListviewTileWidget.networkOrAssetLoadedListviewTileWidget(newsEntity),
                     ),
                   ),
                 ),
@@ -68,12 +56,12 @@ class ListviewTileSearchNews extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           Text(
-            newsModel.published.replaceRange(19, null, ''),
+            newsEntity.published.replaceRange(19, null, ''),
             style: MyTextStyles.authorNewsTextStyle,
             maxLines: 1,
           ),
           Text(
-            newsModel.author,
+            newsEntity.author,
             style: MyTextStyles.authorNewsTextStyle,
             maxLines: 1,
           )

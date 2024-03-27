@@ -15,10 +15,10 @@ class LatestNewsStateLoading extends LatestNewsState {
 }
 
 class LatestNewsStateLoaded extends LatestNewsState {
-  const LatestNewsStateLoaded(this.latestNewsModel);
-  final LatestNewsModel latestNewsModel;
+  const LatestNewsStateLoaded(this.latestNewsEntity);
+  final LatestNewsEntity latestNewsEntity;
   @override
-  List<Object> get props => [latestNewsModel];
+  List<Object> get props => [LatestNewsEntity];
 }
 
 class LatestNewsStateEmptyList extends LatestNewsState {

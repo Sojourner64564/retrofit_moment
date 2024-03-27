@@ -62,9 +62,9 @@ class SecondPage extends StatelessWidget {
                 if(state is SearchNewsStateLoaded){
                   return Scrollbar(
                     child: ListView.separated(
-                      itemCount: state.searchNewsModel.news.length,
+                      itemCount: state.searchNewsEntity.news.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return ListviewTileSearchNews(newsModel: state.searchNewsModel.news[index]);
+                        return ListviewTileSearchNews(newsEntity: state.searchNewsEntity.news[index]);
                       },
                       separatorBuilder: (BuildContext context, int index) {
                         return const Divider(

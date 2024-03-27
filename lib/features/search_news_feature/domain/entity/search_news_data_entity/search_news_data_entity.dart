@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
-import 'package:retrofit_moment/features/search_news_feature/data/data_models/news_data_model.dart';
+import 'package:retrofit_moment/features/search_news_feature/domain/entity/search_news_data_entity/news_data_entity.dart';
 
 class SearchNewsDataEntity extends Equatable {
   final int id;
   final String status;
-  final List<NewsDataModel> news;
+  final List<NewsDataEntity> news;
   final int page;
   final String queryString;
   final String saveData;

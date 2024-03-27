@@ -1,4 +1,4 @@
-import 'package:retrofit_moment/features/search_news_feature/data/data_models/search_news_data_model.dart';
+import 'package:retrofit_moment/features/search_news_feature/data/data_models/search_news/search_news_data_model.dart';
 import 'package:retrofit_moment/features/search_news_feature/data/models/search_news/search_news_model.dart';
 
 abstract class SearchNewsDataSourceLocal{

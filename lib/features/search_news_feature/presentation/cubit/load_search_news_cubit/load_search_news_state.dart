@@ -6,7 +6,7 @@ abstract class LoadSearchNewsState {}
 class LoadSearchNewsInitial extends LoadSearchNewsState {}
 class LoadSearchNewsLoading extends LoadSearchNewsState {}
 class LoadSearchNewsLoaded extends LoadSearchNewsState {
-  LoadSearchNewsLoaded({required this.searchNewsModel});
-  final SearchNewsModel searchNewsModel;
+  LoadSearchNewsLoaded({required this.searchNewsEntity});
+  final SearchNewsEntity searchNewsEntity;
 }
 class LoadSearchNewsError extends LoadSearchNewsState {}

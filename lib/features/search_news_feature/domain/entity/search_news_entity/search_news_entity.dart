@@ -1,15 +1,15 @@
 import 'package:equatable/equatable.dart';
-import 'package:retrofit_moment/features/search_news_feature/data/models/search_news/news_model.dart';
+import 'package:retrofit_moment/features/search_news_feature/domain/entity/search_news_entity/news_entity.dart';
 
-class SearchNewsModel extends Equatable{
-  const SearchNewsModel({
+class SearchNewsEntity extends Equatable{
+  const SearchNewsEntity({
     this.status = '',
     this.news = const [],
     this.page = 0,
   });
 
   final String status;
-  final List<NewsModel> news;
+  final List<NewsEntity> news;
   final int page;
 
   @override

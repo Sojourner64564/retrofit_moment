@@ -1,8 +1,8 @@
 import 'package:injectable/injectable.dart';
 import 'package:retrofit_moment/core/error/failure.dart';
 import 'package:retrofit_moment/core/injectable/injectable.dart';
-import 'package:retrofit_moment/features/search_news_feature/data/data_models/news_data_model.dart';
-import 'package:retrofit_moment/features/search_news_feature/data/data_models/search_news_data_model.dart';
+import 'package:retrofit_moment/features/search_news_feature/data/data_models/search_news/news_data_model.dart';
+import 'package:retrofit_moment/features/search_news_feature/data/data_models/search_news/search_news_data_model.dart';
 import 'package:retrofit_moment/features/search_news_feature/data/models/search_news/news_model.dart';
 import 'package:retrofit_moment/features/search_news_feature/data/search_news_local_drift_database/search_news_local_drift_database.dart';
 import 'package:retrofit_moment/features/search_news_feature/data/models/search_news/search_news_model.dart';

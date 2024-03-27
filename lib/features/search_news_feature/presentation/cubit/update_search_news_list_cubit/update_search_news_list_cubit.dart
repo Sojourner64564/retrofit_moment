@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:retrofit_moment/features/search_news_feature/data/data_models/search_news_data_model.dart';
+import 'package:retrofit_moment/features/search_news_feature/domain/entity/search_news_data_entity/search_news_data_entity.dart';
 import 'package:retrofit_moment/features/search_news_feature/domain/usecase/db_search_news_use_case.dart';
 
 part 'update_search_news_list_state.dart';

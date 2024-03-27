@@ -61,9 +61,9 @@ class _FirstPageState extends State<FirstPage> {
                 if(state is LatestNewsStateLoaded) {
                   return Scrollbar(
                     child: ListView.separated(
-                      itemCount: state.latestNewsModel.news.length,
+                      itemCount: state.latestNewsEntity.news.length,
                       itemBuilder: (BuildContext context, int index){
-                          return ListviewTileLatestNews(newsModel: state.latestNewsModel.news[index],);
+                          return ListviewTileLatestNews(newsEntity: state.latestNewsEntity.news[index],);
                         },
                         separatorBuilder: (BuildContext context, int index){
                             return const Divider(

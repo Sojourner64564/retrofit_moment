@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit_moment/core/injectable/injectable.dart';
-import 'package:retrofit_moment/features/search_news_feature/data/models/search_news/search_news_model.dart';
+import 'package:retrofit_moment/features/search_news_feature/domain/entity/search_news_entity/search_news_entity.dart';
 import 'package:retrofit_moment/features/search_news_feature/domain/usecase/search_news_use_case.dart';
 import 'package:retrofit_moment/features/search_news_feature/presentation/cubit/save_news_to_phone_cubit/save_news_to_phone_cubit.dart';
 
@@ -31,9 +31,9 @@ class SearchNewsCubit extends Cubit<SearchNewsState> {
       return;
     }
     if(searchNews.news.isNotEmpty){
-      saveNewsToPhoneCubit.actualSearchNewsModel = searchNews;
+      saveNewsToPhoneCubit.actualSearchNewsEntity = searchNews;
       saveNewsToPhoneCubit.searchBarString = searchBarText;
-      emit(SearchNewsStateLoaded(searchNewsModel: searchNews));
+      emit(SearchNewsStateLoaded(searchNewsEntity: searchNews));
       return;
     }
 

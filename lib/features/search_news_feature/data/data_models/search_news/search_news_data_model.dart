@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:retrofit_moment/features/search_news_feature/data/data_models/news_data_model.dart';
+import 'package:retrofit_moment/features/search_news_feature/data/data_models/search_news/news_data_model.dart';
 
 class SearchNewsDataModel extends Equatable {
   final int id;

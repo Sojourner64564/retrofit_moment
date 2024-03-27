@@ -5,7 +5,7 @@ import 'package:injectable/injectable.dart';
 import 'package:retrofit_moment/core/assets/my_colors/my_colors.dart';
 import 'package:retrofit_moment/core/enums/save_response.dart';
 import 'package:retrofit_moment/core/injectable/injectable.dart';
-import 'package:retrofit_moment/features/search_news_feature/data/models/search_news/search_news_model.dart';
+import 'package:retrofit_moment/features/search_news_feature/domain/entity/search_news_entity/search_news_entity.dart';
 import 'package:retrofit_moment/features/search_news_feature/domain/usecase/db_search_news_use_case.dart';
 import 'package:retrofit_moment/features/search_news_feature/presentation/cubit/update_search_news_list_cubit/update_search_news_list_cubit.dart';
 
@@ -16,7 +16,7 @@ class SaveNewsToPhoneCubit extends Cubit{
     this.dbSearchNewsUseCase,
   ) : super(null);
 
-  SearchNewsModel actualSearchNewsModel = SearchNewsModel();
+  SearchNewsEntity actualSearchNewsEntity = const SearchNewsEntity();
   final UpdateSearchNewsListCubit updateSearchNewsListCubit = getIt<UpdateSearchNewsListCubit>();
   final DbSearchNewsUseCase dbSearchNewsUseCase;
   String searchBarString = '';
@@ -27,7 +27,7 @@ class SaveNewsToPhoneCubit extends Cubit{
     //TODO saveResponse заэмитить
     
     final eitherOrSaveResponse = await dbSearchNewsUseCase.saveSearchNewsModel(
-            searchNewsModel: actualSearchNewsModel,
+            searchNewsEntity: actualSearchNewsEntity,
             queryString: searchBarString,
             saveData: saveData
     );

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:retrofit_moment/core/assets/my_colors/my_colors.dart';
 import 'package:retrofit_moment/core/assets/my_text_styles/my_text_styles.dart';
-import 'package:retrofit_moment/features/search_news_feature/data/data_models/search_news_data_model.dart';
-import 'package:retrofit_moment/features/search_news_feature/presentation/screens/widget/network_or_asset_search_news_widget.dart';
+import 'package:retrofit_moment/features/search_news_feature/data/data_models/search_news/search_news_data_model.dart';
+import 'package:retrofit_moment/features/search_news_feature/domain/entity/search_news_data_entity/search_news_data_entity.dart';
+import 'package:retrofit_moment/features/search_news_feature/presentation/screens/widget/network_or_asset_load_search_news_widget.dart';
 
 class SavedSearchNewsTileWidget extends StatelessWidget {
-  const SavedSearchNewsTileWidget({super.key, required this.searchNewsDataModel});
-  final SearchNewsDataModel searchNewsDataModel;
+  const SavedSearchNewsTileWidget({super.key, required this.searchNewsDataEntity});
+  final SearchNewsDataEntity searchNewsDataEntity;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class SavedSearchNewsTileWidget extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(15),
-              child: NetworkOrAssetSearchNews.networkOrAssetSearchNews(searchNewsDataModel),
+              child: NetworkOrAssetLoadSearchNews.networkOrAssetLoadSearchNews(searchNewsDataEntity),
             ),
             Container(
               decoration: BoxDecoration(
@@ -33,7 +34,7 @@ class SavedSearchNewsTileWidget extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    searchNewsDataModel.queryString,
+                    searchNewsDataEntity.queryString,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: MyTextStyles.mediumThickWhiteTextStyle,
@@ -47,7 +48,7 @@ class SavedSearchNewsTileWidget extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    searchNewsDataModel.saveData,
+                    searchNewsDataEntity.saveData,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: MyTextStyles.littleThickWhiteTextStyle,

@@ -60,7 +60,7 @@ class ThirdPage extends StatelessWidget {
                             .loadSearchNews(state.dataModelList[index].id);
                       },
                       child: SavedSearchNewsTileWidget(
-                        searchNewsDataModel: state.dataModelList[index],
+                        searchNewsDataEntity: state.dataModelList[index],
                       ),
                     );
                   },
@@ -120,10 +120,10 @@ class ThirdPage extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: ListView.separated(
-                    itemCount: state.searchNewsModel.news.length,
+                    itemCount: state.searchNewsEntity.news.length,
                     itemBuilder: (BuildContext context, int index) {
                       return ListviewTileSearchNews(
-                          newsModel: state.searchNewsModel.news[index]);
+                          newsEntity: state.searchNewsEntity.news[index]);
                     },
                     separatorBuilder: (BuildContext context, int index) {
                       return const Divider(
