@@ -7,14 +7,9 @@ import 'package:retrofit_moment/core/injectable/injectable.dart';
 import 'package:retrofit_moment/core/route/route.dart';
 import 'package:retrofit_moment/localization_wrapper.dart';
 
-
-
-//TODO Убрать эти шизанутые парамсы
 //TODO РАЗДЕЛИТЬ ВЕРСТКУ ПО БЛОКАМ, ЧТОБЫ ВЕРСТКА НЕ БЫЛА ИЗ БЛОКОВ IF СПЛОШНЫХ
 // изменить название странци и экранов
 //TODO saveResponse заэмитить
-
-//TODO в латест ньювс переконверитить модель в ентити
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,7 +29,6 @@ void main() async {
     child: const MyApp(),
   )));
 }
-
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
