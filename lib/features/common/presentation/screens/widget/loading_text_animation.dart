@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 class LoadingTextAnimation extends StatefulWidget {
@@ -9,30 +11,23 @@ class LoadingTextAnimation extends StatefulWidget {
 }
 
 class _LoadingTextAnimationState extends State<LoadingTextAnimation> with SingleTickerProviderStateMixin {
-  late Animation<double> animation;
-  late AnimationController controller;
   String textPlus = '';
+  int counter = 0;
 
   @override
   void initState() {
-    super.initState();
-    controller =
-        AnimationController(duration: const Duration(seconds: 2), vsync: this, lowerBound: 0, upperBound: 3);
-    animation = Tween<double>(begin: 0, end: 2).animate(controller)
-      ..addListener(() {
-        setState(() {
-          if(controller.value.round() == 0){
-            textPlus = '   ';
-          }if(controller.value.round() == 1){
-            textPlus = '.  ';
-          }if(controller.value.round() == 2){
-            textPlus = '.. ';
-          }if(controller.value.round() == 3){
-            textPlus = '...';
-          }
-        });
+    Timer.periodic(const Duration(milliseconds: 500), (timer) {
+      if (!mounted) return;
+      setState(() {
+        textPlus = '.'*counter;
+        counter++;
+        if(counter==4){
+          counter=0;
+        }
       });
-    controller.repeat();
+    });
+    super.initState();
+
   }
 
   @override
@@ -42,21 +37,5 @@ class _LoadingTextAnimationState extends State<LoadingTextAnimation> with Single
     );
   }
 
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
 }
-/*
-//TODO: потом переделать
-void initState() {
-    Timer.periodic(Duration(seconds: 1), (timer) {
-      setState(() {
-        counter++;
-      });
-    });
-    super.initState();
-  }
- */
 

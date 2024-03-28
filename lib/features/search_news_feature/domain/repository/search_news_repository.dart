@@ -4,5 +4,5 @@ import 'package:retrofit_moment/features/search_news_feature/domain/entity/searc
 
 
 abstract class SearchNewsRepository{
-  Future<Either<Failure, SearchNewsEntity>> fetchSearchNewsData({required String apiKey, required String keyword});
+  Future<Either<Failure, SearchNewsEntity>> fetchSearchNewsData({required String keyword});
 }

@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:retrofit_moment/core/assets/my_links/my_links.dart';
 import 'package:retrofit_moment/core/easy_localization/codegen_loader.g.dart';
-import 'package:retrofit_moment/core/links/my_links.dart';
 
 class LocalizationWrapper extends StatelessWidget {
   final Widget child;

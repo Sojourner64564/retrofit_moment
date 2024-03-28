@@ -1,8 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:retrofit_moment/core/assets/my_links/my_links.dart';
 import 'package:retrofit_moment/core/easy_localization/codegen_loader.g.dart';
 import 'package:retrofit_moment/core/injectable/injectable.dart';
-import 'package:retrofit_moment/core/links/my_links.dart';
 import 'package:retrofit_moment/core/route/route.dart';
 import 'package:retrofit_moment/localization_wrapper.dart';
 
@@ -12,12 +13,12 @@ import 'package:retrofit_moment/localization_wrapper.dart';
 //TODO РАЗДЕЛИТЬ ВЕРСТКУ ПО БЛОКАМ, ЧТОБЫ ВЕРСТКА НЕ БЫЛА ИЗ БЛОКОВ IF СПЛОШНЫХ
 // изменить название странци и экранов
 //TODO saveResponse заэмитить
-//TODO сделать getIt<SomeClass>()
 
 //TODO в латест ньювс переконверитить модель в ентити
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: MyLinks.assetEnvApiKeys);
   await EasyLocalization.ensureInitialized();
   configureDependencies();
 

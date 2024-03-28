@@ -13,9 +13,7 @@ class LatestNewsCubit extends Cubit<LatestNewsState> {
 
   Future<void> myTestCubitMethod() async {
     emit(LatestNewsStateLoading());
-    final failureOrLatestNewsEither = await latestNewsUseCase.fetchLatestNewsData(
-        apiKey: '0F6ApTX1KpMotLBDoMiIkeBVPdRgdFjw95ITDk_Bt6PY6x_e',
-    );
+    final failureOrLatestNewsEither = await latestNewsUseCase.fetchLatestNewsData();
     final failureOrLatestNews =
         failureOrLatestNewsEither.toOption().toNullable();
     if (failureOrLatestNews == null) {

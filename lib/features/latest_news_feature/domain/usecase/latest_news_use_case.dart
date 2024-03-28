@@ -10,8 +10,8 @@ class LatestNewsUseCase implements LatestNewsRepository{
   final LatestNewsRepository latestNewsRepository;
 
   @override
-  Future<Either<Failure, LatestNewsEntity>> fetchLatestNewsData({required String apiKey}) async{
-    return await latestNewsRepository.fetchLatestNewsData(apiKey: apiKey);
+  Future<Either<Failure, LatestNewsEntity>> fetchLatestNewsData() async{
+    return await latestNewsRepository.fetchLatestNewsData();
   }
 
 }

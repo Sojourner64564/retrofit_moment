@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit_moment/core/error/failure.dart';
 import 'package:retrofit_moment/core/network/network_info.dart';
@@ -15,9 +16,11 @@ class LatestNewsRepositoryImpl implements LatestNewsRepository{
   final LatestNewsClientDataSourceRemote latestNewsClientDataSourceRemote;
 
   @override
-  Future<Either<Failure, LatestNewsEntity>> fetchLatestNewsData({required String apiKey}) async{
+  Future<Either<Failure, LatestNewsEntity>> fetchLatestNewsData() async{
     if(await networkInfo.isConnected){
       try{
+        final apiKey = dotenv.env['API_KEY_NEWS_SERVICE'];
+        if(apiKey==null) throw ServerFailure();
         final latestNews = await latestNewsClientDataSourceRemote.client().fetchLatestNews(apiKey);
         final answer = latestNews.toEntity();
         return Right(answer);

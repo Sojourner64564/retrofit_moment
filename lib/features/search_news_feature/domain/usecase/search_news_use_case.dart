@@ -12,9 +12,8 @@ class SearchNewsUseCase implements SearchNewsRepository {
 
   @override
   Future<Either<Failure, SearchNewsEntity>> fetchSearchNewsData({
-    required String apiKey,
     required String keyword,
   }) async {
-    return await searchNewsRepository.fetchSearchNewsData(apiKey: apiKey, keyword: keyword);
+    return await searchNewsRepository.fetchSearchNewsData(keyword: keyword);
   }
 }

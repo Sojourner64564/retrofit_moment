@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:retrofit_moment/core/links/my_links.dart';
+import 'package:retrofit_moment/core/assets/my_links/my_links.dart';
 import 'package:retrofit_moment/features/search_news_feature/domain/entity/search_news_data_entity/search_news_data_entity.dart';
 
 class NetworkOrAssetLoadSearchNews{
