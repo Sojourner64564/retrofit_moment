@@ -40,6 +40,10 @@ class SaveNewsToPhoneCubit extends Cubit{
       if (context.mounted) _activateScaMess(context, 'Already saved');
       return;
     }
+    if(saveResponse == SaveResponse.emptyList){
+      if (context.mounted) _activateScaMess(context, 'The list is empty');
+      return;
+    }
 
   }
 

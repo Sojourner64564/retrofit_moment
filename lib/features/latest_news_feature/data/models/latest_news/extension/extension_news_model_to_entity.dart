@@ -16,3 +16,4 @@ extension NewsToEntetyExtension on NewsModel {
     );
   }
 }
+//TODO DateFormat("dd-MM-yyyy – kk:mm").format(DateTime.parse(newsModel.published))//newsModel.published, сделать так но потом

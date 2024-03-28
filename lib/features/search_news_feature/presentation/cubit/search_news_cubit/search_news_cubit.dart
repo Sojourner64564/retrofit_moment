@@ -17,7 +17,7 @@ class SearchNewsCubit extends Cubit<SearchNewsState> {
   Future<void> fetchSearchNews(String searchBarText) async {
     final myText = searchBarText.trim();
     emit(SearchNewsStateLoading());
-    final failureOrSearchNewsEither = await searchNewsUseCase.fetchSearchNewsData(keyword: myText,);
+    final failureOrSearchNewsEither = await searchNewsUseCase.fetchSearchNewsData(keyword: myText);
     final searchNews = failureOrSearchNewsEither.toOption().toNullable();
     if(searchNews == null){
       emit(SearchNewsStateError());

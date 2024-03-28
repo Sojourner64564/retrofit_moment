@@ -10,10 +10,22 @@ import 'package:retrofit_moment/features/search_news_feature/presentation/screen
 import 'package:retrofit_moment/features/search_news_feature/presentation/screens/widget/saved_search_news_tile_widget.dart';
 
 
-class ThirdPage extends StatelessWidget {
-  ThirdPage({super.key});
+class ThirdPage extends StatefulWidget {
+  const ThirdPage({super.key});
+
+  @override
+  State<ThirdPage> createState() => _ThirdPageState();
+}
+
+class _ThirdPageState extends State<ThirdPage> {
   final UpdateSearchNewsListCubit updateSearchNewsListCubit = getIt<UpdateSearchNewsListCubit>();
   final LoadSearchNewsCubit loadSearchNewsCubit = getIt<LoadSearchNewsCubit>();
+
+  @override
+  void initState() {
+    updateSearchNewsListCubit.updateSearchNewsList();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

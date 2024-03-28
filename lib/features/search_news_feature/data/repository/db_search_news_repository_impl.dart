@@ -44,6 +44,9 @@ class DbSearchNewsRepositoryImpl implements DbSearchNewsRepository {
     try {
       final lastQueryWord =
           await searchNewsDataSourceLocal.selectQueryLastModel();
+      if(searchNewsEntity.news.isEmpty){
+        return const Right(SaveResponse.emptyList);
+      }
       if (lastQueryWord == null) {
         await searchNewsDataSourceLocal.saveModelToBd(
           searchNewsModel,
