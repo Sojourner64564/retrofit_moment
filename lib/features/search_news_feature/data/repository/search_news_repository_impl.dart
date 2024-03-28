@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:injectable/injectable.dart';
+import 'package:retrofit_moment/core/assets/my_env_var_name/my_env_var_name.dart';
 import 'package:retrofit_moment/core/error/failure.dart';
 import 'package:retrofit_moment/core/network/network_info.dart';
 import 'package:retrofit_moment/features/search_news_feature/data/data_source/search_news_data_source_remote.dart';
@@ -24,7 +25,7 @@ class SearchNewsRepositoryImpl implements SearchNewsRepository {
   }) async {
     if (await networkInfo.isConnected) {
       try{
-        final apiKey = dotenv.env['API_KEY_NEWS_SERVICE'];
+        final apiKey = dotenv.env[MyEnvVarName.apiKeyNewsService];
         if(apiKey==null) throw ServerFailure();
         final searchNews = await searchNewsClientDataSourceRemote
             .client()
