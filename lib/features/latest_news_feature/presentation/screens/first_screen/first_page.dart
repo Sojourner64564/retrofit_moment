@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:retrofit_moment/core/assets/my_colors/my_colors.dart';
 import 'package:retrofit_moment/core/assets/my_text_styles/my_text_styles.dart';
 import 'package:retrofit_moment/core/injectable/injectable.dart';
+import 'package:retrofit_moment/core/state_picker/state_picker.dart';
 import 'package:retrofit_moment/features/latest_news_feature/presentation/cubit/latest_news_cubit/latest_news_cubit.dart';
 import 'package:retrofit_moment/features/latest_news_feature/presentation/cubit/prime_clock_cubit/prime_clock_cubit.dart';
 import 'package:retrofit_moment/features/latest_news_feature/presentation/screens/first_screen/widget/listview_tile_latest_news.dart';
@@ -47,9 +48,7 @@ class _FirstPageState extends State<FirstPage> {
             child: BlocBuilder<PrimeClockCubit, PrimeClockState>(
           bloc: primeClockCubit,
           builder: (context, state) {
-            // final dfd = MyOption.myMethod<String>;
-            // dfd('dfd');
-            return MyOption.myInitLoadingLoadedError<
+            return StatePicker.pickStateInitLoadingLoadedError<
                 PrimeClockInitialState,
                 PrimeClockLoadingState,
                 PrimeClockLoadedState,
@@ -63,13 +62,6 @@ class _FirstPageState extends State<FirstPage> {
               const Text('UnimplementedError'),
             );
 
-            /*
-             const Text('Initial'),
-              const Text('Loading'),
-              Text('fd'),
-              const Text('Error'),
-              const Text('UnimplementedError'),
-             */
             /*
             if (state is PrimeClockInitialState) {
               return const Text('');
@@ -148,37 +140,4 @@ class _FirstPageState extends State<FirstPage> {
   }
 }
 
-class MyOption {
-  static Widget myInitLoadingLoadedError<
-          A extends CommonState,
-          B extends CommonState,
-          C extends CommonState,
-          D extends CommonState,
-          CommonState>(
-      CommonState commonState,
-      Widget widgetInit,
-      Widget widgetLoading,
-      Widget widgetLoaded,
-      Widget widgetError,
-      Widget widgetUnimplementedError) {
-    if (commonState is A) {
-      return widgetInit;
-    }
-    if (commonState is B) {
-      return widgetLoading;
-    }
-    if (commonState is C) {
-      return widgetLoaded;
-    }
-    if (commonState is D) {
-      return widgetError;
-    } else {
-      return widgetUnimplementedError;
-    }
-  }
 
-  static void myMethod<T>(T myVar) {
-    if (myVar == null) return;
-    print(myVar.runtimeType);
-  }
-}
