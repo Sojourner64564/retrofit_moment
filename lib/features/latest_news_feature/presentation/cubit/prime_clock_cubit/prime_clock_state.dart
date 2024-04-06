@@ -9,3 +9,5 @@ class PrimeClockLoadedState extends PrimeClockState {
   final String primeTime;
   PrimeClockLoadedState(this.primeTime);
 }
+class PrimeClockErrorState extends PrimeClockState {}
+

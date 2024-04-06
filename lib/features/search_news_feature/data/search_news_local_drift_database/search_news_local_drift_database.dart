@@ -48,7 +48,7 @@ class StringListTypeConverter extends TypeConverter<List<String>, String> {
 @lazySingleton
 @DriftDatabase(tables: [SearchNews, News],)
 class Database extends _$Database {
-  Database() : super(NativeDatabase.memory());
+  Database() : super(_openConnection());
 
 
   @override

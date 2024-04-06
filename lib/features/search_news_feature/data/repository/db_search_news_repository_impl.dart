@@ -39,6 +39,8 @@ class DbSearchNewsRepositoryImpl implements DbSearchNewsRepository {
     required SearchNewsEntity searchNewsEntity,
     required String queryString,
   }) async {
+    final lastQueryWord =
+    await searchNewsDataSourceLocal.selectQueryLastModel();//---------------------
     final searchNewsModel = searchNewsEntity.toModel();
     final String saveData = DateFormat("dd-MM-yyyy – kk:mm").format(DateTime.now());
     try {
@@ -65,6 +67,7 @@ class DbSearchNewsRepositoryImpl implements DbSearchNewsRepository {
       );
       return const Right(SaveResponse.saved);
     } catch (e) {
+      print(e);
       return Left(DatabaseFailure());
     }
   }

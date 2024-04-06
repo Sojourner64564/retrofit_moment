@@ -47,6 +47,30 @@ class _FirstPageState extends State<FirstPage> {
             child: BlocBuilder<PrimeClockCubit, PrimeClockState>(
           bloc: primeClockCubit,
           builder: (context, state) {
+            return MyOption.myInitLoadingLoadedError<
+                PrimeClockInitialState,
+                PrimeClockLoadingState,
+                PrimeClockLoadedState,
+                PrimeClockErrorState,
+                PrimeClockState>(
+              state,
+               const Text('Initial'),
+              const Text('Loading'),
+               Text(),
+              const Text('Error'),
+              const Text('UnimplementedError'),
+
+            );
+
+
+            /*
+             const Text('Initial'),
+              const Text('Loading'),
+              Text('fd'),
+              const Text('Error'),
+              const Text('UnimplementedError'),
+             */
+            /*
             if (state is PrimeClockInitialState) {
               return const Text('');
             }
@@ -55,9 +79,11 @@ class _FirstPageState extends State<FirstPage> {
             }
             if (state is PrimeClockLoadedState) {
               return Text(state.primeTime);
-            }else {
+            } else {
               return const Text('Error');
             }
+            */
+
           },
         )),
         const Divider(
@@ -120,5 +146,32 @@ class _FirstPageState extends State<FirstPage> {
         ),
       ],
     );
+  }
+}
+
+class MyOption {
+ static Widget myInitLoadingLoadedError<A,B,C,D, CommonState>(
+      CommonState commonState,
+      Widget widgetInit,
+      Widget widgetLoading,
+      Widget widgetLoaded,
+      Widget widgetError,
+      Widget widgetUnimplementedError
+      ){
+    if(commonState is A){
+      return widgetInit;
+    }
+    if(commonState is B){
+      return widgetLoading;
+    }
+    if(commonState is C){
+      return widgetLoaded;
+    }
+    if(commonState is D){
+      return widgetError;
+    }else{
+      return widgetUnimplementedError;
+    }
+
   }
 }

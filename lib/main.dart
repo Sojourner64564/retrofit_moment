@@ -11,7 +11,7 @@ import 'package:retrofit_moment/localization_wrapper.dart';
 // изменить название странци и экранов
 //TODO saveResponse заэмитить
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: MyLinks.assetEnvApiKeys);
   await EasyLocalization.ensureInitialized();

@@ -17,7 +17,7 @@ class SearchNewsDataSourceLocalImpl extends SearchNewsDataSourceLocal {
     String queryString,
     String saveData,
   ) async {
-    final Database database = getIt();
+    final database = getIt<Database>();
     final dbSearchNews = database.into(database.searchNews);
     final dbNews = database.into(database.news);
     final categoryId = await dbSearchNews.insert(
@@ -108,7 +108,7 @@ class SearchNewsDataSourceLocalImpl extends SearchNewsDataSourceLocal {
 
   @override
   Future<String?> selectQueryLastModel() async{
-    final Database database = getIt();
+    final database = getIt<Database>();
     final searchNews = await database.select(database.searchNews).get();
     if(searchNews.isEmpty){
       return null;
