@@ -47,6 +47,8 @@ class _FirstPageState extends State<FirstPage> {
             child: BlocBuilder<PrimeClockCubit, PrimeClockState>(
           bloc: primeClockCubit,
           builder: (context, state) {
+            // final dfd = MyOption.myMethod<String>;
+            // dfd('dfd');
             return MyOption.myInitLoadingLoadedError<
                 PrimeClockInitialState,
                 PrimeClockLoadingState,
@@ -54,14 +56,12 @@ class _FirstPageState extends State<FirstPage> {
                 PrimeClockErrorState,
                 PrimeClockState>(
               state,
-               const Text('Initial'),
+              const Text('Initial'),
               const Text('Loading'),
-               Text(),
+              Text(state is PrimeClockLoadedState ? state.primeTime : ''),
               const Text('Error'),
               const Text('UnimplementedError'),
-
             );
-
 
             /*
              const Text('Initial'),
@@ -83,7 +83,6 @@ class _FirstPageState extends State<FirstPage> {
               return const Text('Error');
             }
             */
-
           },
         )),
         const Divider(
@@ -150,28 +149,36 @@ class _FirstPageState extends State<FirstPage> {
 }
 
 class MyOption {
- static Widget myInitLoadingLoadedError<A,B,C,D, CommonState>(
+  static Widget myInitLoadingLoadedError<
+          A extends CommonState,
+          B extends CommonState,
+          C extends CommonState,
+          D extends CommonState,
+          CommonState>(
       CommonState commonState,
       Widget widgetInit,
       Widget widgetLoading,
       Widget widgetLoaded,
       Widget widgetError,
-      Widget widgetUnimplementedError
-      ){
-    if(commonState is A){
+      Widget widgetUnimplementedError) {
+    if (commonState is A) {
       return widgetInit;
     }
-    if(commonState is B){
+    if (commonState is B) {
       return widgetLoading;
     }
-    if(commonState is C){
+    if (commonState is C) {
       return widgetLoaded;
     }
-    if(commonState is D){
+    if (commonState is D) {
       return widgetError;
-    }else{
+    } else {
       return widgetUnimplementedError;
     }
+  }
 
+  static void myMethod<T>(T myVar) {
+    if (myVar == null) return;
+    print(myVar.runtimeType);
   }
 }
